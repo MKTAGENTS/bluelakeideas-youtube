@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Style Guide — Blue Lake Ideas</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1628;--teal:#0F6E56;--teal-light:#E1F5EE;--gold:#C8A84E;--gold-light:#FEF7E0;--red:#B71C1C;--red-light:#FFEBEE;--orange:#E65100;--orange-light:#FFF3E0;--surface:#FFF;--surface2:#F7F7F5;--ink:#1B1F23;--ink2:#4A5058;--ink3:#7C838C;--border:#E0E0DC;--serif:'Newsreader',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--sans);background:var(--surface);color:var(--ink);line-height:1.65}
+.hero{background:linear-gradient(160deg,#071320,#0C2E3D 50%,#0F6E56);color:#fff;padding:2.5rem 1.5rem 2rem;position:relative;overflow:hidden}
+.hero::before{content:'&';position:absolute;right:-30px;top:-40px;font-family:var(--serif);font-size:260px;opacity:.04;pointer-events:none}
+.hero-inner{max-width:840px;margin:0 auto;position:relative;z-index:1}
+.hero h1{font-family:var(--serif);font-size:1.8rem;font-weight:400;margin-bottom:.4rem}.hero h1 span{color:var(--gold)}
+.hero p{font-size:.88rem;color:rgba(255,255,255,.5);max-width:580px}
+.content{max-width:840px;margin:0 auto;padding:1.5rem}
+h2.st{font-family:var(--serif);font-size:1.35rem;color:var(--navy);margin:2rem 0 .6rem;padding-bottom:.4rem;border-bottom:3px solid var(--gold)}
+h3.sub{font-family:var(--serif);font-size:1.1rem;color:var(--teal);margin:1.5rem 0 .4rem}
+p{margin-bottom:.6rem;font-size:.85rem;color:var(--ink2);line-height:1.7}
+p strong{color:var(--ink)}
+
+.rule{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1.15rem 1.25rem;margin:.75rem 0}
+.rule-num{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:.3rem}
+.rule h4{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.rule p{margin-bottom:.3rem}
+
+.example{border-radius:8px;padding:1rem 1.15rem;margin:.6rem 0;font-size:.82rem;line-height:1.65}
+.ex-bad{background:var(--red-light);border-left:3px solid var(--red)}
+.ex-bad::before{content:'✗ Don\0027t';display:block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--red);margin-bottom:.3rem}
+.ex-good{background:var(--teal-light);border-left:3px solid var(--teal)}
+.ex-good::before{content:'✓ Do';display:block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--teal);margin-bottom:.3rem}
+
+.callout{padding:1.1rem 1.3rem;border-radius:10px;margin:1rem 0;font-size:.85rem;line-height:1.65}
+.callout-gold{background:var(--gold-light);border-left:4px solid var(--gold)}
+.callout-gold strong{color:#8A6D00}
+.callout-teal{background:var(--teal-light);border-left:4px solid var(--teal)}
+.callout-teal strong{color:var(--teal)}
+.callout-red{background:var(--red-light);border-left:4px solid var(--red)}
+.callout-red strong{color:var(--red)}
+
+.term-table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.75rem 0}
+.term-table th{background:var(--navy);color:#fff;text-align:left;padding:8px 12px;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+.term-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.term-table tr:nth-child(even) td{background:var(--surface2)}
+.tm{color:var(--teal);font-weight:700}
+.no{color:var(--red);font-weight:600}
+
+.footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--ink3);display:flex;justify-content:space-between}
+@media(max-width:600px){.hero h1{font-size:1.4rem}.content{padding:1rem}.rule{padding:.9rem 1rem}.example{padding:.8rem 1rem}}
+</style>
+</head>
+<body>
+
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:#0A1628;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.72rem;flex-wrap:wrap;gap:6px;">
+  <span style="font-weight:700;white-space:nowrap;"><span style="color:#C8A84E;font-size:1rem;">&#38;</span> BLI Command Center</span>
+  <div style="display:flex;gap:3px;flex-wrap:wrap;">
+    <a href="index.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">YouTube</a>
+    <a href="language-playbook.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Language</a>
+    <a href="source-of-record.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Sources</a>
+    <a href="style-guide.html" style="color:#fff;background:rgba(255,255,255,0.15);text-decoration:none;padding:4px 10px;border-radius:6px;font-weight:600;font-size:0.68rem;">Style Guide</a>
+    <a href="audit.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Audit</a>
+    <a href="implementation.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Implementation</a>
+  </div>
+</nav>
+
+<div class="hero">
+<div class="hero-inner">
+<h1>Content Style Guide <span>&amp;</span> Voice</h1>
+<p>How we write for Matt. Smart Brevity format, his vocabulary, his voice. The rules for anyone creating BLI content.</p>
+</div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Smart Brevity: The format</h2>
+
+<p><strong>Why this matters:</strong> Matt's audience is senior leaders. They're overloaded (his whole thesis). If we write content that adds to their overload, we've failed before we started. Smart Brevity respects their time — and models the Pause &amp; Reflect discipline Matt teaches.</p>
+
+<div class="rule">
+<div class="rule-num">Rule 1</div>
+<h4>Lead with the strongest sentence.</h4>
+<p>No throat-clearing. No "In today's fast-paced world." The first sentence IS the point.</p>
+</div>
+
+<div class="ex-bad">In today's rapidly changing business landscape, leaders are increasingly finding themselves overwhelmed by the pace of change and the demands placed on their time, attention, and decision-making capacity.</div>
+<div class="ex-good"><strong>Capacity is the defining leadership challenge of the AI era.</strong> The always-on pace overloads us, draining the mental and emotional bandwidth to process what comes our way.</div>
+
+<div class="rule">
+<div class="rule-num">Rule 2</div>
+<h4>"Why it matters" — bolded, every time.</h4>
+<p>After the lead, tell the reader why they should care. Bold the label. This is the Smart Brevity signature move.</p>
+</div>
+
+<div class="ex-good"><strong>Why it matters:</strong> When load exceeds capacity, our brains default to System 1 binary thinking — false choices, either/or shortcuts, us/them narratives. That's the Binary Trap. Scaled to organizations, it produces the Four Taxes: False Choices, Silos, Short-Termism, and Stalled Innovation.</div>
+
+<div class="rule">
+<div class="rule-num">Rule 3</div>
+<h4>One idea per paragraph. Short paragraphs.</h4>
+<p>If a paragraph makes two points, it's two paragraphs. Three sentences max. If you can say it in one, do.</p>
+</div>
+
+<div class="rule">
+<div class="rule-num">Rule 4</div>
+<h4>"The big picture" or "Go deeper" for context.</h4>
+<p>If there's nuance or background, put it under a bolded label at the end. Don't bury it in the lead.</p>
+</div>
+
+<div class="ex-good"><strong>Go deeper:</strong> The Binary Trap &amp; the Causal Chain are a tension pair. The trap is what happens — overload collapses thinking into either/or. The chain is why — the predictable sequence from accelerating change to organizational dysfunction. Matt holds them together because that's how the Power of &amp; works.</div>
+
+<div class="rule">
+<div class="rule-num">Rule 5</div>
+<h4>End with one clear action.</h4>
+<p>Every piece of content ends with one thing the reader can do. Not three. One.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Where Smart Brevity applies — and where it doesn't</h2>
+
+<div class="callout callout-teal">
+<strong>USE Smart Brevity for:</strong><br>
+Blog posts on bluelakeideas.com<br>
+LinkedIn posts<br>
+Substack essays<br>
+YouTube descriptions<br>
+Email campaigns (Overloaded waitlist)<br>
+Any draft content for Matt to review<br>
+Internal strategy docs for the team
+</div>
+
+<div class="callout callout-red">
+<strong>DON'T use Smart Brevity for:</strong><br><br>
+<strong>JSON-LD schema markup</strong> — AI engines need complete, information-dense sentences to cite. Fragments don't get pulled as AI answers. The FAQ schema needs to read like a knowledgeable person answering a question, not a bullet point.<br><br>
+<strong>Meta descriptions</strong> — These are 150–160 characters of keyword-rich copy optimized for search results, not readability. They're already brief by constraint but they serve Google, not the reader.<br><br>
+<strong>Pillar pages</strong> — Google rewards depth. A 300-word Smart Brevity post won't outrank a 1,500-word comprehensive page for a head term like "what is & intelligence." The pillar page needs to be the most thorough source on the internet for that topic. Write it in Smart Brevity style (short paragraphs, bolded labels) but don't cut the depth.<br><br>
+<strong>The bottom line:</strong> Smart Brevity on the surface for humans. SEO depth underneath for machines. Both layers matter.
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Matt's vocabulary: The canonical terms</h2>
+
+<p><strong>Why it matters:</strong> Everyone writing for BLI must use these exact terms. Not synonyms. Not approximations. These are trademarked and/or being established as owned vocabulary. See the <a href="source-of-record.html" style="color:var(--teal);font-weight:600;">Source of Record</a> for where each one originated.</p>
+
+<table class="term-table">
+<thead><tr><th>Use this</th><th>Not this</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="tm">The Power of &amp;™</td><td class="no">Power of And, both/and thinking, yes/and</td><td>Always use the ampersand, not "And." Always include ™ on first use.</td></tr>
+<tr><td class="tm">&amp; Intelligence™</td><td class="no">And Intelligence, the framework, the method</td><td>The named system. Ampersand, not "And." ™ on first use.</td></tr>
+<tr><td class="tm">The Capacity Advantage</td><td class="no">capacity building, resilience, bandwidth</td><td>The outcome of practicing &amp; Intelligence. Not generic "capacity."</td></tr>
+<tr><td class="tm">Overloaded</td><td class="no">overwhelmed, stressed, burned out</td><td>Book title. Use as a concept name: "leaders are Overloaded" (capital O when referencing the concept).</td></tr>
+<tr><td class="tm">The Binary Trap &amp; The Causal Chain</td><td class="no">just "binary thinking," just "the trap"</td><td>Paradox pair. The trap is what happens. The chain is why. Use together when possible.</td></tr>
+<tr><td class="tm">The Four Taxes</td><td class="no">the costs, the consequences, the downsides</td><td>False Choices, Silos, Short-Termism, Stalled Innovation. Always name all four when introducing.</td></tr>
+<tr><td class="tm">Pause &amp; Reflect</td><td class="no">slow down, take a breath, step back</td><td>Step 1 of &amp; Intelligence. → produces Clarity.</td></tr>
+<tr><td class="tm">Find the &amp;</td><td class="no">find common ground, compromise, align</td><td>Step 2. → produces Connection. Requires a shared definition of success.</td></tr>
+<tr><td class="tm">Test &amp; Learn</td><td class="no">experiment, iterate, try things</td><td>Step 3. → produces Courage. Shoot bullets before cannon balls.</td></tr>
+<tr><td class="tm">Clarity. Connection. Courage.</td><td class="no">clarity, confidence, courage / clarity and compassion</td><td>The payoff triad. Always in this order. Periods between, not commas (when used as tagline).</td></tr>
+<tr><td class="tm">Shared definition of success</td><td class="no">shared goals, alignment, common vision</td><td>The prerequisite for Find the &amp;. Matt's specific term.</td></tr>
+<tr><td class="tm">"The &amp; HAS to be true"</td><td class="no">"both sides need to win," "mutual benefit"</td><td>Matt's thesis. In the long run, the &amp; must hold or you're lurching between opposites.</td></tr>
+<tr><td class="tm">Wisdom → Legacy</td><td class="no">impact, results, ROI</td><td>The long-term payoff arc. Practice → wisdom → transmitted to teams → legacy.</td></tr>
+</tbody>
+</table>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Matt's voice: How he sounds</h2>
+
+<p><strong>The big picture:</strong> Matt's voice is warm, direct, and grounded in experience. He's not an academic — he's a practitioner who's lived it. He doesn't lecture. He shares. He's the executive who's been in the room, made the hard call, and found a better way.</p>
+
+<div class="rule">
+<h4>Warm but authoritative</h4>
+<p>He's not soft. He challenges audiences. But he does it with empathy, not ego. He's been where they are.</p>
+</div>
+
+<div class="rule">
+<h4>Paradox is the native mode</h4>
+<p>Matt thinks in &amp;s, not either/ors. Every concept has a tension partner. The Binary Trap &amp; The Causal Chain. Clarity &amp; Courage. Personal &amp; professional. If a piece of content presents only one side, it's not Matt's voice.</p>
+</div>
+
+<div class="rule">
+<h4>Experience over theory</h4>
+<p>He cites Collins, references neuroscience, draws from Kahneman. But the authority comes from "I led teams across nine states" and "I faced burnout at the peak of my career." Lead with the lived experience, support with the research.</p>
+</div>
+
+<div class="rule">
+<h4>The mantra test</h4>
+<p>Matt's strongest content can be reduced to one sentence someone remembers. "I can do anything. But not everything." "The &amp; HAS to be true." "Capacity is the defining leadership challenge of the AI era." If a draft doesn't have a sentence like that, keep writing until it does.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Blog post template (Smart Brevity + SEO)</h2>
+
+<p><strong>Why it matters:</strong> This is the format for every blog post on bluelakeideas.com. Smart Brevity for the reader. SEO structure for Google and AI.</p>
+
+<div class="rule">
+<h4>Structure</h4>
+<p><strong>Headline:</strong> Clear, keyword-front-loaded, under 65 characters. Include the named concept.<br>
+<em>Example: "The Four Taxes of Binary Thinking"</em></p>
+
+<p><strong>Lead (1–2 sentences):</strong> The point. No preamble.<br>
+<em>"Binary thinking doesn't just limit leaders — it taxes entire organizations. There are four."</em></p>
+
+<p><strong>Why it matters (1 paragraph):</strong> Bolded label. Stakes. What's at risk.<br>
+<em>"<strong>Why it matters:</strong> When overload triggers the Binary Trap, organizations pay four compounding costs..."</em></p>
+
+<p><strong>Body (3–5 short sections):</strong> One idea per section. Bolded sub-headers. Short paragraphs. Use Matt's exact vocabulary from the canonical terms list.</p>
+
+<p><strong>Go deeper (optional):</strong> Background, research, nuance. For readers who want more.</p>
+
+<p><strong>One CTA:</strong> End with one action.<br>
+<em>"Matt's forthcoming book Overloaded goes deep on the Binary Trap &amp; the Causal Chain. <a href='#'>Join the waitlist →</a>"</em></p>
+</div>
+
+<div class="callout callout-gold">
+<strong>The SEO layer underneath:</strong> After the blog post is written in Smart Brevity, add FAQ schema (JSON-LD) to the page with 2–3 questions the post answers. These should be full, information-dense sentences — not Smart Brevity fragments. The blog post is for humans. The schema is for machines. Both publish on the same page.
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Competitors' terms: What NOT to use</h2>
+
+<p><strong>Why it matters:</strong> These terms are owned by other thought leaders. We can reference them — but never build Matt's content around them.</p>
+
+<table class="term-table">
+<thead><tr><th>Don't use as headline/framework</th><th>Who owns it</th><th>What to do instead</th></tr></thead>
+<tbody>
+<tr><td class="no">Both/And Thinking</td><td>Smith &amp; Lewis (HBR Press, 2022)</td><td>Reference generously. "They researched it. Matt built the practice."</td></tr>
+<tr><td class="no">Integrative Thinking</td><td>Roger Martin (The Opposable Mind)</td><td>Use "integrative decision-making" or "&amp; Intelligence" instead.</td></tr>
+<tr><td class="no">Genius of the AND</td><td>Jim Collins (Built to Last)</td><td>Cite Collins. "Collins proved the &amp; matters. Matt built the practice."</td></tr>
+<tr><td class="no">Paradox mindset</td><td>Miron-Spektor et al. (academic)</td><td>Be the practitioner version, not the academic one.</td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+<span>Blue Lake Ideas · Content Style Guide</span>
+<span>May 2026 · MKT Agents</span>
+</div>
+</div>
+</body>
+</html>
