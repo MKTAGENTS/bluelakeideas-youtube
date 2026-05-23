@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Source of Record — Matt's Words, Where & When | Blue Lake Ideas</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1628;--teal:#0F6E56;--teal-light:#E1F5EE;--gold:#C8A84E;--gold-light:#FEF7E0;--red:#B71C1C;--red-light:#FFEBEE;--surface:#FFF;--surface2:#F7F7F5;--ink:#1B1F23;--ink2:#4A5058;--ink3:#7C838C;--border:#E0E0DC;--serif:'Newsreader',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--sans);background:var(--surface);color:var(--ink);line-height:1.65}
+.hero{background:linear-gradient(160deg,#071320,#0C2E3D 50%,#0F6E56);color:#fff;padding:2.5rem 1.5rem 2rem;position:relative;overflow:hidden}
+.hero::before{content:'&';position:absolute;right:-30px;top:-40px;font-family:var(--serif);font-size:260px;opacity:.04;pointer-events:none}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1}
+.hero h1{font-family:var(--serif);font-size:1.8rem;font-weight:400;margin-bottom:.4rem}.hero h1 span{color:var(--gold)}
+.hero p{font-size:.88rem;color:rgba(255,255,255,.5);max-width:600px}
+.content{max-width:900px;margin:0 auto;padding:1.5rem}
+h2.st{font-family:var(--serif);font-size:1.4rem;color:var(--navy);margin:2rem 0 .75rem;padding-bottom:.4rem;border-bottom:3px solid var(--gold)}
+p{margin-bottom:.6rem;font-size:.85rem;color:var(--ink2);line-height:1.7}
+.term-block{background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin:1.25rem 0;overflow:hidden}
+.term-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.term-name{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--teal)}
+.term-status{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:12px}
+.status-owned{background:var(--teal-light);color:var(--teal)}
+.status-emerging{background:var(--gold-light);color:#8A6D00}
+.status-internal{background:var(--red-light);color:var(--red)}
+.cite{padding:.75rem 1.25rem;border-bottom:1px solid var(--border)}
+.cite:last-child{border-bottom:none}
+.cite-source{display:flex;align-items:baseline;gap:8px;margin-bottom:.3rem;flex-wrap:wrap}
+.cite-platform{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.plat-doc{background:#EDE7F6;color:#4527A0}
+.plat-substack{background:#FFF3E0;color:#E65100}
+.plat-linkedin{background:#E3F2FD;color:#0D47A1}
+.plat-website{background:var(--teal-light);color:var(--teal)}
+.plat-youtube{background:#FFEBEE;color:#B71C1C}
+.cite-date{font-size:.72rem;color:var(--ink3);font-weight:600}
+.cite-quote{font-size:.82rem;color:var(--ink);line-height:1.65;padding:.5rem .75rem;background:#fff;border-left:3px solid var(--gold);border-radius:0 6px 6px 0;margin-top:.3rem;font-style:italic}
+.cite-note{font-size:.72rem;color:var(--ink3);margin-top:.3rem}
+.footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--ink3);display:flex;justify-content:space-between}
+@media(max-width:600px){
+  .hero h1{font-size:1.4rem}.content{padding:1rem}.term-header{padding:.75rem 1rem}
+  .cite{padding:.6rem 1rem}.cite-quote{font-size:.78rem;padding:.4rem .6rem}
+}
+</style>
+</head>
+<body>
+
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:#0A1628;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.72rem;flex-wrap:wrap;gap:6px;">
+  <span style="font-weight:700;white-space:nowrap;"><span style="color:#C8A84E;font-size:1rem;">&#38;</span> BLI Command Center</span>
+  <div style="display:flex;gap:3px;flex-wrap:wrap;">
+    <a href="index.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">YouTube</a>
+    <a href="language-playbook.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Language</a>
+    <a href="source-of-record.html" style="color:#fff;background:rgba(255,255,255,0.15);text-decoration:none;padding:4px 10px;border-radius:6px;font-weight:600;font-size:0.68rem;">Source of Record</a>
+    <a href="audit.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Audit</a>
+    <a href="implementation.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Implementation</a>
+  </div>
+</nav>
+
+<div class="hero">
+<div class="hero-inner">
+<h1>Source of Record <span>&amp;</span> Language Provenance</h1>
+<p>Every key term Matt uses — where he said it, when, and in his own words. The receipts.</p>
+</div>
+</div>
+
+<div class="content">
+
+<p><strong>Why this exists:</strong> As Matt's vocabulary evolves through the book, Substack, LinkedIn, and keynotes, we need one place that proves where each term originated. This is the reference Matt and the team can point to — he said it here, on this date, in these words.</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Core Framework Terms</h2>
+
+<!-- THE POWER OF & -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">The Power of &amp;™</span>
+<span class="term-status status-owned">Established</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website</span><span class="cite-date">Since launch (2025)</span></div>
+<div class="cite-quote">"The Power of & is a powerful framework for navigating uncertainty, embracing complexity, and building a culture where innovation and humanity thrive together."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"The Power of &: Concept that delivering over time requires the balancing of tensions over time for the benefit of a shared definition of success. In the long run, the & HAS to be true, otherwise we lurch between opposites, never solving for shared, sustained success."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-linkedin">LinkedIn</span><span class="cite-date">2025</span></div>
+<div class="cite-quote">"How I founded Blue Lake Ideas to tame chaos" — #leadership #powerofand #tamingchaos</div>
+</div>
+</div>
+
+<!-- & INTELLIGENCE FRAMEWORK -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">&amp; Intelligence™ Framework</span>
+<span class="term-status status-owned">On website</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"& Intelligence Framework: three moves that preserve capacity to harness the Power of &: 1. Pause and Reflect: focusing us on our key priorities (we can do anything, not everything); 2. Find the &: establishing a shared definition of success and naming the key tensions we must balance to achieve that success; 3. Test and Learn: creating a method for sustainably adjusting and changing to the flow of life through consistent small changes rather than risky big bets."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website (Speaking)</span><span class="cite-date">Updated 2026</span></div>
+<div class="cite-quote">"All Signature Talks include an overview of the & Intelligence™ framework, a practical load-management operating system."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website (Meet Matt)</span><span class="cite-date">Updated 2026</span></div>
+<div class="cite-quote">"The Power of &™ concept and & Intelligence™ framework originated from Matt's firsthand experience as a senior leader at large organizations like Bank of America."</div>
+</div>
+</div>
+
+<!-- CAPACITY ADVANTAGE -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">The Capacity Advantage</span>
+<span class="term-status status-owned">On website</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"If we can recapture our capacity, we can create a virtuous cycle through which we can harness the Power of &, deliver and win. That's the Capacity Advantage."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website (Homepage)</span><span class="cite-date">Updated 2026</span></div>
+<div class="cite-quote">"The Capacity Advantage is what leaders need to align people, strategy and capital - when it matters most."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-linkedin">LinkedIn</span><span class="cite-date">May 2026</span></div>
+<div class="cite-quote">"Capacity is the defining leadership challenge of the AI era."</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">The Problem (Argument Tier 2)</h2>
+
+<!-- THE CAUSAL CHAIN -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">The Causal Chain</span>
+<span class="term-status status-internal">Internal doc only</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"Overload has a predictable impact on our brains and, when scaled, on organizations (this is the causal chain)"</div>
+<div class="cite-note">Matt used this as a parenthetical label for the sequence: Accelerating Change → Overload → System 1 → Binary Thinking → Four Taxes. He named it but hasn't published it as a standalone concept yet.</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-substack">Substack</span><span class="cite-date">Mar–Apr 2026</span></div>
+<div class="cite-quote">"Why accelerating change challenges leadership — and what the science actually says"</div>
+<div class="cite-note">The causal chain is described in this essay (overload → System 1 → binary thinking) but not named "The Causal Chain."</div>
+</div>
+</div>
+
+<!-- THE FOUR TAXES -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">The Four Taxes</span>
+<span class="term-status status-emerging">Substack only</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"Organizations: The Four Taxes: False Choices, Silos, Short Termism and Stalled Innovation"</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-substack">Substack</span><span class="cite-date">April 2026</span></div>
+<div class="cite-quote">"I can't let Tax Day pass without talking about the taxes of binary thinking"</div>
+<div class="cite-note">First public use of "Four Taxes" concept. The Tax Day framing makes it memorable.</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-youtube">YouTube (planned)</span><span class="cite-date">Week 3 · Friday Short</span></div>
+<div class="cite-quote">"The Four Taxes of Binary Thinking" — YouTube Short planned from Cashflow Chronicles clip</div>
+</div>
+</div>
+
+<!-- OVERLOAD / SYSTEM 1 / BINARY THINKING -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">Overload → System 1 → Binary Thinking</span>
+<span class="term-status status-owned">Multi-platform</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"The accelerating change of the always-on, AI era overloads us, draining our mental, emotional and operational capacity to process everything that comes our way. Our lack of capacity robs our ability to harness the Power of &"</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"Individuals: Overload triggers mental System 1, leading to binary thinking to try to keep up with the pace of change. Binary thinking traps us into false choices, either/or shortcuts and us/them narratives."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-linkedin">LinkedIn</span><span class="cite-date">April 2026</span></div>
+<div class="cite-quote">"We've normalized either/or thinking as decisive leadership. But it's actually an overload response."</div>
+<div class="cite-note">From the Cashflow Chronicles post. Three forces named: acceleration, nervous system, media ecosystem.</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-substack">Substack</span><span class="cite-date">Mar–Apr 2026</span></div>
+<div class="cite-quote">"Why accelerating change challenges leadership — and what the science actually says"</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">The Practice (Argument Tier 3)</h2>
+
+<!-- THE & HAS TO BE TRUE -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">"The &amp; HAS to be true"</span>
+<span class="term-status status-emerging">LinkedIn only</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"In the long run, the & HAS to be true, otherwise we lurch between opposites, never solving for shared, sustained success."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-linkedin">LinkedIn</span><span class="cite-date">May 2026</span></div>
+<div class="cite-quote">"We had a fascinating discussion today during our first Yes&Michigan conversation. We talked about data centers, and how data center development has to work for communities and the data center customer. In order to be successful, the & has to be true!"</div>
+<div class="cite-note">First public use. Applied to data centers/community development.</div>
+</div>
+</div>
+
+<!-- SHARED DEFINITION OF SUCCESS -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">Shared definition of success</span>
+<span class="term-status status-emerging">LinkedIn reference</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"Find the &: establishing a shared definition of success and naming the key tensions we must balance to achieve that success"</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"Delivering over time requires the balancing of tensions over time for the benefit of a shared definition of success."</div>
+</div>
+</div>
+
+<!-- SHOOT BULLETS BEFORE CANNON BALLS -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">Shoot bullets before cannon balls</span>
+<span class="term-status status-internal">Internal doc only</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"The better way is to do what Collins said, which is to 'shoot bullets before cannon balls'—small tests that engage the people who will be part of the change management process, thereby de-risking the change and making the transition easier."</div>
+<div class="cite-note">Collins reference (Good to Great). Matt applies it to the Test & Learn step. Attribution to Collins is built in.</div>
+</div>
+</div>
+
+<!-- VIRTUOUS CYCLE -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">Virtuous cycle</span>
+<span class="term-status status-owned">On website</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"If we can recapture our capacity, we can create a virtuous cycle through which we can harness the Power of &, deliver and win."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website (Speaking)</span><span class="cite-date">Updated 2026</span></div>
+<div class="cite-quote">"By following the framework, leaders can create a virtuous cycle in which all stakeholders win."</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">The Payoff (Argument Tier 4)</h2>
+
+<!-- CLARITY CONNECTION COURAGE -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">Clarity. Connection. Courage.</span>
+<span class="term-status status-owned">On website</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"Consistent practice of the & Intelligence Framework creates: 1. Clarity on what matters most... 2. Connection to a larger purpose and to each other... 3. Courage to lean into change rather than resist it"</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website (Speaking)</span><span class="cite-date">Updated 2026</span></div>
+<div class="cite-quote">"CLARITY. CONNECTION. COURAGE. Matt Elliott doesn't just speak, he sparks perspective shifts."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-youtube">YouTube (planned)</span><span class="cite-date">Channel Trailer</span></div>
+<div class="cite-quote">"& Intelligence™ framework: Pause & Reflect (Clarity), Find the & (Connection), and Test & Learn (Courage)."</div>
+</div>
+</div>
+
+<!-- WISDOM → LEGACY -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">Wisdom → Legacy</span>
+<span class="term-status status-internal">Internal doc only</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"It's ultimately about people. Applied diligently over time, this practice produces wisdom in the leaders who live it. That wisdom is transmitted to the teams who are led this way, leaving themselves and their organizations better than we found them. That legacy is the enduring payoff of the Power of &."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"At the end of our lives, our biggest pride points and regrets will be centered around our impact on people. With the Power of &, anything is possible."</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2 class="st">Signature Phrases</h2>
+
+<!-- I CAN DO ANYTHING BUT NOT EVERYTHING -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">"I can do anything. But not everything."</span>
+<span class="term-status status-owned">Multi-platform</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-substack">Substack</span><span class="cite-date">March 2026</span></div>
+<div class="cite-quote">"I can do anything. But not everything." — Full essay title. Maps to Pause & Reflect.</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-doc">5.20.26 Doc</span><span class="cite-date">May 20, 2026</span></div>
+<div class="cite-quote">"Pause and Reflect: focusing us on our key priorities (we can do anything, not everything)"</div>
+</div>
+</div>
+
+<!-- SERIES OF &S HELD IN TENSION -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">"A series of &amp;s, held in tension"</span>
+<span class="term-status status-emerging">LinkedIn only</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-linkedin">LinkedIn</span><span class="cite-date">March 2026</span></div>
+<div class="cite-quote">Cornerstone Alliance Annual Meeting keynote. "Regional progress isn't one thing. It's a series of &s, held in tension." Applied to business attraction & placemaking, community + economic development.</div>
+</div>
+</div>
+
+<!-- THE & OF AI -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">The &amp; of AI</span>
+<span class="term-status status-emerging">LinkedIn only</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-linkedin">LinkedIn</span><span class="cite-date">April 2026</span></div>
+<div class="cite-quote">"The & of AI — AI-enabled teams outperform AI alone or people alone." Applied the Find the & step to AI adoption.</div>
+</div>
+</div>
+
+<!-- OVERLOADED -->
+<div class="term-block">
+<div class="term-header">
+<span class="term-name">Overloaded (book)</span>
+<span class="term-status status-owned">Multi-platform</span>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website (Meet Matt)</span><span class="cite-date">Updated 2026</span></div>
+<div class="cite-quote">"His forthcoming book, 'Overloaded: Recapturing Leadership Capacity with The Power of &™', makes the case that capacity is the defining leadership constraint of our time."</div>
+</div>
+<div class="cite">
+<div class="cite-source"><span class="cite-platform plat-website">Website (Homepage)</span><span class="cite-date">Updated 2026</span></div>
+<div class="cite-quote">"Power of & framework and forthcoming book 'Overloaded: Recapturing Leadership Capacity with The Power of &™'"</div>
+</div>
+</div>
+
+<div class="footer">
+<span>Blue Lake Ideas · Source of Record</span>
+<span>May 2026 · MKT Agents</span>
+</div>
+</div>
+</body>
+</html>
