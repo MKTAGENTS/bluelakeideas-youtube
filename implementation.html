@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Lake Ideas — SEO &amp; AEO Implementation Guide</title>
+<style>
+  :root {
+    --bg: #ffffff; --bg2: #f7f7f5; --text: #1a1a1a; --text2: #6b6b6b;
+    --border: #e5e5e3; --blue: #1a5fb4; --blue-bg: #e8f0fe;
+    --green: #1b7a3d; --green-bg: #e6f4ea; --amber: #8a6500; --amber-bg: #fef7e0;
+    --red: #c4302b; --red-bg: #fce8e6; --purple: #7b2d8e; --purple-bg: #f3e8f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a1a; --bg2: #252525; --text: #e8e8e8; --text2: #999;
+      --border: #333; --blue: #6daaef; --blue-bg: #1a2a3d;
+      --green: #5cb85c; --green-bg: #1a2e1a; --amber: #e0a800; --amber-bg: #2e2a10;
+      --red: #e86b6b; --red-bg: #2e1a1a; --purple: #b87dd8; --purple-bg: #2a1a2e;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; max-width: 100%; margin: 0; }
+  h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+  p { margin-bottom: 1rem; }
+  .subtitle { color: var(--text2); font-size: 0.95rem; margin-bottom: 2rem; }
+  .code-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0 1.5rem; overflow-x: auto; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.82rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+  .page-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin: 1rem 0; }
+  .page-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .label { display: inline-block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 4px; margin-bottom: 0.5rem; }
+  .label-old { background: var(--red-bg); color: var(--red); }
+  .label-new { background: var(--green-bg); color: var(--green); }
+  .label-json { background: var(--purple-bg); color: var(--purple); }
+  .label-page { background: var(--blue-bg); color: var(--blue); }
+  .meta-row { margin: 0.4rem 0; font-size: 0.9rem; }
+  .meta-label { font-weight: 600; color: var(--text2); display: inline-block; min-width: 60px; }
+  .char-count { color: var(--text2); font-size: 0.8rem; }
+  .section-note { background: var(--amber-bg); color: var(--amber); padding: 1rem 1.25rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; }
+  .install-steps { counter-reset: step; list-style: none; padding: 0; }
+  .install-steps li { counter-increment: step; padding: 0.75rem 0 0.75rem 2.5rem; position: relative; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+  .install-steps li:last-child { border-bottom: none; }
+  .install-steps li::before { content: counter(step); position: absolute; left: 0; top: 0.75rem; width: 24px; height: 24px; background: var(--blue-bg); color: var(--blue); border-radius: 50%; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .toc { background: var(--bg2); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0; }
+  .toc a { color: var(--blue); text-decoration: none; display: block; padding: 0.25rem 0; font-size: 0.9rem; }
+  .toc a:hover { text-decoration: underline; }
+  .top-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.65rem 2rem; background: #1B1F23; color: white; font-size: 0.82rem;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .top-nav-brand { font-weight: 600; letter-spacing: 0.3px; }
+  .top-nav a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 4px 12px; border-radius: 6px; transition: background 0.15s, color 0.15s; }
+  .top-nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+  .top-nav a.active { background: rgba(255,255,255,0.15); color: white; font-weight: 600; }
+  @media print { .top-nav { display: none; } body { padding: 1rem; } .code-block { font-size: 0.75rem; } }
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.5rem;background:#0A1628;color:#fff;font-family:DM Sans,sans-serif;font-size:0.75rem;">
+<span style="font-weight:700;letter-spacing:0.5px;"><span style="color:#C8A84E;font-size:1rem;">&amp;</span> BLI Command Center</span>
+<div style="display:flex;gap:4px;flex-wrap:wrap;">
+<a href="index.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">YouTube Calendar</a>
+<a href="language-playbook.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Language Playbook</a>
+<a href="audit.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">SEO Audit</a>
+<a href="implementation.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Implementation</a>
+<a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Overloaded Campaign ↗</a>
+</div></nav>
+
+<nav class="top-nav">
+  <span class="top-nav-brand">Blue Lake Ideas — SEO / AEO</span>
+  <div>
+    <a href="index.html">Audit report</a>
+    <a href="implementation.html" class="active">Implementation guide</a>
+  </div>
+</nav>
+
+<div style="max-width:900px; margin:0 auto; padding:2rem;">
+
+<h1>Blue Lake Ideas</h1>
+<p class="subtitle">SEO &amp; AEO implementation guide — JSON-LD schema markup, optimized page titles, and meta descriptions</p>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <a href="#titles">1. Optimized page titles &amp; meta descriptions</a>
+  <a href="#json-home">2. JSON-LD: Homepage (Organization + Person + WebSite)</a>
+  <a href="#json-speaking">3. JSON-LD: Speaking page (ProfessionalService + FAQ)</a>
+  <a href="#json-advisory">4. JSON-LD: Advisory page (ProfessionalService + FAQ)</a>
+  <a href="#json-about">5. JSON-LD: About/Meet Matt page (Person + FAQ)</a>
+  <a href="#json-connect">6. JSON-LD: Connect page (ContactPage)</a>
+  <a href="#install">7. How to install in Squarespace</a>
+</div>
+
+<!-- ============================================ -->
+<h2 id="titles">1. Optimized page titles &amp; meta descriptions</h2>
+
+<p>Each title is under 60 characters (Google's display limit) and front-loads keywords. Each meta description is 150–160 characters and includes a call to action.</p>
+
+<!-- HOME -->
+<div class="page-card">
+  <h4><span class="label label-page">Homepage</span> bluelakeideas.com</h4>
+  <div class="meta-row"><span class="label label-old">Current title</span> Blue Lake Ideas</div>
+  <div class="meta-row"><span class="label label-new">New title</span> Matt Elliott | Leadership Speaker &amp; Advisor | Blue Lake Ideas <span class="char-count">(59 chars)</span></div>
+  <div class="meta-row"><span class="label label-old">Current meta</span> <em>(empty)</em></div>
+  <div class="meta-row"><span class="label label-new">New meta</span> Matt Elliott helps leaders navigate complexity through The Power of &amp; framework. Keynote speaker, executive advisor, and author. Book Matt today. <span class="char-count">(152 chars)</span></div>
+</div>
+
+<!-- SPEAKING -->
+<div class="page-card">
+  <h4><span class="label label-page">Speaking</span> bluelakeideas.com/speaking</h4>
+  <div class="meta-row"><span class="label label-old">Current title</span> SPEAKING — Blue Lake Ideas</div>
+  <div class="meta-row"><span class="label label-new">New title</span> Keynote Speaker on Leadership &amp; Sustainability | Matt Elliott <span class="char-count">(60 chars)</span></div>
+  <div class="meta-row"><span class="label label-old">Current meta</span> <em>(empty)</em></div>
+  <div class="meta-row"><span class="label label-new">New meta</span> Book Matt Elliott for keynotes on leadership, change, and sustainability. Trusted by MSU, SXSW, Detroit Chamber, McKinsey, and BCG. <span class="char-count">(138 chars)</span></div>
+</div>
+
+<!-- ADVISORY -->
+<div class="page-card">
+  <h4><span class="label label-page">Advisory</span> bluelakeideas.com/advisory</h4>
+  <div class="meta-row"><span class="label label-old">Current title</span> Advisory — Blue Lake Ideas</div>
+  <div class="meta-row"><span class="label label-new">New title</span> Executive Advisory &amp; Board Consulting | Matt Elliott <span class="char-count">(53 chars)</span></div>
+  <div class="meta-row"><span class="label label-old">Current meta</span> <em>(empty)</em></div>
+  <div class="meta-row"><span class="label label-new">New meta</span> Strategic advisory for CEOs, boards, and leadership teams. Matt Elliott aligns people, strategy, and capital using The Power of &amp; framework. <span class="char-count">(147 chars)</span></div>
+</div>
+
+<!-- MEET MATT -->
+<div class="page-card">
+  <h4><span class="label label-page">Meet Matt</span> bluelakeideas.com/meetmatt</h4>
+  <div class="meta-row"><span class="label label-old">Current title</span> General 6 — Blue Lake Ideas <span style="color:var(--red);">⚠ Squarespace default — critical fix</span></div>
+  <div class="meta-row"><span class="label label-new">New title</span> About Matt Elliott — Speaker, Advisor, Author | Blue Lake Ideas <span class="char-count">(60 chars)</span></div>
+  <div class="meta-row"><span class="label label-old">Current meta</span> <em>(empty)</em></div>
+  <div class="meta-row"><span class="label label-new">New meta</span> Matt Elliott is a leadership expert, former Bank of America Michigan President, and creator of The Power of &amp; framework for navigating change. <span class="char-count">(148 chars)</span></div>
+</div>
+
+<!-- CONNECT -->
+<div class="page-card">
+  <h4><span class="label label-page">Connect</span> bluelakeideas.com/connect</h4>
+  <div class="meta-row"><span class="label label-old">Current title</span> Connect — Blue Lake Ideas</div>
+  <div class="meta-row"><span class="label label-new">New title</span> Book Matt Elliott — Speaking &amp; Advisory Inquiries <span class="char-count">(49 chars)</span></div>
+  <div class="meta-row"><span class="label label-old">Current meta</span> <em>(empty)</em></div>
+  <div class="meta-row"><span class="label label-new">New meta</span> Ready to bring The Power of &amp; to your team? Connect with Matt Elliott for keynote speaking, executive advisory, or board consulting. <span class="char-count">(139 chars)</span></div>
+</div>
+
+<!-- POWERED BY AND -->
+<div class="page-card">
+  <h4><span class="label label-page">Powered by And</span> bluelakeideas.com/powered-by-and</h4>
+  <div class="meta-row"><span class="label label-old">Current title</span> Powered by and — Blue Lake Ideas</div>
+  <div class="meta-row"><span class="label label-new">New title</span> The Power of &amp; Framework | Leadership for Complexity <span class="char-count">(53 chars)</span></div>
+  <div class="meta-row"><span class="label label-old">Current meta</span> <em>(empty)</em></div>
+  <div class="meta-row"><span class="label label-new">New meta</span> The Power of &amp; is a leadership framework that replaces either/or thinking with integrative decision-making. Created by Matt Elliott. <span class="char-count">(138 chars)</span></div>
+</div>
+
+<!-- ============================================ -->
+<h2 id="json-home">2. JSON-LD: Homepage</h2>
+<p>This block establishes Matt as a Person entity, Blue Lake Ideas as an Organization, and the website itself — giving AI engines and Google a complete knowledge graph entry point.</p>
+
+<div class="code-block"><span class="label label-json">JSON-LD — Paste into Homepage header code injection</span>
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.bluelakeideas.com/#organization",
+      "name": "Blue Lake Ideas",
+      "url": "https://www.bluelakeideas.com",
+      "logo": "https://images.squarespace-cdn.com/content/v1/67c205f46534237cb02fc7ea/9c814f9b-2f0f-4769-89a9-b232d0a873d2/Copy+of+Blue+Lake+Ideas+%288%29.png",
+      "description": "Blue Lake Ideas is a leadership advisory and speaking firm founded by Matt Elliott. The firm helps executives, boards, and organizations navigate complexity using The Power of & framework.",
+      "founder": { "@id": "https://www.bluelakeideas.com/#matt-elliott" },
+      "sameAs": [
+        "https://www.linkedin.com/company/blue-lake-ideas",
+        "https://www.youtube.com/@BlueLakeIdeas"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Detroit",
+        "addressRegion": "MI",
+        "addressCountry": "US"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.bluelakeideas.com/#matt-elliott",
+      "name": "Matt Elliott",
+      "jobTitle": "Founder & CEO",
+      "worksFor": { "@id": "https://www.bluelakeideas.com/#organization" },
+      "url": "https://www.bluelakeideas.com/meetmatt",
+      "image": "https://images.squarespace-cdn.com/content/v1/67c205f46534237cb02fc7ea/84c254ed-a14b-493c-87c5-e51509f41e62/IMG_7473.JPG",
+      "description": "Matt Elliott is a nationally recognized leadership speaker, executive advisor, and former President of Bank of America Michigan. He is the creator of The Power of & framework and the forthcoming book 'Overloaded: Recapturing Leadership Capacity with The Power of &'. Over a 35-year career, his teams have engaged 25,000+ businesses and deployed billions in sustainable capital.",
+      "knowsAbout": [
+        "Leadership development",
+        "Executive coaching",
+        "Sustainability strategy",
+        "Change management",
+        "Integrative decision-making",
+        "The Power of & framework",
+        "Organizational transformation",
+        "Corporate governance"
+      ],
+      "hasOccupation": [
+        {
+          "@type": "Occupation",
+          "name": "Keynote Speaker",
+          "description": "Delivers keynotes on leadership capacity, sustainability, and navigating complexity using The Power of & framework"
+        },
+        {
+          "@type": "Occupation",
+          "name": "Executive Advisor",
+          "description": "Advises CEOs, boards, and leadership teams on strategic growth, sustainability, and organizational transformation"
+        }
+      ],
+      "alumniOf": {
+        "@type": "Organization",
+        "name": "Bank of America",
+        "description": "Former President of Bank of America Michigan"
+      },
+      "memberOf": [
+        {
+          "@type": "Organization",
+          "name": "Michigan State University Green & White Council",
+          "description": "Co-Chair, advising on university-industry collaboration"
+        }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/matt-elliott-4866b58/",
+        "https://www.youtube.com/@BlueLakeIdeas",
+        "https://thekeynotecurators.com/speaker/book-matt-elliott/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.bluelakeideas.com/#website",
+      "name": "Blue Lake Ideas",
+      "url": "https://www.bluelakeideas.com",
+      "publisher": { "@id": "https://www.bluelakeideas.com/#organization" },
+      "description": "Blue Lake Ideas helps leaders navigate complexity through The Power of & framework. Founded by Matt Elliott — keynote speaker, executive advisor, and former Bank of America Michigan President."
+    }
+  ]
+}
+&lt;/script&gt;</div>
+
+<!-- ============================================ -->
+<h2 id="json-speaking">3. JSON-LD: Speaking page</h2>
+<p>This block describes Matt's speaking services and includes FAQ schema — the highest-value AEO format. These FAQs can appear as rich results in Google AND get pulled directly by AI answer engines.</p>
+
+<div class="code-block"><span class="label label-json">JSON-LD — Paste into Speaking page header code injection</span>
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "name": "Matt Elliott — Keynote Speaking",
+      "provider": { "@id": "https://www.bluelakeideas.com/#matt-elliott" },
+      "serviceType": "Keynote Speaking",
+      "url": "https://www.bluelakeideas.com/speaking",
+      "description": "Matt Elliott delivers high-impact keynotes on leadership, sustainability, and navigating complexity. His signature talks include 'The Capacity Advantage: Through The Power of &', 'The & of Sustainability', and 'Everyday Leadership'. Matt is trusted by organizations including MSU, SXSW, McKinsey, BCG, Detroit Regional Chamber, and the European American Chamber of Commerce.",
+      "areaServed": "US",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Executive teams, conference organizers, boards, associations"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Keynote Topics",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "The Capacity Advantage: Through The Power of &",
+              "description": "A keynote on navigating change with clarity, connection, and courage. Introduces The Power of & mindset and a 3-step framework for taming chaos in high-stakes leadership environments."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "The & of Sustainability",
+              "description": "Shows how leading organizations rewrite the profit-vs-planet equation. Demonstrates how sustainability drives innovation, reduces costs, attracts talent, and wins market share simultaneously."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "The Power of & and Everyday Leadership",
+              "description": "Redefines leadership as the ability to create impact from any seat. A call to action for professionals to stop waiting and start leading through complexity right now."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is The Power of & framework?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Power of & is a leadership mindset and 3-step decision-making framework created by Matt Elliott. It helps leaders move beyond either/or thinking to find integrative solutions that balance competing priorities — like profit and purpose, speed and quality, or innovation and tradition. The three steps are: Pause & Reflect, Find the &, and Test & Learn."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What topics does Matt Elliott speak about?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matt Elliott's signature keynotes focus on leadership capacity, navigating complexity, and sustainability as a competitive advantage. His three main talks are 'The Capacity Advantage: Through The Power of &' (leadership under pressure), 'The & of Sustainability' (business growth and environmental impact), and 'Everyday Leadership' (leading without a title). All talks are customizable for executive teams, conferences, offsites, boards, and associations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who has Matt Elliott spoken for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matt Elliott has spoken for and been trusted by organizations including Michigan State University, SXSW, the Detroit Regional Chamber (Mackinac Policy Conference), McKinsey & Company, Boston Consulting Group, University of Michigan Ross School of Business, the European American Chamber of Commerce, Melink Solar, ClimaTech, and many others across finance, sustainability, higher education, and government."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes Matt Elliott different from other leadership speakers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matt brings 35 years of hands-on executive experience, including serving as President of Bank of America Michigan where he led teams across nine states and deployed over $35 billion in sustainable capital. He doesn't teach theory — he shares a proven framework built from real leadership at the highest levels. His personal journey through burnout to breakthrough adds authenticity that resonates deeply with executive audiences."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I book Matt Elliott as a keynote speaker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can book Matt Elliott by visiting bluelakeideas.com/connect to schedule a conversation. Matt is also represented by The Keynote Curators speaker agency. He is available for conferences, executive offsites, board retreats, and association events."
+          }
+        }
+      ]
+    }
+  ]
+}
+&lt;/script&gt;</div>
+
+<!-- ============================================ -->
+<h2 id="json-advisory">4. JSON-LD: Advisory page</h2>
+
+<div class="code-block"><span class="label label-json">JSON-LD — Paste into Advisory page header code injection</span>
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "name": "Matt Elliott — Executive Advisory & Board Consulting",
+      "provider": { "@id": "https://www.bluelakeideas.com/#matt-elliott" },
+      "serviceType": "Executive Advisory",
+      "url": "https://www.bluelakeideas.com/advisory",
+      "description": "Matt Elliott advises CEOs, boards, and executive teams on strategic growth, sustainability, and organizational transformation. He brings The Power of & framework to help leadership teams align people, strategy, and capital when it matters most. Current and past advisory work includes Michigan State University's Green & White Council (co-chair), Greenplaces (sustainability platform), and the Detroit Regional Chamber's Mackinac Policy Conference (2023 conference chair).",
+      "areaServed": "US"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What kind of advisory work does Matt Elliott do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matt Elliott provides executive advisory services including board directorships, CEO coaching, strategic planning, sustainability strategy, and organizational transformation consulting. He works with leadership teams to apply The Power of & framework to their most complex challenges — helping them align competing priorities and drive sustainable growth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is The Capacity Advantage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Capacity Advantage is the concept that leadership capacity — the ability to hold tension, manage competing priorities, and make integrative decisions — is the defining constraint of modern leadership. Matt Elliott's advisory work and forthcoming book 'Overloaded: Recapturing Leadership Capacity with The Power of &' help leaders reclaim and expand this capacity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What industries does Matt Elliott advise?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matt Elliott advises across banking and finance, sustainability and climate technology, higher education, manufacturing, government and public policy, and startups. His client portfolio includes Fortune 500 companies, fast-growth startups like Greenplaces, major research universities like Michigan State University, and civic institutions like the Detroit Regional Chamber."
+          }
+        }
+      ]
+    }
+  ]
+}
+&lt;/script&gt;</div>
+
+<!-- ============================================ -->
+<h2 id="json-about">5. JSON-LD: About / Meet Matt page</h2>
+
+<div class="code-block"><span class="label label-json">JSON-LD — Paste into Meet Matt page header code injection</span>
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "mainEntity": { "@id": "https://www.bluelakeideas.com/#matt-elliott" },
+      "url": "https://www.bluelakeideas.com/meetmatt",
+      "name": "About Matt Elliott"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.bluelakeideas.com/#matt-elliott",
+      "name": "Matt Elliott",
+      "jobTitle": "Founder & CEO, Blue Lake Ideas",
+      "url": "https://www.bluelakeideas.com/meetmatt",
+      "image": "https://images.squarespace-cdn.com/content/v1/67c205f46534237cb02fc7ea/84c254ed-a14b-493c-87c5-e51509f41e62/IMG_7473.JPG",
+      "description": "Matt Elliott is a nationally recognized leadership speaker, executive advisor, and former President of Bank of America Michigan. He created The Power of & framework — a leadership mindset and 3-step decision-making process for navigating complexity without losing direction. Over 35 years, his teams engaged 25,000+ businesses on sustainability and deployed over $35 billion in sustainable capital. Matt's forthcoming book is 'Overloaded: Recapturing Leadership Capacity with The Power of &'.",
+      "sameAs": [
+        "https://www.linkedin.com/in/matt-elliott-4866b58/",
+        "https://www.youtube.com/@BlueLakeIdeas",
+        "https://thekeynotecurators.com/speaker/book-matt-elliott/"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who is Matt Elliott?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matt Elliott is a nationally recognized leadership speaker, executive advisor, board director, and author. He is the founder and CEO of Blue Lake Ideas and the creator of The Power of & framework. Previously, Matt served as President of Bank of America Michigan, where he led teams across nine states, drove the bank's brand satisfaction from #5 to #1 in Michigan, and spearheaded the largest commercial bank sustainability engagement in North America, reaching 25,000 clients."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What book is Matt Elliott writing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Matt Elliott's forthcoming book is titled 'Overloaded: Recapturing Leadership Capacity with The Power of &'. The book makes the case that leadership capacity is the defining constraint of our time and provides a practical framework for leaders to hold tension, manage competing truths, and make integrative decisions without burning out."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is & Intelligence?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "& Intelligence is a framework developed by Matt Elliott that describes the ability to hold competing priorities and make integrative decisions rather than defaulting to binary either/or thinking. It draws from agile management theory, design thinking, and modern neuroscience to help leaders operate effectively inside accelerating change."
+          }
+        }
+      ]
+    }
+  ]
+}
+&lt;/script&gt;</div>
+
+<!-- ============================================ -->
+<h2 id="json-connect">6. JSON-LD: Connect page</h2>
+
+<div class="code-block"><span class="label label-json">JSON-LD — Paste into Connect page header code injection</span>
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Connect with Matt Elliott",
+  "url": "https://www.bluelakeideas.com/connect",
+  "description": "Book Matt Elliott for keynote speaking, executive advisory, or board consulting. Schedule a conversation about bringing The Power of & to your organization.",
+  "mainEntity": {
+    "@type": "Organization",
+    "@id": "https://www.bluelakeideas.com/#organization",
+    "name": "Blue Lake Ideas",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Speaking & Advisory Inquiries",
+      "url": "https://www.bluelakeideas.com/connect",
+      "availableLanguage": "English"
+    }
+  }
+}
+&lt;/script&gt;</div>
+
+<!-- ============================================ -->
+<h2 id="install">7. How to install in Squarespace</h2>
+
+<div class="section-note"><strong>Important:</strong> Each JSON-LD block goes on its specific page, not sitewide. This ensures Google and AI engines associate the right schema with the right content.</div>
+
+<h3>Page titles &amp; meta descriptions</h3>
+<ol class="install-steps">
+  <li>In Squarespace, navigate to the page you want to edit</li>
+  <li>Click the <strong>gear icon</strong> (⚙) next to the page name in the left sidebar</li>
+  <li>Go to the <strong>SEO</strong> tab</li>
+  <li>Paste the new <strong>SEO Title</strong> (page title) from this guide</li>
+  <li>Paste the new <strong>SEO Description</strong> (meta description) from this guide</li>
+  <li>Click <strong>Save</strong> — repeat for every page</li>
+</ol>
+
+<h3>JSON-LD schema markup</h3>
+<ol class="install-steps">
+  <li>In Squarespace, navigate to the specific page</li>
+  <li>Click the <strong>gear icon</strong> (⚙) next to the page name</li>
+  <li>Go to the <strong>Advanced</strong> tab</li>
+  <li>In the <strong>"Page Header Code Injection"</strong> box, paste the full <code>&lt;script type="application/ld+json"&gt;...&lt;/script&gt;</code> block for that page from this guide</li>
+  <li>Click <strong>Save</strong> — repeat for every page</li>
+</ol>
+
+<h3>After installation</h3>
+<ol class="install-steps">
+  <li>Validate each page at <a href="https://search.google.com/test/rich-results" style="color:var(--blue)">Google's Rich Results Test</a> — paste each URL and confirm no errors</li>
+  <li>Validate the JSON-LD at <a href="https://validator.schema.org/" style="color:var(--blue)">Schema.org Validator</a> to double-check syntax</li>
+  <li>In <a href="https://search.google.com/search-console" style="color:var(--blue)">Google Search Console</a>, request re-indexing for each updated page</li>
+  <li>Wait 1–4 weeks for Google to fully re-crawl and display rich results</li>
+</ol>
+
+<p style="margin-top:2rem; font-size:0.85rem; color:var(--text2);">Generated for Blue Lake Ideas — May 2026</p>
+
+</div><!-- end content wrapper -->
+</body>
+</html>

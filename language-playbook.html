@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Evolution & Market Capture Playbook — Blue Lake Ideas</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --teal-mid: #1D9E75;
+    --gold: #C8A84E;
+    --gold-light: #FEF7E0;
+    --gold-bg: #FFFDF5;
+    --red: #B71C1C;
+    --red-light: #FFEBEE;
+    --orange: #E65100;
+    --orange-light: #FFF3E0;
+    --surface: #FFFFFF;
+    --surface2: #F7F7F5;
+    --ink: #1B1F23;
+    --ink2: #4A5058;
+    --ink3: #7C838C;
+    --border: #E0E0DC;
+    --serif: 'Newsreader', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--sans); background: var(--surface); color: var(--ink); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(160deg, #071320 0%, #0C2E3D 40%, #0F6E56 100%);
+    color: white; padding: 3rem 2rem 2.5rem; position: relative; overflow: hidden;
+  }
+  .hero::before { content: '&'; position: absolute; right: -30px; top: -50px; font-family: var(--serif); font-size: 300px; opacity: 0.04; pointer-events: none; }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .hero h1 { font-family: var(--serif); font-size: 2.2rem; font-weight: 400; line-height: 1.2; margin-bottom: 0.5rem; }
+  .hero h1 span { color: var(--gold); }
+  .hero .subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.6); max-width: 600px; line-height: 1.6; }
+  .hero-meta { margin-top: 1.25rem; font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+
+  /* ── CONTENT ── */
+  .content { max-width: 900px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+  h2.section-title { font-family: var(--serif); font-size: 1.65rem; color: var(--navy); margin: 2.5rem 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--gold); }
+  h3.sub-title { font-family: var(--serif); font-size: 1.25rem; color: var(--teal); margin: 2rem 0 0.5rem; }
+  h4.item-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.4rem; }
+  p { margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--ink2); line-height: 1.7; }
+  p strong { color: var(--ink); }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; margin: 1rem 0 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 700px; }
+  table th {
+    background: var(--navy); color: white; text-align: left; padding: 10px 14px;
+    font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+  table tr:last-child td { border-bottom: none; }
+  table tr:nth-child(even) td { background: var(--surface2); }
+  table .date-col { width: 80px; white-space: nowrap; font-weight: 600; color: var(--ink3); }
+  table .term-highlight { color: var(--teal); font-weight: 600; }
+  table .missing { color: var(--red); font-weight: 500; }
+  table .urgent { color: var(--red); font-weight: 700; text-transform: uppercase; }
+  table .high { color: var(--orange); font-weight: 700; text-transform: uppercase; }
+  table .medium { color: var(--teal); font-weight: 700; text-transform: uppercase; }
+  table .ongoing { color: var(--ink3); font-weight: 700; text-transform: uppercase; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout { padding: 1.25rem 1.5rem; border-radius: 10px; margin: 1.25rem 0; font-size: 0.88rem; line-height: 1.65; }
+  .callout-red { background: var(--red-light); border-left: 4px solid var(--red); }
+  .callout-red strong { color: var(--red); }
+  .callout-green { background: var(--teal-light); border-left: 4px solid var(--teal); }
+  .callout-green strong { color: var(--teal); }
+  .callout-gold { background: var(--gold-bg); border-left: 4px solid var(--gold); }
+  .callout-gold strong { color: #8A6D00; }
+
+  /* ── GAP CARDS ── */
+  .gap-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.25rem 0; }
+  .gap-card h4 { font-family: var(--serif); font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .gap-card .label { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 12px; margin-bottom: 0.5rem; }
+  .gap-card .label-what { background: var(--teal-light); color: var(--teal); }
+  .gap-card .label-why { background: var(--orange-light); color: var(--orange); }
+  .gap-card .label-ties { background: #EDE7F6; color: #4527A0; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 2px solid var(--gold); margin: 2.5rem 0; opacity: 0.3; }
+
+  /* ── FOOTER ── */
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--ink3); display: flex; justify-content: space-between; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.6rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    table { min-width: 600px; }
+  }
+  @media print {
+    .hero { padding: 1.5rem; }
+    .hero::before { display: none; }
+    .content { padding: 1rem 0; }
+    table { min-width: unset; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.5rem;background:#0A1628;color:#fff;font-family:DM Sans,sans-serif;font-size:0.75rem;">
+<span style="font-weight:700;letter-spacing:0.5px;"><span style="color:#C8A84E;font-size:1rem;">&amp;</span> BLI Command Center</span>
+<div style="display:flex;gap:4px;flex-wrap:wrap;">
+<a href="index.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">YouTube Calendar</a>
+<a href="language-playbook.html" style="color:#fff;background:rgba(255,255,255,0.15);text-decoration:none;padding:4px 12px;border-radius:6px;font-weight:600;">Language Playbook</a>
+<a href="audit.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">SEO Audit</a>
+<a href="implementation.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Implementation</a>
+<a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Overloaded Campaign ↗</a>
+</div></nav>
+
+<!-- ═══════ HEADER ═══════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Blue Lake Ideas</div>
+    <h1>Language Evolution <span>&amp;</span> Market Capture Playbook</h1>
+    <p class="subtitle">For Matt — mapping your words across LinkedIn, Substack, &amp; the website against what's already out there, and what you need to own.</p>
+    <div class="hero-meta">Prepared by MKT Agents (Kate) · May 23, 2026 · Ties to: SEO/AEO Audit · Overloaded Waitlist Campaign · Video Hub</div>
+  </div>
+</div>
+
+<!-- ═══════ CONTENT ═══════ -->
+<div class="content">
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PART 1: WHERE YOUR WORDS LIVE TODAY       -->
+<!-- ══════════════════════════════════════════ -->
+<h2 class="section-title">Part 1: Where your words live today</h2>
+<p>We pulled every post from your LinkedIn, every Substack essay, every page on the website, your keynote descriptions, podcast appearances, and your refined messaging doc (5.20.26). Here's what we found — mapped by platform.</p>
+
+<!-- SUBSTACK -->
+<h3 class="sub-title">Your Substack posts (bluelakeideas.substack.com)</h3>
+<p><em>5 essays published since March 2026. These are the richest source of your new vocabulary.</em></p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Date</th><th>Title</th><th>Key terms used</th><th>Why it matters</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="date-col">Mar 2026</td>
+      <td>The founding essay — and what this newsletter is about</td>
+      <td>Hospital bed, burnout to breakthrough, Power of &amp;, 35 years, I can do anything but not everything</td>
+      <td>Origin story — establishes personal narrative and credibility arc</td>
+    </tr>
+    <tr>
+      <td class="date-col">Mar 2026</td>
+      <td>I can do anything. But not everything.</td>
+      <td>Capacity, priorities, <span class="term-highlight">Pause &amp; Reflect</span>, anything/everything mantra</td>
+      <td>Maps directly to the Pause &amp; Reflect step. Core mantra for the framework.</td>
+    </tr>
+    <tr>
+      <td class="date-col">Mar–Apr 2026</td>
+      <td>Why accelerating change challenges leadership — and what the science actually says</td>
+      <td>Accelerating change, neuroscience, <span class="term-highlight">System 1</span>, nervous system defaults, overload</td>
+      <td>Science-backed Causal Chain content. Key differentiator vs. competitors who don't use neuroscience.</td>
+    </tr>
+    <tr>
+      <td class="date-col">Apr 2026</td>
+      <td>I can't let Tax Day pass without talking about the taxes of binary thinking</td>
+      <td><span class="term-highlight">FOUR TAXES (first public use)</span>, False Choices, Silos, Short Termism, Stalled Innovation, binary thinking, causal chain</td>
+      <td><strong>CRITICAL:</strong> First time "Four Taxes" appears publicly. This is brand-new vocabulary that no one else owns.</td>
+    </tr>
+    <tr>
+      <td class="date-col">Apr 23, 2026</td>
+      <td>Why integrated thinking is winning competitive strategy — and when it isn't</td>
+      <td>Integrated thinking, competitive strategy, <span class="term-highlight">&amp; Intelligence</span>, when it doesn't work</td>
+      <td>Strategic positioning piece. Enters Roger Martin's "integrative thinking" territory — careful with naming.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- LINKEDIN -->
+<h3 class="sub-title">Your LinkedIn posts</h3>
+<p><em>Pulled from your profile feed. These are your most visible content but the most ephemeral — they disappear from feeds within days.</em></p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Date</th><th>Title / Topic</th><th>Key terms used</th><th>Why it matters</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="date-col">2025</td>
+      <td>How I founded Blue Lake Ideas to tame chaos</td>
+      <td>Blue Lake Ideas founding, taming chaos, Power of &amp;, #leadership #powerofand #tamingchaos</td>
+      <td>Founding narrative. Hashtags establish searchable terms.</td>
+    </tr>
+    <tr>
+      <td class="date-col">Mar 2026</td>
+      <td>Cornerstone Alliance Annual Meeting keynote</td>
+      <td><span class="term-highlight">Series of &amp;s held in tension</span>, regional progress, business attraction &amp; placemaking</td>
+      <td>First use of "series of &amp;s held in tension" — very strong image. Not on website.</td>
+    </tr>
+    <tr>
+      <td class="date-col">Apr 2026</td>
+      <td>Either/or thinking as overload response (Cashflow Chronicles)</td>
+      <td>Either/or as overload response, <span class="term-highlight">three forces</span> (acceleration, nervous system, media ecosystem), binary thinking ≠ decisive leadership</td>
+      <td>Strongest articulation of the problem statement. Debunks "decisive = binary." Not on website.</td>
+    </tr>
+    <tr>
+      <td class="date-col">Apr 2026</td>
+      <td>The &amp; of AI — AI-enabled teams outperform</td>
+      <td><span class="term-highlight">The &amp; of AI</span>, AI-enabled teams, find the &amp;, AI + humans &gt; AI alone or humans alone</td>
+      <td>Timely AI application of the framework. Very high search demand topic. Not on website.</td>
+    </tr>
+    <tr>
+      <td class="date-col">May 2026</td>
+      <td>Yes&amp;Michigan — Data centers conversation</td>
+      <td>Yes&amp;Michigan, <span class="term-highlight">the &amp; HAS to be true</span>, data centers, community + business, Kerry Duggan, Brandy Brown</td>
+      <td>First public use of "the &amp; HAS to be true" — from 5.20.26 doc. Not on website.</td>
+    </tr>
+    <tr>
+      <td class="date-col">May 2026</td>
+      <td>Game Changer Luncheons with Brandy Brown</td>
+      <td>Game Changer, innovation, cutting through noise, data centers, clean energy, community-first development</td>
+      <td>Collaboration content. Applied &amp; thinking to energy/infrastructure.</td>
+    </tr>
+    <tr>
+      <td class="date-col">May 2026</td>
+      <td>Capacity is the defining leadership challenge of the AI era</td>
+      <td><span class="term-highlight">Capacity as defining challenge</span>, AI era, binary thinking erodes range</td>
+      <td><strong>THESIS STATEMENT.</strong> This is the headline claim of Overloaded. Not on website.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- WEBSITE -->
+<h3 class="sub-title">Your website (bluelakeideas.com)</h3>
+<p><em>6 pages. This is what Google and AI engines can currently index. The vocabulary here is OLDER than your Substack and LinkedIn — it's stuck in mid-2025.</em></p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Page</th><th>Vocabulary currently on page</th><th style="color:#FFCDD2">What's MISSING</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Homepage</strong></td>
+      <td>Power of &amp;, taming chaos, navigate complexity</td>
+      <td class="missing">No mention of &amp; Intelligence, Four Taxes, Causal Chain, or Capacity Advantage</td>
+    </tr>
+    <tr>
+      <td><strong>Speaking</strong></td>
+      <td>Taming Chaos, Power of &amp;, clarity confidence courage, Capacity Advantage (keynote title only), &amp; of Sustainability, Everyday Leadership</td>
+      <td class="missing">Keynote titles use new vocabulary but descriptions still use old language</td>
+    </tr>
+    <tr>
+      <td><strong>Advisory</strong></td>
+      <td>Power of &amp;, strategic growth, sustainability, organizational transformation</td>
+      <td class="missing">Generic consulting language. No differentiating vocabulary at all.</td>
+    </tr>
+    <tr>
+      <td><strong>Meet Matt</strong><br><em>(titled "General 6" ⚠️)</em></td>
+      <td>35 years, burnout to breakthrough, $35B sustainable capital, 25,000 companies, BofA President, Power of &amp;</td>
+      <td class="missing">Credential-heavy. No framework language beyond "Power of &amp;."</td>
+    </tr>
+    <tr>
+      <td><strong>Powered by And</strong></td>
+      <td>Power of &amp;, either/or thinking, taming chaos, innovation and humanity, 35 years</td>
+      <td class="missing">Closest to a framework page but uses old vocabulary. No &amp; Intelligence, no steps defined.</td>
+    </tr>
+    <tr>
+      <td><strong>Connect</strong></td>
+      <td>(booking CTA only)</td>
+      <td class="missing">No vocabulary. No SEO value.</td>
+    </tr>
+    <tr>
+      <td><strong>Blog</strong></td>
+      <td>ONE placeholder post from 2020 ("Blog Post Title One")</td>
+      <td class="missing">ABANDONED. Zero real content. Zero indexed posts. This is the single biggest gap.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 5.20.26 DOC -->
+<h3 class="sub-title">Your refined messaging doc (5.20.26) — NEW terms that don't exist anywhere public</h3>
+<p>This is the canonical document. Everything ladders to this. These are the <strong>new terms from this doc that aren't published anywhere Google or AI can find them</strong>:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>New term</th><th>What it means</th><th>Where it exists today</th><th>Why you must publish it</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong style="color:var(--teal)">&amp; Intelligence Framework</strong></td>
+      <td>The name for your 3-step practice (Pause &amp; Reflect, Find the &amp;, Test &amp; Learn). Replaces "Taming Chaos" as the intellectual system name.</td>
+      <td class="missing">NOWHERE public. Not on website, not in blog, not in any indexed post.</td>
+      <td>If you don't publish this, someone else will name a similar practice and own it.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--teal)">The Four Taxes</strong></td>
+      <td>False Choices, Silos, Short Termism, Stalled Innovation — the organizational cost of binary thinking.</td>
+      <td>Substack (Tax Day post) only. Not on website. Not in schema.</td>
+      <td>Zero competition for this term. First blog post = permanent ownership.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--teal)">The Causal Chain</strong></td>
+      <td>Accelerating Change → Overload → System 1 → Binary Thinking → Four Taxes</td>
+      <td class="missing">NOWHERE public. Only in internal doc.</td>
+      <td>Connects neuroscience to organizational dysfunction. AI engines will cite this.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--teal)">Shared definition of success</strong></td>
+      <td>The requirement for Find the &amp; — teams must agree on what success looks like before they can balance tensions.</td>
+      <td>Referenced in LinkedIn (Yes&amp;Michigan) but not defined anywhere.</td>
+      <td>Distinguishes your framework from generic "both/and." This is about shared purpose, not compromise.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--teal)">The &amp; HAS to be true</strong></td>
+      <td>In the long run, the &amp; must hold or you're just lurching between opposites, never solving for shared, sustained success.</td>
+      <td>LinkedIn post (Yes&amp;Michigan) only.</td>
+      <td>This is the deepest claim in your system. It needs its own content.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--teal)">Virtuous cycle</strong></td>
+      <td>&amp; Intelligence → Capacity recaptured → Power of &amp; harnessed → Delivery → Winning</td>
+      <td class="missing">Internal doc only.</td>
+      <td>Makes the framework feel like a system, not just steps.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--teal)">Shoot bullets before cannon balls</strong></td>
+      <td>Collins reference — small tests before big bets. Core to the Test &amp; Learn step.</td>
+      <td class="missing">Internal doc only.</td>
+      <td>Borrowed from Collins but your application to Test &amp; Learn is unique. Needs attribution + explanation.</td>
+    </tr>
+    <tr>
+      <td><strong style="color:var(--teal)">Clarity, Connection, Courage → Wisdom → Legacy</strong></td>
+      <td>The payoff arc. Practice produces wisdom, wisdom produces legacy.</td>
+      <td>⚠️ Website says "clarity, <strong>confidence</strong>, courage." Doc says "<strong>Connection</strong>." These don't match.</td>
+      <td>The website and doc conflict. Which is it — confidence or connection? This needs alignment before the book drops.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PART 2: COMPETITIVE LANGUAGE LANDSCAPE    -->
+<!-- ══════════════════════════════════════════ -->
+<h2 class="section-title">Part 2: The competitive language landscape</h2>
+<p>These are the terms and frameworks already established in the "beyond either/or" space. Matt needs to know which words are taken, which are contested, and where the opening is.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Term / Framework</th><th>Who owns it</th><th>Where it lives</th><th>Threat level</th><th>What Matt should do</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Both/And Thinking</strong></td>
+      <td>Wendy Smith &amp; Marianne Lewis</td>
+      <td>HBR Press 2022, Thinkers50 Breakthrough Idea 2023</td>
+      <td><span class="urgent">High</span> — #1 search term in this space. They own it academically.</td>
+      <td>Do NOT try to own "both/and thinking." Position alongside: "Smith &amp; Lewis researched it. Matt built the practice."</td>
+    </tr>
+    <tr>
+      <td><strong>Genius of the AND / Tyranny of the OR</strong></td>
+      <td>Jim Collins</td>
+      <td>Built to Last (1994), Good to Great (2001)</td>
+      <td><span class="high">Medium</span> — iconic phrase but buried in larger works. Never became its own framework.</td>
+      <td>Matt already cites Collins. The play: "Collins proved the &amp; matters. I built the practice to harness it." Collins validates Matt.</td>
+    </tr>
+    <tr>
+      <td><strong>Integrative Thinking</strong></td>
+      <td>Roger Martin</td>
+      <td>The Opposable Mind (2007), Creating Great Choices (2017)</td>
+      <td><span class="high">Medium</span> — well-known in strategy/MBA circles.</td>
+      <td>⚠️ Matt's Substack uses "integrated thinking." Careful: Martin owns "integrative thinking." Use "&amp; Intelligence" or "integrative decision-making" instead.</td>
+    </tr>
+    <tr>
+      <td><strong>Polarity Management</strong></td>
+      <td>Barry Johnson / Polarity Partnerships</td>
+      <td>Polarity Management (1992), And: Making a Difference (2020)</td>
+      <td><span class="medium">Low-Med</span> — niche in OD/consulting. Very process-heavy.</td>
+      <td>No mainstream brand threat. "Managing tensions" overlaps but Matt's language is warmer and more accessible.</td>
+    </tr>
+    <tr>
+      <td><strong>Paradox Mindset</strong></td>
+      <td>Ella Miron-Spektor et al.</td>
+      <td>Academic papers (2018–2025), INSEAD research</td>
+      <td><span class="medium">Low</span> — academic. Not a practitioner brand.</td>
+      <td>Growing academic field (213+ papers). Matt's framework could bridge the academic-practitioner gap. Cite this research.</td>
+    </tr>
+    <tr>
+      <td><strong>Paradoxical Leadership</strong></td>
+      <td>Multiple academics</td>
+      <td>Boemelburg et al. 2023, Halton &amp; Wiewiora 2025, Springer journals</td>
+      <td><span class="medium">Low</span> — purely academic.</td>
+      <td>If Matt publishes first-mover content with "&amp; Intelligence" branding, he becomes the practitioner these academics cite.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- WATCH OUT / CAPTURE -->
+<div class="callout callout-red">
+  <strong>Words to WATCH OUT FOR — these are claimed:</strong><br>
+  <strong>Both/And Thinking</strong> — Smith &amp; Lewis own this. Do not use as a framework name.<br>
+  <strong>Integrative Thinking</strong> — Roger Martin's term. Use "integrative decision-making" or "&amp; Intelligence" instead.<br>
+  <strong>Genius of the AND</strong> — Collins's phrase. Cite it but don't make it your headline.<br>
+  <strong>Paradox mindset / paradoxical leadership</strong> — academic terms gaining momentum. Your framework needs to be the practitioner version, not the academic one.
+</div>
+
+<div class="callout callout-green">
+  <strong>Words Matt SHOULD capture — no one owns these yet:</strong><br>
+  <strong>&amp; Intelligence</strong> — Nobody is using this phrase. It's yours if you publish it.<br>
+  <strong>The Four Taxes</strong> — Completely original. Zero search results. First blog post = permanent ownership.<br>
+  <strong>The Causal Chain</strong> (in the overload/binary thinking context) — Not claimed. Your term.<br>
+  <strong>Capacity Advantage</strong> — You have this as a keynote title but it's not defined anywhere searchable.<br>
+  <strong>The &amp; HAS to be true</strong> — Powerful thesis statement. No one is saying this.<br>
+  <strong>Shared definition of success</strong> — Generic words but YOUR specific usage (as a step in Find the &amp;) isn't claimed.<br>
+  <strong>Shoot bullets before cannon balls</strong> — Collins's metaphor but your application to Test &amp; Learn is unique.
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PART 3: THE LANGUAGE GAP                  -->
+<!-- ══════════════════════════════════════════ -->
+<h2 class="section-title">Part 3: The language gap — what needs to be written and why</h2>
+<p>Here's the gap between where your words are now and where they need to be. Each piece of content below closes a specific gap.</p>
+
+<div class="gap-card">
+  <h4>Gap 1: Your newest vocabulary isn't on the website</h4>
+  <p>The website uses language from mid-2025 (Taming Chaos, navigate complexity, clarity confidence courage). Your 5.20.26 doc introduces &amp; Intelligence, Four Taxes, The Causal Chain, shared definition of success, and "the &amp; HAS to be true." <strong>None of these appear on any page Google can index.</strong></p>
+  <span class="label label-what">What to write</span>
+  <p>A pillar page at bluelakeideas.com/and-intelligence that defines the full system using the 5.20.26 architecture. Also update Speaking and Powered by And pages to use the current vocabulary.</p>
+  <span class="label label-why">Why</span>
+  <p>Until these terms are on the website, AI engines cannot cite them. When someone asks ChatGPT "What is &amp; Intelligence?" — there's nothing to find.</p>
+  <span class="label label-ties">Ties to</span>
+  <p>SEO/AEO audit (schema already references &amp; Intelligence in FAQ but no visible page backs it up). Overloaded book launch (the book uses this vocabulary — the website must match). Video Hub (framework explainer clips belong on this page).</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 2: No content positions you against the competition</h4>
+  <p>Smith &amp; Lewis published Both/And Thinking in 2022 and won a Thinkers50 award. Collins has been cited for decades. Martin's Integrative Thinking is a business school staple. <strong>You have ZERO comparison content</strong> that says "here's how Power of &amp; / &amp; Intelligence is different."</p>
+  <span class="label label-what">What to write</span>
+  <p>"Power of &amp; vs Both/And Thinking — What's the Difference?" Frame it generously: they researched it, Collins proved it, you built the practice. This captures people searching for those established terms.</p>
+  <span class="label label-why">Why</span>
+  <p>People already searching "both/and thinking" or "integrative thinking" are your ideal audience. If they find nothing connecting those terms to your work, they never discover you.</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 3: Your Substack and LinkedIn content isn't on the website</h4>
+  <p>You've written 5 substantial Substack essays and 7+ LinkedIn posts with your strongest, newest language (Four Taxes, Causal Chain, &amp; of AI, the &amp; HAS to be true). But <strong>LinkedIn posts vanish from feeds within days. Substack reaches only subscribers. Neither is indexed as well as your own domain.</strong></p>
+  <span class="label label-what">What to write</span>
+  <p>Republish each Substack essay as a blog post on bluelakeideas.com. Adapt each LinkedIn post into a short blog article. Target: 1 per week.</p>
+  <span class="label label-why">Why</span>
+  <p>Every post on your own domain is permanent, indexable, and creates a searchable keyword footprint. A LinkedIn post about "the &amp; of AI" is gone in a week. A blog post about it is forever.</p>
+  <span class="label label-ties">Ties to</span>
+  <p>Video Hub (embed relevant clips in each post). Overloaded waitlist (every post ends with a CTA). SEO/AEO (each post gets FAQ schema).</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 4: The website vocabulary doesn't match the book vocabulary</h4>
+  <p>Your website says "clarity, <strong>confidence</strong>, and courage." Your 5.20.26 doc says "Clarity, <strong>Connection</strong>, Courage." The website says "Taming Chaos" as if it's the framework. The doc positions it as a keynote title under the larger &amp; Intelligence Framework. <strong>These mismatches confuse the message.</strong></p>
+  <span class="label label-what">What to do</span>
+  <p>Audit every page against the 5.20.26 doc. Wherever the language doesn't match, update it. The book vocabulary wins — the website must reflect where Matt's thinking is NOW, not where it was a year ago.</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 5: No blog exists</h4>
+  <p>The single biggest structural gap. Your Squarespace blog has <strong>one placeholder post from 2020</strong>. That means Google sees 6 static pages and one abandoned blog. There is no content engine. No keyword capture. No reason for anyone to return to the site.</p>
+  <span class="label label-what">What to write — first three posts</span>
+  <p><strong>1.</strong> "What Are the Four Taxes of Binary Thinking?" (seed: your Tax Day Substack)<br>
+  <strong>2.</strong> "What Is &amp; Intelligence? The Practice Behind the Power of &amp;" (seed: your 5.20.26 doc)<br>
+  <strong>3.</strong> "The Causal Chain: How Overload Becomes Organizational Dysfunction" (seed: your accelerating change Substack)</p>
+  <span class="label label-why">Why these three first</span>
+  <p>Each one targets a first-mover term that nobody else owns. Publishing them now means when someone searches "four taxes binary thinking" or "what is &amp; intelligence" — they find Matt Elliott, not Smith &amp; Lewis, not Collins, not Martin.</p>
+  <span class="label label-ties">Ties to</span>
+  <p>Every workstream. Blog posts are the fuel for SEO, the content for the video hub, and the traffic source for the Overloaded waitlist.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PART 4: PRIORITY ORDER                    -->
+<!-- ══════════════════════════════════════════ -->
+<h2 class="section-title">Part 4: Priority order</h2>
+<p><em>Highest urgency = terms where Matt has first-mover advantage on vocabulary no one else owns.</em></p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>#</th><th>Priority</th><th>Action</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td><span class="urgent">Urgent</span></td><td>Publish "What Are the Four Taxes of Binary Thinking?" blog post</td><td>First-mover. Zero competition. Your term to own permanently.</td></tr>
+    <tr><td><strong>2</strong></td><td><span class="urgent">Urgent</span></td><td>Publish "What Is &amp; Intelligence?" blog post</td><td>Framework name from 5.20.26 doc. Must exist publicly before book launches.</td></tr>
+    <tr><td><strong>3</strong></td><td><span class="urgent">Urgent</span></td><td>Publish "The Causal Chain" blog post</td><td>Connects neuroscience to organizational dysfunction. AEO goldmine.</td></tr>
+    <tr><td><strong>4</strong></td><td><span class="high">High</span></td><td>Build &amp; Intelligence pillar page on website</td><td>Canonical reference page for AI engines and Google.</td></tr>
+    <tr><td><strong>5</strong></td><td><span class="high">High</span></td><td>Update website copy to match 5.20.26 vocabulary</td><td>Confidence → Connection. "Taming Chaos" → keynote title (not framework name).</td></tr>
+    <tr><td><strong>6</strong></td><td><span class="high">High</span></td><td>Install schema markup + page titles (from SEO audit)</td><td>Foundation. Nothing else works until Google can read the site properly.</td></tr>
+    <tr><td><strong>7</strong></td><td><span class="high">High</span></td><td>Deploy Overloaded waitlist page on Squarespace</td><td>Every blog post needs a CTA destination. Campaign reference at mktagents.github.io/bluelakeideas-overloaded.</td></tr>
+    <tr><td><strong>8</strong></td><td><span class="medium">Medium</span></td><td>Write competitive comparison post (Power of &amp; vs Both/And Thinking)</td><td>Captures traffic from established search terms people already use.</td></tr>
+    <tr><td><strong>9</strong></td><td><span class="medium">Medium</span></td><td>Republish LinkedIn posts as blog content (1/week)</td><td>Permanent versions of your best ephemeral content.</td></tr>
+    <tr><td><strong>10</strong></td><td><span class="medium">Medium</span></td><td>Embed Video Hub clips on website pages</td><td>Increases time on page, trust, and rich media signals for SEO.</td></tr>
+    <tr><td><strong>11</strong></td><td><span class="ongoing">Ongoing</span></td><td>Export Substack archive + archive LinkedIn posts to Google Drive</td><td>Build the content repo so nothing is lost and everything can be tracked.</td></tr>
+    <tr><td><strong>12</strong></td><td><span class="ongoing">Ongoing</span></td><td>Weekly blog cadence using 5.20.26 vocabulary</td><td>Content engine that feeds SEO, Video Hub, and Overloaded waitlist simultaneously.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<hr class="divider">
+
+<!-- BOTTOM LINE -->
+<div class="callout callout-gold">
+  <strong>Bottom line, Matt:</strong> You have new language that nobody else owns. The Four Taxes, &amp; Intelligence, The Causal Chain — these are yours. But they only become yours if they're published. Right now they live in one Google Doc and a handful of LinkedIn posts that will disappear from feeds. Smith &amp; Lewis own "both/and thinking." Collins owns "Genius of the AND." Martin owns "integrative thinking." The window to claim YOUR terms is open right now. Once the book drops, competitors will start using similar concepts with their own labels. Get there first.
+</div>
+
+<div class="footer">
+  <span>Blue Lake Ideas · Language Evolution &amp; Market Capture Playbook</span>
+  <span>May 2026 · MKT Agents</span>
+</div>
+
+</div><!-- end .content -->
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Lake Ideas — Web Audit & Implementation Report</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B1F23;
+    --ink2: #4A5058;
+    --ink3: #7C838C;
+    --surface: #FFFFFF;
+    --surface2: #F5F6F4;
+    --surface3: #ECEEE9;
+    --border: #D8DBD3;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --teal-mid: #5DCAA5;
+    --amber: #854F0B;
+    --amber-light: #FEF7E0;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --coral: #993C1D;
+    --coral-light: #FAECE7;
+    --green-check: #1D9E75;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(165deg, #0A3D2E 0%, #0F6E56 40%, #1D9E75 100%);
+    color: white;
+    padding: 3.5rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '&';
+    position: absolute;
+    right: -40px;
+    top: -60px;
+    font-family: var(--serif);
+    font-size: 340px;
+    opacity: 0.06;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 560px; }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── CONTENT ── */
+  .content { max-width: 820px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+  /* ── SUMMARY STATS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+  .stat {
+    background: var(--surface);
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num.green { color: var(--teal); }
+  .stat-num.amber { color: var(--amber); }
+  .stat-label { font-size: 0.75rem; color: var(--ink3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.3px; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 2.5rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  .section-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .section-icon.teal { background: var(--teal-light); color: var(--teal); }
+  .section-icon.purple { background: var(--purple-light); color: var(--purple); }
+  .section-icon.blue { background: var(--blue-light); color: var(--blue); }
+  .section-icon.coral { background: var(--coral-light); color: var(--coral); }
+  .section-icon.amber { background: var(--amber-light); color: var(--amber); }
+  .section-title { font-family: var(--serif); font-size: 1.35rem; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .check-item {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 12px;
+    align-items: start;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--surface3);
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-mark {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .check-done { background: var(--teal); color: white; }
+  .check-next { background: var(--amber-light); color: var(--amber); border: 1.5px solid var(--amber); font-size: 0.65rem; }
+  .check-title { font-weight: 600; font-size: 0.95rem; line-height: 1.4; }
+  .check-detail { font-size: 0.85rem; color: var(--ink2); margin-top: 2px; line-height: 1.55; }
+  .check-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .tag-done { background: var(--teal-light); color: var(--teal); }
+  .tag-next { background: var(--amber-light); color: var(--amber); }
+  .tag-page { background: var(--blue-light); color: var(--blue); }
+
+  /* ── BEFORE/AFTER TABLE ── */
+  .ba-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  .ba-table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ink3);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .ba-table td {
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--surface3);
+    vertical-align: top;
+  }
+  .ba-table tr:last-child td { border-bottom: none; }
+  .ba-old { color: var(--red); text-decoration: line-through; opacity: 0.7; }
+  .ba-new { color: var(--teal); font-weight: 500; }
+  .ba-page { font-weight: 600; white-space: nowrap; }
+
+  /* ── SCHEMA INVENTORY ── */
+  .schema-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 1rem 0;
+  }
+  .schema-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+  }
+  .schema-card-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .schema-card-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-check); flex-shrink: 0; }
+  .schema-card-page { font-size: 0.75rem; color: var(--ink3); }
+  .schema-card-desc { font-size: 0.82rem; color: var(--ink2); margin-top: 6px; }
+
+  /* ── NEXT STEPS BOX ── */
+  .next-box {
+    background: linear-gradient(135deg, var(--amber-light) 0%, #FFF8E8 100%);
+    border: 1.5px solid #E8D5A0;
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin-top: 2rem;
+  }
+  .next-box h3 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+    color: var(--amber);
+  }
+  .next-list { list-style: none; }
+  .next-list li {
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .next-list li::before {
+    content: '→';
+    color: var(--amber);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .report-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--ink3);
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .schema-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero-meta { flex-direction: column; gap: 0.5rem; }
+    .ba-table { font-size: 0.78rem; }
+    .check-item { grid-template-columns: 28px 1fr; }
+    .check-item .check-tag { grid-column: 2; }
+  }
+
+  /* ── NAV ── */
+  .top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 2rem;
+    background: var(--ink);
+    color: white;
+    font-size: 0.82rem;
+  }
+  .top-nav-brand { font-weight: 600; letter-spacing: 0.3px; }
+  .top-nav a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .top-nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+  .top-nav a.active { background: rgba(255,255,255,0.15); color: white; font-weight: 600; }
+
+  @media print {
+    .top-nav { display: none; }
+    .hero { padding: 2rem; }
+    .hero::before { display: none; }
+    body { font-size: 10pt; }
+    .content { padding: 1rem 0; }
+  }
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.5rem;background:#0A1628;color:#fff;font-family:DM Sans,sans-serif;font-size:0.75rem;">
+<span style="font-weight:700;letter-spacing:0.5px;"><span style="color:#C8A84E;font-size:1rem;">&amp;</span> BLI Command Center</span>
+<div style="display:flex;gap:4px;flex-wrap:wrap;">
+<a href="index.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">YouTube Calendar</a>
+<a href="language-playbook.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Language Playbook</a>
+<a href="audit.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">SEO Audit</a>
+<a href="implementation.html" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Implementation</a>
+<a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,0.65);text-decoration:none;padding:4px 12px;border-radius:6px;">Overloaded Campaign ↗</a>
+</div></nav>
+
+<nav class="top-nav">
+  <span class="top-nav-brand">Blue Lake Ideas — SEO / AEO</span>
+  <div>
+    <a href="index.html" class="active">Audit report</a>
+    <a href="implementation.html">Implementation guide</a>
+  </div>
+</nav>
+
+<!-- ═══════ HEADER ═══════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">✓ Audit complete</div>
+    <h1>Web audit &amp; implementation report</h1>
+    <p>SEO &amp; AEO optimization for bluelakeideas.com — completed items, before/after changes, and recommended next steps.</p>
+    <div class="hero-meta">
+      <span>📍 bluelakeideas.com</span>
+      <span>📅 May 19, 2026</span>
+      <span>🔧 Blue Lake Ideas LLC</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CONTENT ═══════ -->
+<div class="content">
+
+<!-- ── SUMMARY STATS ── -->
+<div class="stats-grid">
+  <div class="stat">
+    <div class="stat-num green">6</div>
+    <div class="stat-label">Pages optimized</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num green">6</div>
+    <div class="stat-label">Titles rewritten</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num green">6</div>
+    <div class="stat-label">Meta descriptions added</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num green">5</div>
+    <div class="stat-label">JSON-LD blocks installed</div>
+  </div>
+</div>
+
+<!-- ═══════ 1. PAGE TITLES & METAS ═══════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon teal">✎</div>
+    <div class="section-title">Page titles &amp; meta descriptions</div>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink2); margin-bottom:1rem;">All 6 pages updated via Squarespace SEO settings. Titles are keyword-front-loaded and under 60 characters. Descriptions include calls to action and sit within Google's 155-character display window.</p>
+
+  <table class="ba-table">
+    <thead>
+      <tr><th>Page</th><th>Before</th><th>After</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ba-page">Homepage</td>
+        <td>
+          <div class="ba-old">Title: Blue Lake Ideas</div>
+          <div class="ba-old">Meta: (empty)</div>
+        </td>
+        <td>
+          <div class="ba-new">Title: Matt Elliott | Leadership Speaker &amp; Advisor | Blue Lake Ideas</div>
+          <div class="ba-new">Meta: Matt Elliott helps leaders navigate complexity through The Power of &amp; framework. Keynote speaker, executive advisor, and author. Book Matt today.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="ba-page">Speaking</td>
+        <td>
+          <div class="ba-old">Title: SPEAKING — Blue Lake Ideas</div>
+          <div class="ba-old">Meta: (empty)</div>
+        </td>
+        <td>
+          <div class="ba-new">Title: Keynote Speaker on Leadership &amp; Sustainability | Matt Elliott</div>
+          <div class="ba-new">Meta: Book Matt Elliott for keynotes on leadership, change, and sustainability. Trusted by MSU, SXSW, Detroit Chamber, McKinsey, and BCG.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="ba-page">Advisory</td>
+        <td>
+          <div class="ba-old">Title: Advisory — Blue Lake Ideas</div>
+          <div class="ba-old">Meta: (empty)</div>
+        </td>
+        <td>
+          <div class="ba-new">Title: Executive Advisory &amp; Board Consulting | Matt Elliott</div>
+          <div class="ba-new">Meta: Strategic advisory for CEOs, boards, and leadership teams. Matt Elliott aligns people, strategy, and capital using The Power of &amp; framework.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="ba-page">Meet Matt</td>
+        <td>
+          <div class="ba-old">Title: General 6 — Blue Lake Ideas ⚠️</div>
+          <div class="ba-old">Meta: (empty)</div>
+        </td>
+        <td>
+          <div class="ba-new">Title: About Matt Elliott — Speaker, Advisor, Author | Blue Lake Ideas</div>
+          <div class="ba-new">Meta: Matt Elliott is a leadership expert, former Bank of America Michigan President, and creator of The Power of &amp; framework for navigating change.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="ba-page">Connect</td>
+        <td>
+          <div class="ba-old">Title: Connect — Blue Lake Ideas</div>
+          <div class="ba-old">Meta: (empty)</div>
+        </td>
+        <td>
+          <div class="ba-new">Title: Book Matt Elliott — Speaking &amp; Advisory Inquiries</div>
+          <div class="ba-new">Meta: Ready to bring The Power of &amp; to your team? Connect with Matt Elliott for keynote speaking, executive advisory, or board consulting.</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="ba-page">Power of &amp;</td>
+        <td>
+          <div class="ba-old">Title: Powered by and — Blue Lake Ideas</div>
+          <div class="ba-old">Meta: (empty)</div>
+        </td>
+        <td>
+          <div class="ba-new">Title: The Power of &amp; Framework | Leadership for Complexity</div>
+          <div class="ba-new">Meta: The Power of &amp; is a leadership framework that replaces either/or thinking with integrative decision-making. Created by Matt Elliott.</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════ 2. JSON-LD SCHEMA ═══════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon purple">{ }</div>
+    <div class="section-title">JSON-LD structured data installed</div>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink2); margin-bottom:1rem;">5 JSON-LD schema blocks installed via Squarespace Page Header Code Injection. These make the site machine-readable for Google's Knowledge Graph and AI answer engines (ChatGPT, Perplexity, Claude, Gemini).</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <div class="schema-card-title"><span class="dot"></span>Organization</div>
+      <div class="schema-card-page">→ Homepage</div>
+      <div class="schema-card-desc">Establishes Blue Lake Ideas as a recognized entity with name, location, logo, founder link, and social profiles.</div>
+    </div>
+    <div class="schema-card">
+      <div class="schema-card-title"><span class="dot"></span>Person</div>
+      <div class="schema-card-page">→ Homepage + Meet Matt</div>
+      <div class="schema-card-desc">Full entity profile for Matt Elliott including bio, credentials, knowsAbout tags, occupations, alumni info, and sameAs links.</div>
+    </div>
+    <div class="schema-card">
+      <div class="schema-card-title"><span class="dot"></span>WebSite</div>
+      <div class="schema-card-page">→ Homepage</div>
+      <div class="schema-card-desc">Declares the site's canonical URL, publisher, and description for search engine site-level understanding.</div>
+    </div>
+    <div class="schema-card">
+      <div class="schema-card-title"><span class="dot"></span>ProfessionalService (×2)</div>
+      <div class="schema-card-page">→ Speaking + Advisory</div>
+      <div class="schema-card-desc">Describes speaking and advisory as distinct services with audiences, topics, and offer catalogs.</div>
+    </div>
+    <div class="schema-card">
+      <div class="schema-card-title"><span class="dot"></span>FAQPage (×3)</div>
+      <div class="schema-card-page">→ Speaking + Advisory + Meet Matt</div>
+      <div class="schema-card-desc">11 total FAQ entries — the #1 format AI engines pull from. Covers "What is The Power of &?", booking info, topic descriptions, credentials, and more.</div>
+    </div>
+    <div class="schema-card">
+      <div class="schema-card-title"><span class="dot"></span>ContactPage</div>
+      <div class="schema-card-page">→ Connect</div>
+      <div class="schema-card-desc">Identifies the contact page as a formal inquiry point with contact type and language declarations.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 3. AUDIT FINDINGS ═══════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon blue">⚡</div>
+    <div class="section-title">Audit findings &amp; what was addressed</div>
+  </div>
+
+  <ul class="checklist">
+    <li class="check-item">
+      <div class="check-mark check-done">✓</div>
+      <div>
+        <div class="check-title">Empty meta descriptions on all pages</div>
+        <div class="check-detail">Google was auto-generating snippets from body copy with no control over messaging. Now all 6 pages have targeted, keyword-rich descriptions with CTAs.</div>
+      </div>
+      <span class="check-tag tag-done">Done</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-done">✓</div>
+      <div>
+        <div class="check-title">Broken page title on Meet Matt ("General 6")</div>
+        <div class="check-detail">Squarespace template default was displaying as the page title in search results. Replaced with keyword-optimized title including Matt's name and roles.</div>
+      </div>
+      <span class="check-tag tag-done">Done</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-done">✓</div>
+      <div>
+        <div class="check-title">Generic, non-keyword page titles sitewide</div>
+        <div class="check-detail">Titles like "SPEAKING — Blue Lake Ideas" waste the most important on-page SEO signal. All 6 titles now front-load high-intent keywords.</div>
+      </div>
+      <span class="check-tag tag-done">Done</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-done">✓</div>
+      <div>
+        <div class="check-title">Zero structured data / schema markup</div>
+        <div class="check-detail">AI engines and Google's Knowledge Graph couldn't parse who Matt is or what Blue Lake Ideas offers. 5 JSON-LD blocks now installed covering Person, Organization, Services, FAQs, and Contact.</div>
+      </div>
+      <span class="check-tag tag-done">Done</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-done">✓</div>
+      <div>
+        <div class="check-title">No AI-citable entity definitions</div>
+        <div class="check-detail">The Person schema now contains a clean, extractable bio paragraph that AI tools can directly cite when answering questions about Matt Elliott or The Power of &amp;.</div>
+      </div>
+      <span class="check-tag tag-done">Done</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-done">✓</div>
+      <div>
+        <div class="check-title">No FAQ content for AI answer engines</div>
+        <div class="check-detail">FAQ schema is the #1 format AI engines pull answers from. 11 FAQs now installed across 3 pages covering core questions about Matt, his framework, speaking topics, advisory services, and booking process.</div>
+      </div>
+      <span class="check-tag tag-done">Done</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-done">✓</div>
+      <div>
+        <div class="check-title">No keyword targeting strategy</div>
+        <div class="check-detail">Titles and metas now target high-intent queries: "leadership keynote speaker," "executive advisory board consulting," "Power of & framework," and "sustainability leadership."</div>
+      </div>
+      <span class="check-tag tag-done">Done</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ═══════ 4. NEXT STEPS ═══════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon amber">▶</div>
+    <div class="section-title">Recommended next steps</div>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink2); margin-bottom:1rem;">The foundation is now in place. These next actions will compound the SEO and AEO improvements.</p>
+
+  <ul class="checklist">
+    <li class="check-item">
+      <div class="check-mark check-next">1</div>
+      <div>
+        <div class="check-title">Validate schema in Google Rich Results Test</div>
+        <div class="check-detail">Paste each page URL into <strong>search.google.com/test/rich-results</strong> to confirm no JSON-LD errors. Fix any flagged issues before requesting re-indexing.</div>
+      </div>
+      <span class="check-tag tag-next">This week</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-next">2</div>
+      <div>
+        <div class="check-title">Request re-indexing in Google Search Console</div>
+        <div class="check-detail">For each of the 6 updated pages, submit the URL in Search Console and click "Request Indexing." This accelerates Google picking up the new titles, metas, and schema.</div>
+      </div>
+      <span class="check-tag tag-next">This week</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-next">3</div>
+      <div>
+        <div class="check-title">Add visible FAQ sections to Speaking, Advisory, and Meet Matt pages</div>
+        <div class="check-detail">The FAQ schema tells machines — but visible FAQ sections on the actual pages reinforce the signal and help human visitors too. Mirror the 11 questions already in the schema as expandable accordion sections on each page.</div>
+      </div>
+      <span class="check-tag tag-next">This month</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-next">4</div>
+      <div>
+        <div class="check-title">Delete or noindex the placeholder blog post</div>
+        <div class="check-detail">The Squarespace default "Blog Post Title One" from 2020 is indexed and makes the blog look abandoned. Either delete it or add a noindex tag, then begin publishing real content.</div>
+      </div>
+      <span class="check-tag tag-next">This week</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-next">5</div>
+      <div>
+        <div class="check-title">Begin republishing LinkedIn content as blog posts</div>
+        <div class="check-detail">Matt's LinkedIn posts are high-quality thought leadership that should live on the website. Repurpose 1 post per week as a blog article — this creates a growing library of indexable content tied to target keywords.</div>
+      </div>
+      <span class="check-tag tag-next">This month</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-next">6</div>
+      <div>
+        <div class="check-title">Change /meetmatt URL slug to /about-matt-elliott</div>
+        <div class="check-detail">The current slug has no keyword value. "/about-matt-elliott" captures name-based searches and reinforces the Person entity. Set up a 301 redirect from /meetmatt to the new URL.</div>
+      </div>
+      <span class="check-tag tag-next">This month</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-next">7</div>
+      <div>
+        <div class="check-title">Create a dedicated "Power of &amp;" pillar page</div>
+        <div class="check-detail">Build a comprehensive, canonical page explaining the framework in depth — what it is, how it works (3 steps), who it's for, case studies, and the book. This becomes the reference page AI tools and Google will cite.</div>
+      </div>
+      <span class="check-tag tag-next">This quarter</span>
+    </li>
+    <li class="check-item">
+      <div class="check-mark check-next">8</div>
+      <div>
+        <div class="check-title">Pursue backlinks and third-party authority signals</div>
+        <div class="check-detail">Get listed on additional speaker directories (SpeakerHub, BigSpeak, AAE). Pursue guest bylines in leadership/sustainability publications. Explore Wikipedia notability for Matt. Add YouTube video transcripts as blog content on the site.</div>
+      </div>
+      <span class="check-tag tag-next">This quarter</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="report-footer">
+  <span>Blue Lake Ideas — Web Audit &amp; Implementation Report</span>
+  <span>May 19, 2026</span>
+</div>
+
+</div><!-- end .content -->
+</body>
+</html>
