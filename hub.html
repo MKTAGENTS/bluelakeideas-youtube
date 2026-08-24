@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLI Agency Command Center — Hub</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>:root{--lake:#005B54;--lake-deep:#003D38;--lake-bright:#0A756B;--ink:#2D2D2D;--muted:#5D6966;--paper:#F7F8F4;--mist:#EEF4F3;--white:#FFFFFF;--line:#D9E3E0;--clay:#A64D4A;--serif:'Libre Baskerville',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--max:1120px;}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem}a{color:var(--lake)}
+h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);margin:0 0 10px}h3{font-family:var(--serif);font-size:18px;margin:0 0 6px}
+h4{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--lake);margin:22px 0 8px;font-weight:700}
+p{max-width:74ch;margin:0 0 10px}section{padding:48px 0;border-bottom:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0;background:var(--white)}
+th{background:var(--lake);color:#fff;text-align:left;padding:10px 13px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;vertical-align:bottom}
+td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}tr:nth-child(even) td{background:var(--paper)}
+code{background:var(--mist);padding:1px 5px;border-radius:3px;font-size:12px;color:var(--lake-deep)}
+.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--clay);margin-bottom:6px;display:block}
+.lede{font-size:17px;color:var(--muted);max-width:68ch;margin:0 0 24px}
+.call{border-left:4px solid var(--clay);background:var(--white);padding:16px 20px;margin:18px 0}
+.call.green{border-left-color:var(--lake)}.call p{margin:4px 0 0}
+.finding{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--clay);padding:18px 20px;margin:14px 0}
+.finding h3{margin:0 0 6px;font-size:17px}.finding p{font-size:14px;margin:6px 0 0}
+.sev{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:2px;background:var(--clay);color:#fff;display:inline-block;margin-left:8px}
+.sev.med{background:var(--lake-bright)}.sev.low{background:#B8C9C7;color:var(--lake-deep)}
+.brief{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--lake);margin:22px 0}
+.brief.commercial{border-left-color:var(--clay)}.brief-head{background:var(--mist);padding:14px 20px;border-bottom:1px solid var(--line)}
+.brief-head .id{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--clay)}
+.brief-head h3{margin:4px 0 2px;font-size:20px}.brief-body{padding:4px 20px 18px}
+.spec{display:grid;grid-template-columns:140px 1fr;gap:0;border-bottom:1px solid var(--line);padding:10px 0;font-size:14px}
+.spec:last-of-type{border:none}.spec .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--lake);padding-top:3px}
+.dont{background:#FBF3F0;border-left:3px solid var(--clay);padding:10px 14px;margin-top:10px;font-size:13px}
+.dont b{color:var(--clay);text-transform:uppercase;font-size:10px;letter-spacing:.1em;display:block;margin-bottom:4px}
+.tree{background:var(--lake-deep);color:#D8E6E4;padding:22px 26px;font-size:12.5px;line-height:1.85;overflow-x:auto;white-space:pre;font-family:ui-monospace,monospace}
+.tree b{color:#E6DCCB}.tree .p{color:#7FD6CB;font-weight:600}.tree span.note{color:#8FA6A3;font-style:italic}
+.copyblock{background:var(--white);border:1px solid var(--line);margin:16px 0}
+.cb-head{background:var(--mist);padding:8px 16px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--lake-deep)}
+.cb-body{padding:16px 20px}.cb-body .h{font-family:var(--serif);font-size:20px;margin:0 0 8px}
+.cb-body .sub{color:var(--muted);margin:0 0 10px}.cta-pill{display:inline-block;background:var(--lake);color:#fff;padding:8px 16px;font-size:13px;font-weight:600;margin-top:12px;border-radius:2px;text-decoration:none}
+footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}footer b{color:#fff}
+@media(max-width:700px){.spec{grid-template-columns:1fr}.wrap{padding:0 1rem}}</style>
+<style>
+.hero{background:var(--lake-deep);color:#fff;padding:52px 0 44px;border-bottom:5px solid var(--clay)}
+.hero h1{font-family:var(--serif);font-size:clamp(26px,4vw,42px);line-height:1.2;margin:10px 0 14px}
+.hero p{color:#CFE0DD;font-size:17px;max-width:64ch;margin:0}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:20px 0}
+@media(max-width:820px){.p-grid{grid-template-columns:1fr}}
+.pcard{border-radius:6px;padding:24px;color:#fff}
+.p1{background:var(--lake-deep);border:2px solid var(--lake-bright)}
+.p2{background:#4A3728;border:2px solid #8B6A58}
+.p3{background:#2D3F3D;border:2px solid #5D7A76}
+.pcard .pnum{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-bottom:8px}
+.pcard h3{font-family:var(--serif);font-size:20px;margin:0 0 10px;color:#fff}
+.pcard p{font-size:14px;color:rgba(255,255,255,.8);margin:0 0 14px;max-width:100%}
+.pcard a{display:block;color:#fff;background:rgba(255,255,255,.15);text-decoration:none;padding:6px 12px;border-radius:4px;font-size:13px;margin:4px 0;border:1px solid rgba(255,255,255,.2)}
+.pcard a:hover{background:rgba(255,255,255,.25)}
+.pcard .deliverables{font-size:12px;color:rgba(255,255,255,.65);margin-top:12px;border-top:1px solid rgba(255,255,255,.15);padding-top:10px}
+.rcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:18px 0}
+.rcard{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--lake);padding:18px;text-decoration:none;color:var(--ink);display:block}
+.rcard.ext{border-top-color:var(--clay)}.rcard h3{font-size:15px;margin:0 0 5px;color:var(--lake)}
+.rcard p{font-size:13px;color:var(--muted);margin:0;max-width:100%}
+.rcard .tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:700;margin-bottom:6px}
+.seq{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0}
+.seqcard{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--lake-bright);padding:16px}
+.seqcard b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lake);margin-bottom:6px}
+.seqcard p{font-size:13px;margin:0;color:var(--ink);max-width:100%}
+.rules{list-style:none;padding:0;margin:16px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.rules{grid-template-columns:1fr}}
+.rules li{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--lake);padding:12px 16px;font-size:14px}
+.rules li b{color:var(--lake-deep);display:block;margin-bottom:3px;font-size:13px}
+.introw{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:18px 0}
+@media(max-width:700px){.introw{grid-template-columns:1fr}}
+.intcard{background:var(--white);border:1px solid var(--line);padding:18px}
+.intcard .icon{font-size:24px;margin-bottom:8px}
+.intcard h3{margin:0 0 8px;font-size:16px}.intcard p{font-size:13px;color:var(--muted);margin:0;max-width:100%}
+.intcard ul{margin:8px 0 0;padding-left:16px;font-size:13px;color:var(--ink)}
+.intcard li{margin-bottom:4px}
+.vocab-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;background:var(--mist);color:var(--lake-deep);border:1px solid var(--line);margin-right:4px}
+.warn{background:#FEF9F0;border:1px solid #F5D78E;border-left:4px solid #E8A010;padding:14px 18px;margin:16px 0;font-size:14px}
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.5rem;background:#005B54;color:#fff;font-family:'DM Sans',sans-serif;flex-wrap:wrap;gap:4px;">
+<span style="font-weight:700;letter-spacing:0.5px;white-space:nowrap;font-size:0.72rem;"><img src="data:image/png;base64,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" style="height:20px;vertical-align:middle;margin-right:4px;" alt="&amp;"> BLI Command Center</span>
+<div style="display:flex;gap:2px;flex-wrap:wrap;"><a href="hub.html" style="color:#fff;background:rgba(255,255,255,0.18);font-weight:700;text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Hub</a> <a href="index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">YouTube</a> <a href="language-playbook.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Language</a> <a href="source-of-record.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Sources</a> <a href="style-guide.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Style</a> <a href="audit.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Audit</a> <a href="implementation.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Implementation</a> <a href="website-architecture.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Web Architecture</a> <a href="copy-briefs.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Copy Briefs</a> <a href="clean-copy-playbook.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Clean Copy</a> <a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Overloaded ↗</a> <a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Overloaded SEO ↗</a></div></nav>
+
+<div class="hero">
+<div class="wrap">
+<span class="eyebrow">Internal — Agency Use Only</span>
+<h1>Blue Lake Ideas<br>Agency Command Center</h1>
+<p>Everything the agency needs to build, write, and publish the Blue Lake Ideas system — in the right order, with the right language, for the right buyer. Follow the priority sequence below. Do not improvise the vocabulary.</p>
+<div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);display:flex;flex-wrap:wrap;gap:24px;font-size:13px;color:#AFC8C4">
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Client</b>Blue Lake Ideas LLC — Matt Elliott</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Agency Contact</b>Kate · kate@mktagents.com</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Top Priority</b>Website Build + Content Pillars</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Audience</b>CEOs, Boards, Executive Teams</div>
+</div>
+</div>
+</div>
+
+<section>
+<div class="wrap">
+<span class="eyebrow">Where to Start</span>
+<h2>Priority Order</h2>
+<p class="lede">Three workstreams, in this sequence. Do not start Priority 2 until Priority 1 is underway. Do not start Priority 3 until the foundations from 1 and 2 are in place.</p>
+<div class="p-grid">
+<div class="pcard p1">
+<div class="pnum">Priority 1 — Active Now</div>
+<h3>Website Build</h3>
+<p>Four content pillars, 24 pages, 17 copy assets. This is the canonical home for all owned language. Everything else points here.</p>
+<a href="website-architecture.html">📐 Website Architecture Guide →</a>
+<a href="copy-briefs.html">✍️ Copy Needs &amp; Creative Briefs →</a>
+<a href="clean-copy-playbook.html">🎯 Clean Copy Playbook →</a>
+<div class="deliverables">
+<b style="color:rgba(255,255,255,.9);display:block;margin-bottom:4px">Wave 1 (Days 1–30):</b>
+Homepage rewrite · &amp; Intelligence™ pillar · Binary Trap pillar · Four Taxes sub-pillar
+<b style="color:rgba(255,255,255,.9);display:block;margin:8px 0 4px">Wave 2 (Days 31–60):</b>
+Capacity Advantage · Power of &amp;™ · Speaking · Advisory · Overloaded book page · Capacity Audit
+<b style="color:rgba(255,255,255,.9);display:block;margin:8px 0 4px">Wave 3 (Days 61–90):</b>
+Cluster articles · Proof cases · 3-step pages · Email nurture sequence
+</div>
+</div>
+<div class="pcard p2">
+<div class="pnum">Priority 2 — Running in Parallel</div>
+<h3>Content Production</h3>
+<p>YouTube channel build-out, language standardization, and voice consistency across all channels.</p>
+<a href="index.html">🎬 YouTube Calendar (12-Week) →</a>
+<a href="language-playbook.html">📖 Language Playbook →</a>
+<a href="style-guide.html">🎨 Style Guide →</a>
+<a href="source-of-record.html">📋 Source of Record →</a>
+<div class="deliverables">
+<b style="color:rgba(255,255,255,.9);display:block;margin-bottom:4px">Content rules:</b>
+All Substack posts link back to the canonical web page. All LinkedIn posts lead with the owned term. YouTube descriptions include the pillar URL. Every piece has one CTA.
+</div>
+</div>
+<div class="pcard p3">
+<div class="pnum">Priority 3 — Ongoing Foundation</div>
+<h3>SEO / AEO</h3>
+<p>Search and AI answer engine optimization. Schema markup, Google Search Console, sitemap, audit tracking.</p>
+<a href="audit.html">🔍 SEO Audit Report →</a>
+<a href="implementation.html">⚙️ Implementation Guide →</a>
+<a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank">📋 Overloaded SEO Todos ↗</a>
+<div class="deliverables">
+<b style="color:rgba(255,255,255,.9);display:block;margin-bottom:4px">Foundation items complete:</b>
+Schema markup installed · Page titles updated · Meta descriptions set · Blog noindex resolved
+<b style="color:rgba(255,255,255,.9);display:block;margin:8px 0 4px">Active now:</b>
+Google Search Console setup · Sitemap submission · Pillar page FAQ + JSON-LD
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<span class="eyebrow">Non-Negotiable</span>
+<h2>The 5 Canonical Terms</h2>
+<p class="lede">These are the owned vocabulary. Every piece of content — web, Substack, LinkedIn, YouTube, email — uses these exact terms. No synonyms. No improvisation.</p>
+<div class="warn">⚠️ <b>The two terms writers keep confusing:</b> The Power of &amp;™ is the <em>framework</em> (three steps). &amp; Intelligence™ is the <em>capability</em> (fluency to run those steps under pressure). They are not interchangeable. The homepage was recently corrected for this exact mistake.</div>
+<table>
+<thead><tr><th style="width:20%">Term — use exactly this</th><th style="width:15%">Layer</th><th>One-line definition</th><th style="width:22%">Never call it</th></tr></thead>
+<tbody>
+<tr><td><b>The Binary Trap</b></td><td>Mechanism</td><td>The pattern where accelerating change consumes leadership capacity, fast defaults take over, and interdependent priorities get recast as either/or choices.</td><td>The Causal Chain, binary thinking, complexity</td></tr>
+<tr><td><b>The Four Taxes</b></td><td>Cost</td><td>What organizations pay when the Binary Trap becomes the operating pattern: False Choices, Silos, Short-Termism, Stalled Innovation.</td><td>Costs, consequences, downsides. Always name all four.</td></tr>
+<tr><td><b>The Power of &amp;™</b></td><td>Framework</td><td>Three steps that let leaders hold real tensions over time: Pause &amp; Reflect, Find the &amp;, Test &amp; Learn. Never call it the framework alone.</td><td>Both/and thinking, yes/and, Power of And</td></tr>
+<tr><td><b>&amp; Intelligence™</b></td><td>Capability</td><td>The developed capability to run the framework under pressure. Different from the framework itself — it is the fluency to execute it when the stakes are high.</td><td>The training, the method, the model</td></tr>
+<tr><td><b>The Capacity Advantage</b></td><td>Outcome</td><td>What leaders gain when they recapture usable capacity and preserve strategic range: better decisions, better delivery, sustained performance.</td><td>Resilience, bandwidth, wellness, capacity building</td></tr>
+</tbody>
+</table>
+<div class="call green">
+<span class="eyebrow">Three sentences every writer must know</span>
+<p><b>1.</b> The Binary Trap is what happens to leaders under load. The Four Taxes are what it costs the enterprise.</p>
+<p><b>2.</b> The Power of &amp;™ is the framework and its three steps. &amp; Intelligence™ is the fluency to run it under pressure.</p>
+<p><b>3.</b> The Capacity Advantage is what you get. Speaking, Facilitator Certification, and Advisory are three depths of the same system.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<span class="eyebrow">All Resources</span>
+<h2>Portal Resource Library</h2>
+<p class="lede">Every page in the command center, labeled by what it is for and who reads it.</p>
+<h4>Website Build Playbooks — Start Here</h4>
+<div class="rcards">
+<a class="rcard ext" href="clean-copy-playbook.html"><div class="tag">🎯 Read First</div><h3>Clean Copy Playbook</h3><p>Pressure test findings, canonical fix, approved copy library, CEO conversion path, 90-day build sequence, publish gate checklist.</p></a>
+<a class="rcard ext" href="website-architecture.html"><div class="tag">📐 Architecture</div><h3>Website Architecture Guide</h3><p>Full sitemap, page directory, URL standards, nav spec, internal linking law, module library, schema requirements, governance.</p></a>
+<a class="rcard ext" href="copy-briefs.html"><div class="tag">✍️ Copywriter</div><h3>Copy Needs &amp; Creative Briefs</h3><p>17 asset briefs with section order, required terms, word counts, CTAs, and "do not" rules for every page in the build.</p></a>
+</div>
+<h4>Content &amp; Language</h4>
+<div class="rcards">
+<a class="rcard" href="language-playbook.html"><div class="tag">📖 Language</div><h3>Language Playbook</h3><p>Owned vocabulary, gap analysis, usage rules, term status tracking, blog post pipeline.</p></a>
+<a class="rcard" href="style-guide.html"><div class="tag">🎨 Voice</div><h3>Style Guide</h3><p>Matt's voice attributes, writing rules, Smart Brevity standards, channel-specific guidance, banned words.</p></a>
+<a class="rcard" href="source-of-record.html"><div class="tag">📋 Source</div><h3>Source of Record</h3><p>Original Matt quotes with source citations, terminology evolution tracking, editorial notes.</p></a>
+<a class="rcard" href="index.html"><div class="tag">🎬 YouTube</div><h3>YouTube Calendar</h3><p>12-week content calendar, video briefs, SEO tags, descriptions, and production notes.</p></a>
+</div>
+<h4>SEO / AEO Audit</h4>
+<div class="rcards">
+<a class="rcard" href="audit.html"><div class="tag">🔍 SEO</div><h3>SEO Audit Report</h3><p>Completed findings, before/after changes, and remaining next steps for bluelakeideas.com.</p></a>
+<a class="rcard" href="implementation.html"><div class="tag">⚙️ Technical</div><h3>Implementation Guide</h3><p>Schema markup, meta tags, technical SEO checklist, and implementation status.</p></a>
+<a class="rcard ext" href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank"><div class="tag">📘 Book</div><h3>Overloaded Campaign ↗</h3><p>Waitlist page and campaign materials for the Overloaded book launch.</p></a>
+<a class="rcard ext" href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank"><div class="tag">📋 Todos</div><h3>Overloaded SEO Todos ↗</h3><p>Active SEO/AEO task list for the Overloaded campaign pages.</p></a>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<span class="eyebrow">Build Timeline</span>
+<h2>90-Day Sequence</h2>
+<p class="lede">Ownership first, conversion in parallel. Do not skip steps — each window unlocks the next.</p>
+<div class="seq">
+<div class="seqcard"><b>Days 1–15 · Govern</b><p>Fix the definition conflict across all live assets. Corrected homepage with The Binary Trap named. One primary CTA. Add visible FAQ + JSON-LD.</p></div>
+<div class="seqcard"><b>Days 16–30 · Define</b><p>Pillar 1: &amp; Intelligence™ (2,000–2,500 words, 7 FAQs). Pillar 2: The Binary Trap. Sub-pillar: The Four Taxes.</p></div>
+<div class="seqcard"><b>Days 31–45 · Convert</b><p>The Capacity Audit (10-question diagnostic). Chapter one capture page. HubSpot properties, lifecycle stages, and 4 core workflows.</p></div>
+<div class="seqcard"><b>Days 46–60 · Define+</b><p>Pillar 3: The Capacity Advantage. Pillar 4: The Power of &amp;™. Rewrite Advisory page against new spec.</p></div>
+<div class="seqcard"><b>Days 61–75 · Apply</b><p>Six cluster articles (min. one per pillar). Migrate strongest Substack and LinkedIn pieces into permanent Insights posts.</p></div>
+<div class="seqcard"><b>Days 76–90 · Prove</b><p>Three proof cases. Speaking and Certification pages rewritten. First conversion report from HubSpot.</p></div>
+</div>
+<div class="call">
+<span class="eyebrow">If only three things get done</span>
+<p>Fix the definition conflict. Name The Binary Trap on the homepage. Build the Capacity Audit. These three moves fix credibility, vocabulary ownership, and the absence of a funnel.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<span class="eyebrow">Integration</span>
+<h2>Web / Substack / Social / YouTube</h2>
+<p class="lede">One system, four channels. The website is always canonical. Every other channel points back to it.</p>
+<div class="introw">
+<div class="intcard">
+<div class="icon">🌐</div>
+<h3>Website (bluelakeideas.com)</h3>
+<p>The canonical home for every owned term. The pillar page is the deepest, most authoritative source. Every other channel links here.</p>
+<ul>
+<li>One definition per term, one page per term</li>
+<li>FAQ + JSON-LD on every pillar</li>
+<li>The definition ships <em>before</em> or same day as social</li>
+<li>Canonical tags on all migrated content</li>
+</ul>
+</div>
+<div class="intcard">
+<div class="icon">✉️</div>
+<h3>Substack</h3>
+<p>Long-form essays that originate here migrate to /insights for permanent ownership. Original Substack post updates with a link to the web version.</p>
+<ul>
+<li>Never delete the original Substack post</li>
+<li>Add: "The canonical version of this piece lives at [URL]"</li>
+<li>Strong Substack pieces → migrate to Insights within 30 days</li>
+<li>Substack audience → chapter one capture</li>
+</ul>
+</div>
+<div class="intcard">
+<div class="icon">💼</div>
+<h3>LinkedIn + YouTube</h3>
+<p>Shorter form, single idea, one CTA per post. Always leads back to the web for the full context.</p>
+<ul>
+<li>Lead with the owned term (first 2 lines)</li>
+<li>One CTA per post, always a web URL</li>
+<li>YouTube descriptions include the pillar URL</li>
+<li>LinkedIn posts drive to the relevant Insights article or pillar</li>
+<li>Never define a term in full on social — drive to the pillar</li>
+</ul>
+</div>
+</div>
+<div class="call green">
+<span class="eyebrow">The cardinal rule</span>
+<p>A social post can introduce attention. It cannot be the only place the definition lives. The website definition ships first, or at minimum the same day as the social launch.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<span class="eyebrow">Non-Negotiable Rules</span>
+<h2>10 Rules That Cannot Break</h2>
+<p class="lede">Every draft, every channel, every publish. These are not preferences.</p>
+<ul class="rules">
+<li><b>1. One term, one canonical page.</b> No term is defined in two places. Everything links to the single source.</li>
+<li><b>2. The Binary Trap is the mechanism.</b> Never use "The Causal Chain," "binary thinking," or "complexity" as substitutes.</li>
+<li><b>3. The Power of &amp;™ ≠ &amp; Intelligence™.</b> Framework vs. capability. These are not interchangeable.</li>
+<li><b>4. One CTA per page.</b> Exactly one. Secondary routes are plain text links only — no second button.</li>
+<li><b>5. The Binary Trap appears on the homepage.</b> By name. Above the fold. Not buried in section three.</li>
+<li><b>6. Cluster links up, pillar links down.</b> Every cluster page links to its pillar. Every pillar links to its clusters. Orphaned pages do not rank.</li>
+<li><b>7. No em dashes.</b> Ever. Use a period, a comma, or a colon instead.</li>
+<li><b>8. Clarity. Connection. Courage.</b> Three parts. This order. Periods. Never reordered or extended.</li>
+<li><b>9. FAQ + JSON-LD on every substantive page.</b> Visible, complete-sentence answers. Matches schema exactly. This is the AEO foundation.</li>
+<li><b>10. Website definition ships first.</b> Before or same day as any social or email launch. A post can generate attention. It cannot be the only place the definition lives.</li>
+</ul>
+<h4>Also Banned on Sight</h4>
+<p style="color:var(--muted);font-size:14px;">"In today's fast-paced world" · "Unlock" · "Transform" · "Bespoke" · "Holistic" · "Leverage" (as a verb) · "Both/and thinking" (as a Power of &amp;™ substitute) · "Find common ground" (for Find the &amp;) · "Slow down" (for Pause &amp; Reflect) · "Experiment" (for Test &amp; Learn)</p>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<span class="eyebrow">Before You Publish</span>
+<h2>Publish Gate — Quick Check</h2>
+<p class="lede">A draft is ready when all of these pass. Not before.</p>
+<table>
+<thead><tr><th style="width:5%">✓</th><th>Check</th></tr></thead>
+<tbody>
+<tr><td></td><td>Primary owned term appears in the headline or opening section</td></tr>
+<tr><td></td><td>One content job only: define, diagnose, apply, prove, or convert</td></tr>
+<tr><td></td><td>Definitions match the 5-term canonical hierarchy above</td></tr>
+<tr><td></td><td>The Power of &amp;™ and &amp; Intelligence™ treated as distinct (not interchangeable)</td></tr>
+<tr><td></td><td>All four taxes named on first introduction to the concept</td></tr>
+<tr><td></td><td>Clarity. Connection. Courage. in order, three parts only</td></tr>
+<tr><td></td><td>No em dashes anywhere in the draft</td></tr>
+<tr><td></td><td>Exactly one CTA — maps to a defined lifecycle stage</td></tr>
+<tr><td></td><td>Cluster page links to its pillar with exact-term anchor text</td></tr>
+<tr><td></td><td>Every owned term links to its canonical page on first mention only</td></tr>
+<tr><td></td><td>SEO title under 60 characters, owned term front-loaded</td></tr>
+<tr><td></td><td>Meta description 150–160 characters</td></tr>
+<tr><td></td><td>2–3 visible FAQs with matching JSON-LD schema</td></tr>
+<tr><td></td><td>One underlineable mantra sentence exists in the piece</td></tr>
+<tr><td></td><td>Command Center updated with URL and publish date</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer><div class="wrap"><b>Blue Lake Ideas</b> — Agency Command Center · Prepared by MKT Agents<br>The Power of &amp;™ and &amp; Intelligence™ are trademarks of Blue Lake Ideas LLC.</div></footer>
+</body>
+</html>

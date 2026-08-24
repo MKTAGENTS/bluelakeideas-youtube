@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>:root{--lake:#005B54;--lake-deep:#003D38;--lake-bright:#0A756B;--ink:#2D2D2D;--muted:#5D6966;--paper:#F7F8F4;--mist:#EEF4F3;--white:#FFFFFF;--line:#D9E3E0;--clay:#A64D4A;--serif:'Libre Baskerville',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--max:1120px;}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem}a{color:var(--lake)}
+h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);margin:0 0 10px}h3{font-family:var(--serif);font-size:18px;margin:0 0 6px}
+h4{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--lake);margin:22px 0 8px;font-weight:700}
+p{max-width:74ch;margin:0 0 10px}section{padding:48px 0;border-bottom:1px solid var(--line)}section:nth-of-type(even){background:var(--white)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0;background:var(--white)}
+th{background:var(--lake);color:#fff;text-align:left;padding:10px 13px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;vertical-align:bottom}
+td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}tr:nth-child(even) td{background:var(--paper)}
+code{background:var(--mist);padding:1px 5px;border-radius:3px;font-size:12px;color:var(--lake-deep)}
+.mast{background:var(--lake-deep);color:#fff;padding:52px 0 44px;border-bottom:5px solid var(--clay)}
+.mast h1{font-family:var(--serif);font-size:clamp(24px,4vw,40px);line-height:1.2;margin:10px 0 14px}.mast p{color:#CFE0DD;font-size:17px;max-width:64ch;margin:0}
+.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--clay);margin-bottom:6px;display:block}.mast .eyebrow{color:#E6DCCB}
+.lede{font-size:17px;color:var(--muted);max-width:68ch;margin:0 0 24px}
+.call{border-left:4px solid var(--clay);background:var(--white);padding:16px 20px;margin:18px 0}.call.green{border-left-color:var(--lake)}.call p{margin:4px 0 0}
+.toc-wrap{background:var(--mist);border-bottom:1px solid var(--line);padding:26px 0}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 24px;list-style:none;padding:0;margin:0;counter-reset:t}
+.toc-list li{counter-increment:t;font-size:14px;border-bottom:1px dotted var(--line);padding:7px 0}
+.toc-list li::before{content:counter(t,decimal-leading-zero);font-weight:700;color:var(--clay);margin-right:8px;font-size:12px}
+.toc-list a{text-decoration:none;color:var(--ink)}.toc-list a:hover{color:var(--lake-bright)}
+.tree{background:var(--lake-deep);color:#D8E6E4;padding:22px 26px;font-size:12.5px;line-height:1.85;overflow-x:auto;white-space:pre;font-family:ui-monospace,monospace}
+.tree b{color:#E6DCCB}.tree .p{color:#7FD6CB;font-weight:600}.tree span.note{color:#8FA6A3;font-style:italic}
+.pagecard{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--lake);margin:20px 0;padding:18px 22px}
+.pagecard.commercial{border-top-color:var(--clay)}.pagecard.util{border-top-color:#B8C9C7}
+.pagecard h3{margin:0 0 3px;font-size:19px}.pagecard .url{font-size:13px;color:var(--lake-bright);font-weight:600;margin-bottom:10px}
+.attr{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:12px 0;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.attr div span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:2px}
+.attr div b{font-size:14px;font-weight:600}.pagecard ul{margin:8px 0 0;padding-left:18px;font-size:14px}.pagecard li{margin-bottom:4px}
+.lvl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--clay)}
+.check{list-style:none;padding:0;margin:14px 0;columns:2;column-gap:28px}
+.check li{font-size:14px;margin-bottom:8px;padding-left:24px;position:relative;break-inside:avoid}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--lake-bright)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
+.flow div{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--lake-bright);padding:14px}
+.flow div b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lake);margin-bottom:5px}
+.flow div p{margin:0;font-size:13px}
+footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}footer b{color:#fff}
+@media(max-width:700px){.wrap{padding:0 1rem}.check{columns:1}}</style>
+<title>Blue Lake Ideas | Clean Copy Playbook &amp; CEO Inbound Architecture</title></head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.5rem;background:#005B54;color:#fff;font-family:'DM Sans',sans-serif;flex-wrap:wrap;gap:4px;"><span style="font-weight:700;letter-spacing:0.5px;white-space:nowrap;font-size:0.72rem;"><img src="data:image/png;base64,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" style="height:20px;vertical-align:middle;margin-right:4px;" alt="&amp;"> BLI Command Center</span><div style="display:flex;gap:2px;flex-wrap:wrap;"><a href="hub.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Hub</a> <a href="index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">YouTube</a> <a href="language-playbook.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Language</a> <a href="source-of-record.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Sources</a> <a href="style-guide.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Style</a> <a href="audit.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Audit</a> <a href="implementation.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Implementation</a> <a href="website-architecture.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Web Architecture</a> <a href="copy-briefs.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Copy Briefs</a> <a href="clean-copy-playbook.html" style="color:#fff;background:rgba(255,255,255,0.18);font-weight:700;text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Clean Copy</a> <a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Overloaded ↗</a> <a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Overloaded SEO ↗</a></div></nav>
+<div class="mast"><div class="wrap">
+<span class="eyebrow">Command Center Pressure Test</span>
+<h1>Clean Copy Playbook &amp;<br>Website Architecture for CEO-Facing Inbound</h1>
+<p>What the Command Center gets right, where the homepage contradicts it, and the complete pillar-and-cluster architecture that turns Blue Lake Ideas' owned language into qualified CEO and board-level inquiries.</p>
+<div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);display:flex;flex-wrap:wrap;gap:22px;font-size:13px;color:#AFC8C4">
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Sources tested</b>Command Center Content Flow Guide · Homepage CEO-Clarity draft</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Model</b>HubSpot pillar / topic cluster + lifecycle routing</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Standard</b>Smart Brevity · one job per page · one CTA</div>
+</div>
+</div></div>
+<div class="toc-wrap"><div class="wrap">
+<ol class="toc-list">
+<li><a href="#s1">Pressure Test Findings</a></li>
+<li><a href="#s2">The Canonical Fix</a></li>
+<li><a href="#s3">Pillar &amp; Cluster Model</a></li>
+<li><a href="#s4">Complete Site Architecture</a></li>
+<li><a href="#s5">Page-Level Spec Sheet</a></li>
+<li><a href="#s6">Internal Linking Law</a></li>
+<li><a href="#s7">CEO Inbound Conversion Path</a></li>
+<li><a href="#s8">HubSpot Build Spec</a></li>
+<li><a href="#s9">Clean Copy Standard</a></li>
+<li><a href="#s10">Approved Copy Library</a></li>
+<li><a href="#s11">Build Sequence, 90 Days</a></li>
+<li><a href="#s12">Publish Gate Checklist</a></li>
+</ol>
+</div></div>
+
+<section id="s1"><div class="wrap">
+<span class="eyebrow">Section 01</span>
+<h2>Pressure test findings</h2>
+<p class="lede">The Command Center is a strong governance document. The failure is not strategy. It is that the first page built against it already breaks four of its own rules.</p>
+<div class="finding"><div class="fhead"><span class="fnum">01</span><h3>The two flagship terms are defined two different ways</h3><span class="sev">Critical</span></div>
+<p><span class="lbl">What breaks.</span> The Command Center defines The Power of &amp;™ as the belief/thesis and &amp; Intelligence™ as the named operating practice. The homepage labels The Power of &amp;™ "the framework" and &amp; Intelligence™ "the training."</p>
+<p><span class="lbl">Why it matters.</span> AI answer engines resolve entity definitions by consensus. Two conflicting definitions on the same site means neither gets cited with confidence.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">02</span><h3>The Binary Trap is never named on the homepage</h3><span class="sev">Critical</span></div>
+<p><span class="lbl">What breaks.</span> The homepage walks the exact sequence but labels it "The executive problem." The owned term is absent.</p>
+<p><span class="lbl">Why it matters.</span> An unnamed mechanism is a commodity observation about complexity. The term is the product.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">03</span><h3>The Capacity Advantage has no canonical page</h3><span class="sev">Critical</span></div>
+<p><span class="lbl">What breaks.</span> The homepage hero reads "Capacity is the advantage" — a near miss on the owned outcome. No page for it to rank, cite, or route post-keynote visitors to.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">04</span><h3>Three competing CTAs above the fold</h3><span class="sev med">High</span></div>
+<p><span class="lbl">What breaks.</span> Explore &amp; Intelligence™, Bring the framework to your team, and Bring Matt In all fire at once. The Command Center writing standard is one CTA.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">05</span><h3>The payoff chain was extended without governance</h3><span class="sev med">High</span></div>
+<p><span class="lbl">What breaks.</span> "Clarity. Connection. Courage." is a fixed three-part tagline. Wisdom → Legacy is a separate long-term arc. The homepage merged them into a five-step chain.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">06</span><h3>No visible FAQ or schema layer on the homepage</h3><span class="sev med">High</span></div>
+<p><span class="lbl">Why it matters.</span> Visible FAQ plus matching JSON-LD is the single highest-leverage AEO move available. It is also the fastest to ship.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">07</span><h3>No conversion layer for the named buyer</h3><span class="sev med">High</span></div>
+<p><span class="lbl">What breaks.</span> Advisory is the highest-value line and has the thinnest path: one contact link. A CEO will not fill out a "Start an advisory conversation" form on first visit. There is no intermediate step between reading and buying.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">08</span><h3>Unattributed proof</h3><span class="sev low">Watch</span></div>
+<p><span class="lbl">Fix.</span> Relabel the logo wall to "Where Blue Lake Ideas has spoken and advised." Footnote unsourced metrics. Replace the placeholder quote before launch or remove the module.</p></div>
+<div class="finding"><div class="fhead"><span class="fnum">09</span><h3>Overloaded positioned as a third product, not the spine</h3><span class="sev low">Watch</span></div>
+<p><span class="lbl">Fix.</span> The book is the best top-of-funnel asset in the portfolio. It is a low-friction email capture a CEO will actually give an address for. Treat it as the entry point, not a third checkout lane.</p></div>
+</div></section>
+
+<section id="s2"><div class="wrap">
+<span class="eyebrow">Section 02</span>
+<h2>The canonical fix</h2>
+<p class="lede">One hierarchy, four layers, no overlap. Every page, post, script, and sales conversation uses this and only this.</p>
+<table><thead><tr><th style="width:16%">Layer</th><th style="width:20%">Owned term</th><th>Canonical one-line definition</th><th style="width:18%">Never call it</th></tr></thead><tbody>
+<tr><td><b>Mechanism</b></td><td>The Binary Trap</td><td>The pattern where accelerating change consumes leadership capacity, fast defaults take over, and interdependent priorities get recast as either/or choices.</td><td>The Causal Chain, binary thinking, complexity</td></tr>
+<tr><td><b>Cost</b></td><td>The Four Taxes</td><td>What organizations pay when the Binary Trap becomes the operating pattern: False Choices, Silos, Short-Termism, Stalled Innovation.</td><td>Costs, consequences, downsides</td></tr>
+<tr><td><b>Framework</b></td><td>The Power of &amp;™</td><td>Three steps to hold real tensions together over time against a shared definition of success: Pause &amp; Reflect, Find the &amp;, Test &amp; Learn.</td><td>The framework, both/and thinking, yes/and</td></tr>
+<tr><td><b>Capability</b></td><td>&amp; Intelligence™</td><td>The developed capability to run the framework under pressure, when stakes are high and capacity is short.</td><td>The training, the method, the model</td></tr>
+<tr><td><b>Outcome</b></td><td>The Capacity Advantage</td><td>What leaders gain when they recapture usable capacity and preserve strategic range.</td><td>Resilience, bandwidth, wellness</td></tr>
+</tbody></table>
+<div class="call green"><span class="eyebrow">The resolution</span><p><b>The Power of &amp;™ is the framework. &amp; Intelligence™ is the capability. Facilitator Certification is the credential.</b> The homepage was not wrong to sell a training experience. It was wrong to redefine the term to do it. Add the product noun and the conflict disappears.</p></div>
+<h4>Three sentences every writer must be able to say out loud</h4>
+<ul>
+<li><b>The Binary Trap</b> is what happens to leaders under load. <b>The Four Taxes</b> are what it costs the enterprise.</li>
+<li><b>The Power of &amp;™</b> is the framework and its three steps. <b>&amp; Intelligence™</b> is the fluency to run it under pressure.</li>
+<li><b>The Capacity Advantage</b> is what you get. <b>Speaking, Facilitator Certification, and Advisory</b> are three depths of the same system.</li>
+</ul>
+</div></section>
+
+<section id="s3"><div class="wrap">
+<span class="eyebrow">Section 03</span>
+<h2>Pillar and cluster model</h2>
+<p class="lede">Four pillars. Not five, not nine. One comprehensive pillar per core topic, cluster pages linking up with consistent anchor text, the pillar linking back down to each.</p>
+<table><thead><tr><th style="width:5%">#</th><th style="width:22%">Pillar page</th><th style="width:16%">Core topic owned</th><th>Cluster content</th><th style="width:12%">Funnel role</th></tr></thead><tbody>
+<tr><td><b>P1</b></td><td>The Power of &amp;™<br><code>/power-of-and</code></td><td>The framework</td><td>Pause &amp; Reflect · Find the &amp; · Test &amp; Learn · shared definition of success · the &amp; HAS to be true · profit &amp; purpose · people &amp; AI · growth &amp; sustainability</td><td>Top to middle</td></tr>
+<tr><td><b>P2</b></td><td>The Binary Trap<br><code>/binary-trap</code></td><td>The mechanism</td><td>The Four Taxes (sub-pillar) · System 1 under pressure · binary thinking at team level · false tradeoff diagnostics</td><td>Top</td></tr>
+<tr><td><b>P3</b></td><td>The Capacity Advantage<br><code>/capacity-advantage</code></td><td>The outcome</td><td>Capacity vs time management · capacity in the AI era · the virtuous cycle · Wisdom → Legacy</td><td>Middle to bottom</td></tr>
+<tr><td><b>P4</b></td><td>&amp; Intelligence™<br><code>/and-intelligence</code></td><td>The capability</td><td>Facilitator Certification · the &amp; of AI · fluency under pressure · running the steps when capacity is short</td><td>Middle</td></tr>
+</tbody></table>
+<div class="call"><span class="eyebrow">Sub-pillar exception</span><p>The Four Taxes gets its own indexed page at <code>/binary-trap/four-taxes</code> but reports to P2 rather than standing as a fifth pillar. This keeps authority consolidated instead of split.</p></div>
+</div></section>
+
+<section id="s4"><div class="wrap">
+<span class="eyebrow">Section 04</span>
+<h2>Complete site architecture</h2>
+<div class="tree"><b>bluelakeideas.com</b>  <span class="note">homepage: teach the system, route to one action</span>
+│
+├── <span class="p">/and-intelligence</span>  <b>PILLAR 4</b> · the capability  <span class="note">1,200–1,500 words + 5 FAQs</span>
+│   ├── /and-intelligence/facilitator-certification  <span class="note">commercial: the credential</span>
+│   ├── /power-of-and/pause-and-reflect
+│   ├── /power-of-and/find-the-and
+│   └── /power-of-and/test-and-learn
+│
+├── <span class="p">/binary-trap</span>  <b>PILLAR 2</b> · the mechanism  <span class="note">1,400 words + 5 FAQs</span>
+│   └── /binary-trap/four-taxes  <span class="note">sub-pillar · the cost</span>
+│
+├── <span class="p">/capacity-advantage</span>  <b>PILLAR 3</b> · the outcome  <span class="note">1,200 words + 5 FAQs</span>
+│
+├── <span class="p">/power-of-and</span>  <b>PILLAR 1</b> · the framework  <span class="note">2,000–2,500 words + 7 FAQs</span>
+│
+├── <b>/speaking</b>  <span class="note">commercial · event buyer + CEO sponsor</span>
+│   ├── /speaking/keynotes
+│   └── /speaking/availability  <span class="note">conversion · form only</span>
+│
+├── <b>/advisory</b>  <span class="note">commercial · CEO, board, exec team</span>
+│   ├── /advisory/how-we-work
+│   └── /advisory/inquiry  <span class="note">conversion · qualified form</span>
+│
+├── <b>/overloaded</b>  <span class="note">book · primary email capture</span>
+│   ├── /overloaded/chapter-one  <span class="note">gated excerpt, top of funnel</span>
+│   └── /overloaded/waitlist
+│
+├── <b>/capacity-audit</b>  <span class="note">conversion · 10-question diagnostic</span>
+│
+├── <b>/insights</b>  <span class="note">publishing engine · organized by content job</span>
+│   ├── /insights/problem     <span class="note">DIAGNOSE</span>
+│   ├── /insights/practice    <span class="note">DEFINE + APPLY</span>
+│   ├── /insights/application <span class="note">APPLY</span>
+│   └── /insights/proof       <span class="note">PROVE · case library</span>
+│
+├── <b>/about</b>  <span class="note">practitioner proof</span>
+└── <b>/connect</b>  <span class="note">single routing page, three intents</span></div>
+</div></section>
+
+<section id="s5"><div class="wrap">
+<span class="eyebrow">Section 05</span>
+<h2>Page-level spec sheet</h2>
+<p class="lede">Every page has one job, one owned term, one CTA, one lifecycle outcome.</p>
+<table><thead><tr><th style="width:16%">Page</th><th style="width:9%">Job</th><th style="width:20%">Reader question</th><th style="width:8%">Words</th><th style="width:16%">One CTA</th><th>Lifecycle result</th></tr></thead><tbody>
+<tr><td>Homepage</td><td>DIAGNOSE</td><td>What is this and is it for me?</td><td>1,000–1,400</td><td>Explore &amp; Intelligence™</td><td>Anonymous</td></tr>
+<tr><td>/and-intelligence</td><td>DEFINE</td><td>What is &amp; Intelligence™?</td><td>2,000–2,500</td><td>See how facilitators get certified</td><td>Subscriber</td></tr>
+<tr><td>/binary-trap</td><td>DIAGNOSE</td><td>Why do smart leaders make either/or calls?</td><td>1,400</td><td>Learn the practice</td><td>Subscriber</td></tr>
+<tr><td>/binary-trap/four-taxes</td><td>DIAGNOSE</td><td>What does binary thinking cost us?</td><td>1,400</td><td>See how the practice reverses it</td><td>Lead</td></tr>
+<tr><td>/capacity-advantage</td><td>DEFINE</td><td>What do we actually gain?</td><td>1,200</td><td>Explore the practice behind it</td><td>Lead</td></tr>
+<tr><td>/power-of-and</td><td>DEFINE</td><td>What is the framework?</td><td>1,100</td><td>Learn the practice</td><td>Subscriber</td></tr>
+<tr><td>/and-intelligence/facilitator-certification</td><td>CONVERT</td><td>Who can teach this?</td><td>900–1,200</td><td>Apply for the next cohort</td><td>MQL</td></tr>
+<tr><td>/speaking</td><td>CONVERT</td><td>What will my audience leave with?</td><td>900–1,200</td><td>Check availability</td><td>MQL</td></tr>
+<tr><td>/advisory</td><td>CONVERT</td><td>Is my situation the kind he handles?</td><td>900–1,200</td><td>Start an advisory conversation</td><td>SQL</td></tr>
+<tr><td>/overloaded</td><td>CONVERT</td><td>What is the book about?</td><td>1,000–1,400</td><td>Read chapter one</td><td>Subscriber</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="s6"><div class="wrap">
+<span class="eyebrow">Section 06</span>
+<h2>Internal linking law</h2>
+<p class="lede">Five rules. Non-negotiable. This is the difference between a website and a cluster.</p>
+<table><thead><tr><th style="width:5%">#</th><th style="width:32%">Rule</th><th>Writer instruction</th></tr></thead><tbody>
+<tr><td>1</td><td>Cluster links up, always</td><td>Every cluster page links to its pillar at least once, in the body, using the exact owned term as anchor text.</td></tr>
+<tr><td>2</td><td>Pillar links down, always</td><td>Every pillar links out to each of its cluster pages. If a cluster page has no inbound link from its pillar, it does not exist.</td></tr>
+<tr><td>3</td><td>Never cross-link cluster to cluster</td><td>Route through the pillar. Cross-cluster links dilute which page owns which term.</td></tr>
+<tr><td>4</td><td>Every mention of an owned term links once</td><td>First mention on any page links to that term's canonical page. Subsequent mentions do not.</td></tr>
+<tr><td>5</td><td>Commercial pages receive, they do not distribute</td><td>Speaking, Certification, and Advisory absorb links from framework content. They link back to pillars but not to each other.</td></tr>
+</tbody></table>
+<div class="call"><span class="eyebrow">The test</span><p>Pick any published page at random. Can you reach the correct canonical definition of every owned term it uses in one click? If no, the page is not finished.</p></div>
+</div></section>
+
+<section id="s7"><div class="wrap">
+<span class="eyebrow">Section 07</span>
+<h2>CEO inbound conversion path</h2>
+<p class="lede">A CEO does not go from reading about overload to booking advisory in one step. Build the middle.</p>
+<table><thead><tr><th style="width:18%">Entry</th><th style="width:26%">What they are thinking</th><th style="width:22%">First page</th><th>Right next step</th></tr></thead><tbody>
+<tr><td>Heard the keynote</td><td>"What was that framework called?"</td><td>/and-intelligence or /capacity-advantage</td><td>Low-friction: chapter one</td></tr>
+<tr><td>Search or AI answer</td><td>"Why does my exec team keep forcing tradeoffs?"</td><td>/binary-trap or /four-taxes</td><td>Capacity Audit, then the practice pillar</td></tr>
+<tr><td>Peer referral</td><td>"Someone said he helped with exactly this"</td><td>Homepage or /advisory</td><td>Case proof, then qualified inquiry</td></tr>
+<tr><td>LinkedIn or Substack</td><td>"That line was worth saving"</td><td>Insights article</td><td>Subscribe, then nurture</td></tr>
+<tr><td>Event buyer</td><td>"I need a keynote for the summit"</td><td>/speaking</td><td>Availability form, fast path</td></tr>
+</tbody></table>
+<h4>The offer ladder</h4>
+<table><thead><tr><th style="width:8%">Rung</th><th style="width:22%">Offer</th><th style="width:14%">Friction</th><th>Form fields</th><th>Lifecycle stage</th></tr></thead><tbody>
+<tr><td><b>01</b></td><td><i>Overloaded</i> chapter one</td><td>Very low</td><td>Email only</td><td>Subscriber</td></tr>
+<tr><td><b>02</b></td><td>The Capacity Audit: 10-question diagnostic, four tax exposure profiles</td><td>Medium</td><td>Name, email, company, role, team size</td><td>Lead → MQL if title qualifies</td></tr>
+<tr><td><b>03</b></td><td>A 30-minute tension conversation</td><td>High</td><td>Above + decision they are holding, timeline, budget</td><td>SQL</td></tr>
+</tbody></table>
+<div class="call green"><span class="eyebrow">Why the Capacity Audit is the keystone</span><p>A CEO will not download a whitepaper. They will find out how their organization scores against a named cost model, because the output is about them and it is fast. Build this before any additional article.</p></div>
+</div></section>
+
+<section id="s8"><div class="wrap">
+<span class="eyebrow">Section 08</span>
+<h2>HubSpot build spec</h2>
+<h4>Lifecycle stage definitions</h4>
+<table><thead><tr><th style="width:16%">Stage</th><th style="width:40%">Entry criteria</th><th>Owner and next action</th></tr></thead><tbody>
+<tr><td>Subscriber</td><td>Any email capture: chapter one, Insights subscribe, waitlist</td><td>Automated nurture, five emails across five weeks</td></tr>
+<tr><td>Lead</td><td>Capacity Audit started, or 3+ pillar pages viewed</td><td>Automated, plus notification if title matches CEO list</td></tr>
+<tr><td>MQL</td><td>Audit completed with qualifying title, or Speaking or Certification form</td><td>Blue Lake Ideas reviews within two business days</td></tr>
+<tr><td>SQL</td><td>Advisory inquiry submitted, or tension conversation booked</td><td>Direct outreach within 24 hours</td></tr>
+<tr><td>Opportunity</td><td>Proposal or scope document sent</td><td>Deal record created in the correct pipeline</td></tr>
+</tbody></table>
+<h4>Custom contact properties</h4>
+<table><thead><tr><th style="width:26%">Property</th><th style="width:14%">Type</th><th>Values and use</th></tr></thead><tbody>
+<tr><td>Entry pillar</td><td>Dropdown</td><td>&amp; Intelligence · Binary Trap · Capacity Advantage · Power of &amp;. Tells you which idea pulled them in.</td></tr>
+<tr><td>Dominant tax</td><td>Dropdown</td><td>False Choices · Silos · Short-Termism · Stalled Innovation. From the audit. Drives personalized follow-up.</td></tr>
+<tr><td>Tax exposure score</td><td>Number</td><td>0 to 40 composite from the audit. Feeds lead scoring.</td></tr>
+<tr><td>Engagement intent</td><td>Dropdown</td><td>Speaking · Facilitator Certification · Advisory · Book · Undecided</td></tr>
+<tr><td>Tension described</td><td>Multi-line text</td><td>Verbatim from the inquiry form. The most useful field for call prep.</td></tr>
+<tr><td>Source of first touch</td><td>Dropdown</td><td>Keynote · Search · Referral · LinkedIn · Substack · YouTube</td></tr>
+</tbody></table>
+<h4>Four workflows to build first</h4>
+<ul>
+<li><b>Chapter one nurture.</b> Five emails, one idea each, following the master spine: overload, trap, taxes, practice, capacity advantage.</li>
+<li><b>Audit result delivery.</b> Sends the tax exposure profile, sets dominant tax, routes to a matching case study.</li>
+<li><b>CEO alert.</b> Any form submission where title matches the executive list triggers an internal notification with the tension field included.</li>
+<li><b>Post-keynote capture.</b> Event-specific landing page and list, sequenced into nurture with entry source set to Keynote.</li>
+</ul>
+<div class="call"><span class="eyebrow">Reporting that matters</span><p>Track four numbers, not forty: pillar page sessions, audit completion rate, MQL to SQL conversion, and source of first touch on every closed engagement.</p></div>
+</div></section>
+
+<section id="s9"><div class="wrap">
+<span class="eyebrow">Section 09</span>
+<h2>Clean copy standard</h2>
+<p class="lede">Smart Brevity on the surface, depth underneath.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+<div>
+<h4>Every draft, every channel</h4>
+<ul>
+<li>Lead with the strongest sentence — no setup</li>
+<li>Bold "Why it matters" near the top</li>
+<li>One idea per paragraph, three sentences maximum</li>
+<li>One CTA — not two, not three</li>
+<li>One underlineable mantra per piece</li>
+<li>No em dashes — use a period, comma, or colon</li>
+<li>Owned terms exactly as written — ™ on first use only</li>
+</ul>
+</div>
+<div>
+<h4>Banned on sight</h4>
+<ul>
+<li>"In today's fast-paced world"</li>
+<li>"Unlock," "transform," "bespoke," "holistic"</li>
+<li>"Leverage" as a verb</li>
+<li>"Both/and thinking" for The Power of &amp;™</li>
+<li>"Find common ground" for Find the &amp;</li>
+<li>"Experiment" for Test &amp; Learn</li>
+<li>"Slow down" for Pause &amp; Reflect</li>
+<li>Any reordering of Clarity. Connection. Courage.</li>
+</ul>
+</div>
+</div>
+<h4>Depth by asset</h4>
+<table><thead><tr><th style="width:24%">Asset</th><th style="width:22%">Mode</th><th>Requirement</th></tr></thead><tbody>
+<tr><td>Pillar page</td><td>Smart Brevity plus full depth</td><td>Deepest source on the internet for that term. Never trim depth for brevity here.</td></tr>
+<tr><td>Cluster article</td><td>Smart Brevity</td><td>800–1,500 words, one job, links up to the pillar with exact anchor text.</td></tr>
+<tr><td>Commercial page</td><td>Smart Brevity</td><td>Buyer problem first, credentials last. Named mechanism in the first 100 words.</td></tr>
+<tr><td>Visible FAQ</td><td>Complete sentences</td><td>Each answer standalone and extractable. 40–80 words. Matches JSON-LD exactly.</td></tr>
+<tr><td>Meta description</td><td>Search copy</td><td>150–160 characters, owned term front-loaded.</td></tr>
+<tr><td>Email</td><td>Smart Brevity, compressed</td><td>Under 150 words. One insight, one link, one action.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="s10"><div class="wrap">
+<span class="eyebrow">Section 10</span>
+<h2>Approved copy library</h2>
+<p class="lede">Canonical wording. Writers adapt length and channel. They do not adapt the definitions.</p>
+
+<div class="copyblock">
+<div class="cb-head">Homepage hero · primary · replaces current version</div>
+<div class="cb-body">
+<div class="h">Running at capacity isn't the problem. What it makes you decide is.</div>
+<div class="sub">You already know your capacity is gone. What no one has named is the pattern it creates: under load, interdependent priorities get recast as either/or choices, and the organization pays for those choices for years. That pattern is <b>The Binary Trap</b>. Blue Lake Ideas gives leaders language for it and a practice for reversing it.</div>
+<span class="cta-pill">Explore &amp; Intelligence™</span>
+<p style="margin-top:10px;font-size:13px;color:var(--muted)">Secondary routes as text links only: Bring the framework to your team · Read chapter one of <i>Overloaded</i></p>
+</div></div>
+
+<div class="copyblock">
+<div class="cb-head">Homepage hero · alternate · strongest for search and post-keynote</div>
+<div class="cb-body">
+<div class="h">There is a name for what happens when leadership load outruns capacity.</div>
+<div class="sub">It is <b>The Binary Trap</b>. Accelerating change consumes capacity, fast defaults take over, and priorities that need each other get framed as opposites. Blue Lake Ideas helps CEOs and boards name the pattern, count what it costs, and build the practice that restores their range.</div>
+<span class="cta-pill">Explore &amp; Intelligence™</span>
+</div></div>
+
+<div class="copyblock">
+<div class="cb-head">The mechanism · homepage section 03</div>
+<div class="cb-body">
+<div class="h">The Binary Trap</div>
+<div class="sub"><b>Why it matters.</b> The problem is not complexity. It is what overload does to judgment. Accelerating change consumes capacity. Depleted capacity hands decisions to fast defaults. Fast defaults recast interdependent priorities as either/or. The call feels decisive. The organization pays for it later.</div>
+<p style="font-size:14px;margin-top:8px"><b>Chain:</b> Accelerating change → Overload → System 1 takes over → Binary thinking → The Four Taxes</p>
+<span class="cta-pill">Read the full mechanism</span>
+</div></div>
+
+<div class="copyblock">
+<div class="cb-head">Canonical definition · &amp; Intelligence™ · 58 words, extractable</div>
+<div class="cb-body">
+<p>&amp; Intelligence™ is the practice of holding competing priorities together long enough to find a better path forward. It has three moves. <b>Pause &amp; Reflect</b> restores clarity by focusing capacity on what matters most. <b>Find the &amp;</b> builds connection by establishing a shared definition of success. <b>Test &amp; Learn</b> creates courage through small, disciplined tests instead of risky bets.</p>
+</div></div>
+
+<div class="copyblock">
+<div class="cb-head">Canonical definition · The Capacity Advantage · 46 words</div>
+<div class="cb-body">
+<p>The Capacity Advantage is what leaders gain when they recapture usable capacity and preserve strategic range. Capacity here is mental, emotional, and operational, not calendar time. Teams that hold their range make better decisions, align faster, and sustain performance in conditions that force competitors into false tradeoffs.</p>
+</div></div>
+
+<div class="copyblock">
+<div class="cb-head">Advisory page lead · replaces generic consulting language</div>
+<div class="cb-body">
+<div class="h">Some decisions are too interconnected for a clean answer.</div>
+<div class="sub"><b>Why it matters.</b> Growth and margin. Speed and trust. People and AI. When a board or executive team is split on a decision like that, the instinct is to pick a side and move. That is usually the expensive choice. Blue Lake Ideas works inside those tensions with CEOs, boards, and leadership teams to find the option the either/or frame was hiding.</div>
+<span class="cta-pill">Start an advisory conversation</span>
+</div></div>
+
+<div class="copyblock">
+<div class="cb-head">The Capacity Audit · offer copy</div>
+<div class="cb-body">
+<div class="h">Which tax is your organization paying?</div>
+<div class="sub">Ten questions, four minutes. You get a profile showing your exposure across False Choices, Silos, Short-Termism, and Stalled Innovation, plus the one move most likely to change it.</div>
+<span class="cta-pill">Take the Capacity Audit</span>
+</div></div>
+
+<div class="copyblock">
+<div class="cb-head">Visible FAQ block · homepage and every pillar</div>
+<div class="cb-body">
+<p><b>What is The Power of &amp;™?</b><br>The Power of &amp;™ is the framework leaders use to hold real tensions together over time against a shared definition of success. It has three steps: Pause &amp; Reflect, Find the &amp;, and Test &amp; Learn. It is not compromise and it is not indecision. It is the recognition that most either/or framings under pressure are artifacts of overload rather than genuine constraints.</p>
+<p><b>How is &amp; Intelligence™ different from The Power of &amp;™?</b><br>The Power of &amp;™ is the framework — three steps. &amp; Intelligence™ is the capability a leader builds by running those steps until they hold under pressure. The framework is the method. The capability is what you develop by practicing it.</p>
+<p><b>Who does Blue Lake Ideas work with?</b><br>CEOs, boards, and executive teams facing decisions where strategy, people, capital, and long-term value all need to stay in the room. Engagements take three forms: keynote speaking, &amp; Intelligence™ Facilitator Certification, and ongoing advisory.</p>
+</div></div>
+</div></section>
+
+<section id="s11"><div class="wrap">
+<span class="eyebrow">Section 11</span>
+<h2>Build sequence, 90 days</h2>
+<p class="lede">Ownership first, conversion in parallel. Do not skip steps.</p>
+<table><thead><tr><th style="width:14%">Window</th><th style="width:34%">Ship</th><th style="width:22%">Content job</th><th>Why now</th></tr></thead><tbody>
+<tr><td><b>Days 1–15</b></td><td>Resolve the definition conflict across all live assets. Corrected homepage with The Binary Trap named and one primary CTA. Add visible FAQ plus JSON-LD.</td><td>GOVERN</td><td>Nothing else compounds until the site agrees with itself.</td></tr>
+<tr><td><b>Days 16–30</b></td><td>Pillar 1: &amp; Intelligence™, full depth, 7 FAQs. Pillar 2: The Binary Trap. Sub-pillar: The Four Taxes.</td><td>DEFINE + DIAGNOSE</td><td>These three answer the questions the site currently cannot.</td></tr>
+<tr><td><b>Days 31–45</b></td><td>The Capacity Audit build and the chapter one capture. HubSpot properties, lifecycle stages, and the four core workflows.</td><td>CONVERT</td><td>Turns existing traffic into records. Highest return in the plan.</td></tr>
+<tr><td><b>Days 46–60</b></td><td>Pillar 3: The Capacity Advantage. Pillar 4: The Power of &amp;™. Rewrite Advisory against the new spec.</td><td>DEFINE + CONVERT</td><td>Completes the four-pillar set and fixes the highest-value commercial page.</td></tr>
+<tr><td><b>Days 61–75</b></td><td>Six cluster articles (at least one per pillar). Migrate strongest Substack and LinkedIn pieces into permanent Insights posts.</td><td>APPLY</td><td>Cluster depth is what makes the pillars rank.</td></tr>
+<tr><td><b>Days 76–90</b></td><td>Three proof cases. Speaking and Certification pages rewritten. First conversion report.</td><td>PROVE</td><td>Proof is what closes the CEO who has already read everything.</td></tr>
+</tbody></table>
+<div class="call green"><span class="eyebrow">If only three things get done</span><p>Resolve the definition conflict. Name The Binary Trap on the homepage. Build the Capacity Audit. Those three moves fix the credibility of the system, the defensibility of the vocabulary, and the absence of a funnel.</p></div>
+</div></section>
+
+<section id="s12"><div class="wrap">
+<span class="eyebrow">Section 12</span>
+<h2>Publish gate checklist</h2>
+<p class="lede">A draft is not ready because it sounds good. It is ready when it strengthens ownership, respects the voice, and has a place in the architecture.</p>
+<h4>Language and system</h4>
+<ul class="check">
+<li>One content job: define, diagnose, apply, prove, or convert</li>
+<li>Primary owned term appears in the headline or opening section</li>
+<li>Definitions match the canonical hierarchy in Section 02</li>
+<li>The Power of &amp;™ and &amp; Intelligence™ treated as distinct</li>
+<li>All four taxes named on first introduction</li>
+<li>Find the &amp; includes a shared definition of success</li>
+<li>Clarity. Connection. Courage. in order, three parts only</li>
+<li>No em dashes anywhere in the draft</li>
+<li>Trademark on first use only</li>
+<li>One underlineable mantra sentence exists</li>
+</ul>
+<h4>Architecture and conversion</h4>
+<ul class="check">
+<li>Cluster page links to its pillar with exact-term anchor text</li>
+<li>Pillar links down to the new cluster page</li>
+<li>Every owned term links to its canonical page on first mention</li>
+<li>Exactly one CTA, mapping to a defined lifecycle stage</li>
+<li>SEO title under 60 characters, owned term front-loaded</li>
+<li>Meta description 150–160 characters</li>
+<li>2–3 visible FAQs with matching JSON-LD</li>
+<li>Framework images carry alt text naming the move</li>
+<li>Proof and research attributed, not absorbed</li>
+<li>Command Center updated with URL and publish date</li>
+</ul>
+<div class="call green"><span class="eyebrow">Final test</span><p>Could a search engine, an AI answer engine, a keynote audience member, a board chair, and an advisory client each encounter this idea in a different place and still recognize it as the same Blue Lake Ideas system? If yes, the architecture is holding.</p></div>
+</div></section>
+
+<footer><div class="wrap"><b>Blue Lake Ideas</b> — Agency Command Center · Prepared by MKT Agents<br>The Power of &amp;™ and &amp; Intelligence™ are trademarks of Blue Lake Ideas LLC.</div></footer>
+</body></html>

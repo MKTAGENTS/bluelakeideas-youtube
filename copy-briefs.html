@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>:root{--lake:#005B54;--lake-deep:#003D38;--lake-bright:#0A756B;--ink:#2D2D2D;--muted:#5D6966;--paper:#F7F8F4;--mist:#EEF4F3;--white:#FFFFFF;--line:#D9E3E0;--clay:#A64D4A;--serif:'Libre Baskerville',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--max:1120px;}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem}a{color:var(--lake)}
+h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);margin:0 0 10px}h3{font-family:var(--serif);font-size:18px;margin:0 0 6px}
+h4{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--lake);margin:22px 0 8px;font-weight:700}
+p{max-width:74ch;margin:0 0 10px}section{padding:48px 0;border-bottom:1px solid var(--line)}section:nth-of-type(even){background:var(--white)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0;background:var(--white)}
+th{background:var(--lake);color:#fff;text-align:left;padding:10px 13px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;vertical-align:bottom}
+td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}tr:nth-child(even) td{background:var(--paper)}
+code{background:var(--mist);padding:1px 5px;border-radius:3px;font-size:12px;color:var(--lake-deep)}
+.mast{background:var(--lake-deep);color:#fff;padding:52px 0 44px;border-bottom:5px solid var(--clay)}
+.mast h1{font-family:var(--serif);font-size:clamp(24px,4vw,40px);line-height:1.2;margin:10px 0 14px}.mast p{color:#CFE0DD;font-size:17px;max-width:64ch;margin:0}
+.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--clay);margin-bottom:6px;display:block}.mast .eyebrow{color:#E6DCCB}
+.lede{font-size:17px;color:var(--muted);max-width:68ch;margin:0 0 24px}
+.call{border-left:4px solid var(--clay);background:var(--white);padding:16px 20px;margin:18px 0}.call.green{border-left-color:var(--lake)}.call p{margin:4px 0 0}
+.toc-wrap{background:var(--mist);border-bottom:1px solid var(--line);padding:26px 0}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 24px;list-style:none;padding:0;margin:0;counter-reset:t}
+.toc-list li{counter-increment:t;font-size:14px;border-bottom:1px dotted var(--line);padding:7px 0}
+.toc-list li::before{content:counter(t,decimal-leading-zero);font-weight:700;color:var(--clay);margin-right:8px;font-size:12px}
+.toc-list a{text-decoration:none;color:var(--ink)}.toc-list a:hover{color:var(--lake-bright)}
+.tree{background:var(--lake-deep);color:#D8E6E4;padding:22px 26px;font-size:12.5px;line-height:1.85;overflow-x:auto;white-space:pre;font-family:ui-monospace,monospace}
+.tree b{color:#E6DCCB}.tree .p{color:#7FD6CB;font-weight:600}.tree span.note{color:#8FA6A3;font-style:italic}
+.pagecard{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--lake);margin:20px 0;padding:18px 22px}
+.pagecard.commercial{border-top-color:var(--clay)}.pagecard.util{border-top-color:#B8C9C7}
+.pagecard h3{margin:0 0 3px;font-size:19px}.pagecard .url{font-size:13px;color:var(--lake-bright);font-weight:600;margin-bottom:10px}
+.attr{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:12px 0;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.attr div span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:2px}
+.attr div b{font-size:14px;font-weight:600}.pagecard ul{margin:8px 0 0;padding-left:18px;font-size:14px}.pagecard li{margin-bottom:4px}
+.lvl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--clay)}
+.check{list-style:none;padding:0;margin:14px 0;columns:2;column-gap:28px}
+.check li{font-size:14px;margin-bottom:8px;padding-left:24px;position:relative;break-inside:avoid}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--lake-bright)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
+.flow div{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--lake-bright);padding:14px}
+.flow div b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lake);margin-bottom:5px}
+.flow div p{margin:0;font-size:13px}
+footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}footer b{color:#fff}
+@media(max-width:700px){.wrap{padding:0 1rem}.check{columns:1}}</style>
+<title>Blue Lake Ideas | Copy Needs &amp; Creative Briefs</title></head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.5rem;background:#005B54;color:#fff;font-family:'DM Sans',sans-serif;flex-wrap:wrap;gap:4px;"><span style="font-weight:700;letter-spacing:0.5px;white-space:nowrap;font-size:0.72rem;"><img src="data:image/png;base64,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" style="height:20px;vertical-align:middle;margin-right:4px;" alt="&amp;"> BLI Command Center</span><div style="display:flex;gap:2px;flex-wrap:wrap;"><a href="hub.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Hub</a> <a href="index.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">YouTube</a> <a href="language-playbook.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Language</a> <a href="source-of-record.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Sources</a> <a href="style-guide.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Style</a> <a href="audit.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Audit</a> <a href="implementation.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Implementation</a> <a href="website-architecture.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Web Architecture</a> <a href="copy-briefs.html" style="color:#fff;background:rgba(255,255,255,0.18);font-weight:700;text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Copy Briefs</a> <a href="clean-copy-playbook.html" style="color:rgba(255,255,255,0.7);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Clean Copy</a> <a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Overloaded ↗</a> <a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank" style="color:rgba(255,255,255,0.5);text-decoration:none;padding:4px 10px;border-radius:6px;font-size:0.68rem;">Overloaded SEO ↗</a></div></nav>
+<div class="mast"><div class="wrap">
+<span class="eyebrow">Writer Package · Blue Lake Ideas</span>
+<h1>Copy Needs &amp; Creative Briefs</h1>
+<p>Everything the copywriter needs to draft without guessing. Every asset in the build, what job it does, the exact language it must carry, the section order, and the one action it drives.</p>
+<div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);display:flex;flex-wrap:wrap;gap:22px;font-size:13px;color:#AFC8C4">
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">For</b>Assigned copywriter</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Client</b>Blue Lake Ideas · Matt Elliott</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Voice</b>Smart Brevity · practitioner-led · quiet confidence</div>
+<div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Assets in scope</b>17</div>
+</div>
+</div></div>
+<div class="toc-wrap"><div class="wrap">
+<ol class="toc-list">
+<li><a href="#read">Read This First</a></li>
+<li><a href="#lang">Language You Must Use</a></li>
+<li><a href="#needs">The Copy Needs List</a></li>
+<li><a href="#b1">Foundation Briefs</a></li>
+<li><a href="#b2">The Four Pillars</a></li>
+<li><a href="#b3">Commercial Pages</a></li>
+<li><a href="#b4">Book, About &amp; Proof</a></li>
+<li><a href="#b5">Conversion Assets</a></li>
+<li><a href="#deliver">Delivery Format &amp; Rounds</a></li>
+</ol>
+</div></div>
+
+<section id="read"><div class="wrap">
+<span class="eyebrow">Section 01</span>
+<h2>Read this first</h2>
+<p class="lede">Blue Lake Ideas is not a collection of pages. It is one intellectual system. Your job is to make every asset recognizable as part of the same system.</p>
+<h4>The spine every asset sits on</h4>
+<p>Accelerating change → overload → the mind narrows → interdependent priorities get recast as either/or → the organization pays. That is <b>The Binary Trap</b>, and the price is <b>The Four Taxes</b>. The framework that answers it is <b>The Power of &amp;™</b>. The fluency to run it under pressure is <b>&amp; Intelligence™</b>. The result is <b>The Capacity Advantage</b>.</p>
+<h4>Five rules that govern every draft</h4>
+<table><thead><tr><th style="width:26%">Rule</th><th>What it means when you are writing</th></tr></thead><tbody>
+<tr><td>One job per asset</td><td>DEFINE, DIAGNOSE, APPLY, PROVE, or CONVERT. Do not let a page do two.</td></tr>
+<tr><td>One CTA per asset</td><td>Exactly one. Secondary routes may appear as plain text links, never as a second button.</td></tr>
+<tr><td>Lead with the point</td><td>No setup, no "in today's fast-paced world." The first sentence is the strongest sentence.</td></tr>
+<tr><td>One mantra per asset</td><td>Before you submit, underline the one sentence a CEO should still remember tomorrow.</td></tr>
+<tr><td>No em dashes</td><td>Client standard. Use a period, a comma, or a colon.</td></tr>
+<tr><td>The firm owns the system</td><td>Blue Lake Ideas owns the framework, the language, and the practice. Matt Elliott is the founder and principal voice.</td></tr>
+</tbody></table>
+<div class="call"><span class="eyebrow">The reader</span><p>A CEO or board member who is already overloaded. They will give you ninety seconds and they are reading on a phone between meetings. Respect their capacity on the surface. Give search engines and AI answer engines the depth underneath.</p></div>
+</div></section>
+
+<section id="lang"><div class="wrap">
+<span class="eyebrow">Section 02</span>
+<h2>Language you must use</h2>
+<p class="lede">These are category-building terms. Consistency is the brand moat and the SEO strategy. Do not improve them with synonyms.</p>
+<table><thead><tr><th style="width:22%">Use exactly this</th><th style="width:30%">What it is</th><th>Never substitute</th></tr></thead><tbody>
+<tr><td>The Binary Trap</td><td>The mechanism. What overload does to judgment.</td><td>The Causal Chain, complexity, binary thinking on its own</td></tr>
+<tr><td>The Four Taxes</td><td>Org cost: False Choices, Silos, Short-Termism, Stalled Innovation</td><td>Costs, consequences, downsides. Name all four on first use.</td></tr>
+<tr><td>The Power of &amp;™</td><td>The framework. Three steps to hold tensions over time against shared success.</td><td>Power of And, both/and thinking, yes/and</td></tr>
+<tr><td>&amp; Intelligence™</td><td>The capability built by practicing the framework.</td><td>The training, the method, a substitute name for the framework</td></tr>
+<tr><td>&amp; Intelligence™ Facilitator Certification</td><td>The credential to teach the framework.</td><td>Do not use this label for the framework or the capability</td></tr>
+<tr><td>The Capacity Advantage</td><td>The outcome.</td><td>Resilience, bandwidth, wellness, capacity building</td></tr>
+<tr><td>Pause &amp; Reflect</td><td>Step one. Produces Clarity.</td><td>Slow down, take a breath, step back</td></tr>
+<tr><td>Find the &amp;</td><td>Step two. Produces Connection. Requires shared definition of success.</td><td>Find common ground, compromise, align</td></tr>
+<tr><td>Test &amp; Learn</td><td>Step three. Produces Courage. Small tests before big bets.</td><td>Experiment, iterate, try things</td></tr>
+<tr><td>Clarity. Connection. Courage.</td><td>The payoff tagline. Three parts, this order, periods.</td><td>Do not reorder, do not add a fourth part</td></tr>
+<tr><td>The &amp; HAS to be true</td><td>The durability test for shared success.</td><td>Both sides win, mutual benefit</td></tr>
+<tr><td>Wisdom → Legacy</td><td>The long-term arc. Separate from the tagline.</td><td>Impact, ROI</td></tr>
+</tbody></table>
+<div class="call" style="background:#FBF3F0;border-left-color:var(--clay)"><span class="eyebrow">Banned on sight</span><p>Unlock. Transform. Bespoke. Holistic. Leverage as a verb. "In today's fast-paced world." "Bring your whole self." Any consulting phrase that could appear on any other firm's website.</p></div>
+<h4>Trademark handling</h4>
+<p>™ on first use per page for The Power of &amp;™ and &amp; Intelligence™. Not on subsequent mentions. Use the ampersand character, never the word "and," in either term.</p>
+</div></section>
+
+<section id="needs"><div class="wrap">
+<span class="eyebrow">Section 03</span>
+<h2>The copy needs list</h2>
+<p class="lede">17 assets. Ordered by build sequence, not by importance.</p>
+<table><thead><tr><th style="width:5%">ID</th><th style="width:22%">Asset</th><th style="width:9%">Job</th><th style="width:9%">Words</th><th style="width:7%">FAQs</th><th style="width:12%">Wave</th><th>Also needed</th></tr></thead><tbody>
+<tr><td>A1</td><td>Homepage rewrite</td><td>DIAGNOSE</td><td>1,000–1,400</td><td>3</td><td>Wave 1</td><td>SEO title, meta, alt text, nav labels</td></tr>
+<tr><td>A2</td><td>&amp; Intelligence™ pillar</td><td>DEFINE</td><td>2,000–2,500</td><td>7</td><td>Wave 1</td><td>SEO title, meta, 40–70 word definition block</td></tr>
+<tr><td>A3</td><td>The Binary Trap pillar</td><td>DIAGNOSE</td><td>1,400</td><td>5</td><td>Wave 1</td><td>SEO title, meta, chain graphic labels</td></tr>
+<tr><td>A4</td><td>The Four Taxes sub-pillar</td><td>DIAGNOSE</td><td>1,400</td><td>5</td><td>Wave 1</td><td>SEO title, meta, four tax definitions for reuse</td></tr>
+<tr><td>A5</td><td>The Capacity Advantage pillar</td><td>DEFINE</td><td>1,200</td><td>5</td><td>Wave 2</td><td>SEO title, meta</td></tr>
+<tr><td>A6</td><td>The Power of &amp;™ pillar</td><td>DEFINE</td><td>1,100</td><td>5</td><td>Wave 2</td><td>SEO title, meta</td></tr>
+<tr><td>A7</td><td>Pause &amp; Reflect</td><td>APPLY</td><td>900</td><td>2</td><td>Wave 3</td><td>SEO title, meta</td></tr>
+<tr><td>A8</td><td>Find the &amp;</td><td>APPLY</td><td>900</td><td>2</td><td>Wave 3</td><td>SEO title, meta</td></tr>
+<tr><td>A9</td><td>Test &amp; Learn</td><td>APPLY</td><td>900</td><td>2</td><td>Wave 3</td><td>SEO title, meta</td></tr>
+<tr><td>A10</td><td>Speaking</td><td>CONVERT</td><td>900–1,200</td><td>5</td><td>Wave 2</td><td>Keynote blurbs, booking FAQ</td></tr>
+<tr><td>A11</td><td>&amp; Intelligence™ Facilitator Certification</td><td>CONVERT</td><td>900–1,200</td><td>5</td><td>Wave 2</td><td>Session format descriptions</td></tr>
+<tr><td>A12</td><td>Advisory</td><td>CONVERT</td><td>900–1,200</td><td>5</td><td>Wave 2</td><td>Engagement pattern descriptions</td></tr>
+<tr><td>A13</td><td>Overloaded book page</td><td>CONVERT</td><td>1,000–1,400</td><td>4</td><td>Wave 2</td><td>Chapter one capture copy</td></tr>
+<tr><td>A14</td><td>About Blue Lake Ideas</td><td>PROVE</td><td>800–1,000</td><td>3</td><td>Wave 3</td><td>Short bio, 50 and 100 word versions</td></tr>
+<tr><td>A15</td><td>Insights hub intros</td><td>APPLY</td><td>120–180 each × 5</td><td>0</td><td>Wave 3</td><td>Hub + four category intros</td></tr>
+<tr><td>A16</td><td>The Capacity Audit</td><td>CONVERT</td><td>10 questions + 4 result profiles</td><td>0</td><td>Wave 2</td><td>Intro, question set, result copy</td></tr>
+<tr><td>A17</td><td>Nurture email sequence</td><td>CONVERT</td><td>5 emails, under 150 words each</td><td>0</td><td>Wave 3</td><td>Subject lines, two variants each</td></tr>
+</tbody></table>
+<div class="call green"><span class="eyebrow">Machine layer — every page</span><p>Every asset ships with an SEO title under 60 characters (owned term front-loaded), a meta description of 150–160 characters, visible FAQs in complete sentences that match schema exactly, and alt text for any framework graphic.</p></div>
+</div></section>
+
+<section id="b1"><div class="wrap">
+<span class="eyebrow">Section 04 · Briefs</span>
+<h2>Foundation</h2>
+<div class="brief">
+<div class="brief-head"><div class="id">A1 · Wave 1</div><h3>Homepage</h3><div class="url">bluelakeideas.com</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill">Diagnose</span> Teach the system before selling the services.</div></div>
+<div class="spec"><div class="k">Reader question</div><div class="v">What is this and is it for someone in my chair?</div></div>
+<div class="spec"><div class="k">Length</div><div class="v">1,000–1,400 words. Modular and highly scannable. Assume phone.</div></div>
+<div class="spec"><div class="k">Required terms</div><div class="v">The Binary Trap · The Four Taxes · The Power of &amp;™ · &amp; Intelligence™ · The Capacity Advantage · Clarity. Connection. Courage.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol>
+<li>Above the fold: concession, pivot, named mechanism, what the firm does, one CTA.</li>
+<li>Recognition: accelerating change and the always-on AI era consume capacity.</li>
+<li>Mechanism: name The Binary Trap and walk the chain in one clean sequence.</li>
+<li>Cost: introduce all Four Taxes with one-sentence definitions each.</li>
+<li>Bridge: the answer is not to eliminate tension — it is to build capacity to hold it.</li>
+<li>The framework: The Power of &amp;™ in one line, then three steps with their outcomes.</li>
+<li>Payoff: Clarity. Connection. Courage. leading to The Capacity Advantage.</li>
+<li>Applications: Speaking, Facilitator Certification, Advisory, Overloaded as four depths of one system.</li>
+<li>Proof: practitioner credibility plus approved institutional proof.</li>
+<li>FAQ: three questions, complete sentences.</li>
+<li>Final CTA.</li>
+</ol></div></div>
+<div class="spec"><div class="k">The hook</div><div class="v"><b>The reader is not unaware. They are unarticulated.</b> A CEO arriving here already knows their capacity is gone. What they cannot do is explain why that loss keeps producing bad either/or decisions. Write copy that hands them the language for a problem they are already living.</div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Explore &amp; Intelligence™.</b> Secondary routes as text links only.</div></div>
+<div class="dont"><b>Do not</b> delay the named mechanism to the second screen. Do not make Speaking, Certification, Advisory, and the book look like four unrelated brands. Do not let the homepage become the deepest explanation of anything.</div>
+</div></div>
+</div></section>
+
+<section id="b2"><div class="wrap">
+<span class="eyebrow">Section 05 · Briefs</span>
+<h2>The four pillars</h2>
+<p class="lede">These are the canonical definition pages. If a journalist, event planner, board chair, or AI answer engine asks what a term means, these pages are the answer Blue Lake Ideas wants cited. Do not cut depth for brevity here.</p>
+
+<div class="brief">
+<div class="brief-head"><div class="id">A2 · Wave 1 · Highest priority asset in the build</div><h3>&amp; Intelligence™ pillar</h3><div class="url">/and-intelligence</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill">Define</span> The permanent canonical source for the practice.</div></div>
+<div class="spec"><div class="k">Length</div><div class="v">2,000–2,500 words plus 7 visible FAQs. The deepest, clearest source on the internet for this term.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol>
+<li>Definition block: 40–70 words answering "What is &amp; Intelligence™?" immediately.</li>
+<li>Why it matters: capacity is constrained, overload narrows thinking.</li>
+<li>The problem: summarize The Binary Trap in two paragraphs, link to pillar.</li>
+<li>The cost: name all Four Taxes briefly, link to sub-pillar.</li>
+<li>Pause &amp; Reflect: priority, capacity, "we can do anything, not everything," produces Clarity.</li>
+<li>Find the &amp;: shared definition of success, named tensions, "the &amp; HAS to be true," produces Connection.</li>
+<li>Test &amp; Learn: small tests before big bets, produces Courage.</li>
+<li>The virtuous cycle: recaptured capacity leads to delivery leads to winning.</li>
+<li>Seven FAQs, citation-ready.</li>
+</ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>See how facilitators are certified.</b> Routes to /and-intelligence/facilitator-certification.</div></div>
+<div class="dont"><b>Do not</b> write a 300-word overview. Do not treat &amp; Intelligence™ and The Power of &amp;™ as interchangeable: the framework is the steps, the capability is the fluency to run them under pressure.</div>
+</div></div>
+
+<div class="brief">
+<div class="brief-head"><div class="id">A3 · Wave 1</div><h3>The Binary Trap pillar</h3><div class="url">/binary-trap</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill">Diagnose</span> Make the mechanism memorable and credible.</div></div>
+<div class="spec"><div class="k">Length</div><div class="v">1,400 words plus 5 FAQs.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol>
+<li>Lead: either/or is often an overload response, not decisive leadership.</li>
+<li>Define The Binary Trap in 50–80 words.</li>
+<li>Walk the sequence: acceleration, overload, System 1 takes over, binary thinking, The Four Taxes.</li>
+<li>What binary thinking looks like at individual, team, and organizational levels.</li>
+<li>Introduce The Four Taxes as the downstream effect, link out.</li>
+<li>Bridge to &amp; Intelligence™ as the practice that restores range.</li>
+</ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Learn the &amp; Intelligence™ practice.</b></div></div>
+<div class="dont"><b>Do not</b> use "The Causal Chain" — that is the retired predecessor. Do not present this as a neuroscience explainer: the science supports the point, it is not the point.</div>
+</div></div>
+
+<div class="brief">
+<div class="brief-head"><div class="id">A4 · Wave 1</div><h3>The Four Taxes sub-pillar</h3><div class="url">/binary-trap/four-taxes</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill">Diagnose</span> Define the organizational price in language a CEO recognizes in their own system.</div></div>
+<div class="spec"><div class="k">Length</div><div class="v">1,400 words plus 5 FAQs.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol>
+<li>Lead with the tax metaphor: binary thinking taxes an organization quietly and continuously.</li>
+<li>Name all four together before expanding any: False Choices, Silos, Short-Termism, Stalled Innovation.</li>
+<li>Expand each tax with its mechanism and organizational manifestation.</li>
+<li>How the taxes compound rather than operate in isolation.</li>
+<li>Route to the practice that reverses the pattern.</li>
+</ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Take the Capacity Audit.</b> Primary conversion surface in the framework set.</div></div>
+<div class="spec"><div class="k">Reuse requirement</div><div class="v">Write each tax definition so it stands alone in one sentence. These four sentences get reused on the homepage, in the audit, and in email.</div></div>
+<div class="dont"><b>Do not</b> rename the taxes or introduce substitute labels. Keep Short-Termism hyphenated.</div>
+</div></div>
+
+<div class="brief">
+<div class="brief-head"><div class="id">A5 · Wave 2</div><h3>The Capacity Advantage pillar</h3><div class="url">/capacity-advantage</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill">Define</span> The named outcome. This is what someone searches after hearing the keynote.</div></div>
+<div class="spec"><div class="k">Length</div><div class="v">1,200 words plus 5 FAQs.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol>
+<li>Definition: the ability to recapture capacity and use it to harness the Power of &amp;, deliver, and win.</li>
+<li>Clarify capacity: mental, emotional, and operational — not time management.</li>
+<li>Why the AI era makes capacity the binding leadership constraint.</li>
+<li>The virtuous cycle: practice, recaptured capacity, restored range, better delivery.</li>
+<li>Clarity. Connection. Courage. as the immediate payoff. Wisdom → Legacy as the long-term arc.</li>
+</ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Explore the practice behind it.</b></div></div>
+<div class="dont"><b>Do not</b> substitute resilience, wellness, or bandwidth. Those can support the explanation — they are not the branded outcome.</div>
+</div></div>
+
+<div class="brief">
+<div class="brief-head"><div class="id">A6 · Wave 2</div><h3>The Power of &amp;™ pillar</h3><div class="url">/power-of-and</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill">Define</span> The framework and its three steps.</div></div>
+<div class="spec"><div class="k">Reader question</div><div class="v">Is this just both/and thinking with a new name?</div></div>
+<div class="spec"><div class="k">Length</div><div class="v">1,100 words plus 5 FAQs.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol>
+<li>Definition: sustained delivery requires managing tensions over time against a shared definition of success.</li>
+<li>Why this is not compromise, indecision, or generic both/and framing — take this head on.</li>
+<li>Why shared success must be established before tensions can be balanced.</li>
+<li>"The &amp; HAS to be true" as the durability test.</li>
+<li>Applications: profit &amp; purpose, people &amp; AI, growth &amp; sustainability.</li>
+<li>Bridge to &amp; Intelligence™ as the capability that lets a team run the three steps when stakes are high.</li>
+</ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Learn the &amp; Intelligence™ practice.</b></div></div>
+<div class="dont"><b>Do not</b> use a competitor-owned term as the headline or framework name. If you reference one, attribute it and clarify the distinction.</div>
+</div></div>
+</div></section>
+
+<section id="b3"><div class="wrap">
+<span class="eyebrow">Section 06 · Briefs</span>
+<h2>Commercial pages</h2>
+<p class="lede">Speaking, Facilitator Certification, and Advisory are not three thought-leadership systems. They are three depths of the same one. Buyer problem first. Credentials last.</p>
+
+<div class="brief commercial">
+<div class="brief-head"><div class="id">A10 · Wave 2</div><h3>Speaking</h3><div class="url">/speaking</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill clay">Convert</span> Help an event buyer understand what the audience leaves with.</div></div>
+<div class="spec"><div class="k">Two readers</div><div class="v">Event organizer who books, and CEO sponsor who approves. Write for the sponsor, make it easy for the organizer.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol><li>Lead with the audience problem and the return on attention — not the bio.</li><li>The through-line: capacity, tension, &amp; Intelligence™, application.</li><li>Each keynote: audience problem, promise, three takeaways, best fit.</li><li>Proof: approved events, organizations, testimonials, outcomes.</li><li>Practical booking: formats, lengths, travel, virtual, lead time.</li></ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Check availability.</b></div></div>
+<div class="dont"><b>Do not</b> describe the keynote as motivational-first. The differentiation is practitioner credibility plus a memorable operating language the room can use the next morning.</div>
+</div></div>
+
+<div class="brief commercial">
+<div class="brief-head"><div class="id">A11 · Wave 2</div><h3>&amp; Intelligence™ Facilitator Certification</h3><div class="url">/and-intelligence/facilitator-certification</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill clay">Convert</span> Sell a credential, not a session.</div></div>
+<div class="spec"><div class="k">Two buyers</div><div class="v">An internal L&amp;D or HR leader certifying facilitators so the framework scales. An independent coach or consultant who wants to teach it under license.</div></div>
+<div class="spec"><div class="k">Critical framing</div><div class="v">The Power of &amp;™ is the framework. &amp; Intelligence™ is the fluency. <b>Facilitator Certification</b> is the credential that qualifies someone to teach it to others. Use all three terms precisely — this page is most likely to blur them.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol><li>Lead with the scaling problem: one leader who understands the framework cannot change how an organization decides.</li><li>What certification qualifies you to do — be concrete about scope and limits.</li><li>Curriculum structured around the three steps.</li><li>Who should certify: internal L&amp;D, executive coaches, consultants, senior leaders.</li><li>Format and commitment: cohort size, hours, timeline to credential.</li><li>What certified facilitators receive: materials, licensed use, directory listing, community.</li><li>Maintaining the credential: recertification cadence.</li><li>Proof and how to apply.</li></ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Apply for the next cohort.</b> Not "inquire" — application signals selectivity and raises perceived value.</div></div>
+<div class="dont"><b>Do not</b> call this training, a workshop, or a course. It is a certification. Do not leave trademark licensing vague.</div>
+</div></div>
+
+<div class="brief commercial">
+<div class="brief-head"><div class="id">A12 · Wave 2 · Highest revenue value</div><h3>Advisory</h3><div class="url">/advisory</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill clay">Convert</span> Help a CEO or board recognize their own situation on the page.</div></div>
+<div class="spec"><div class="k">Reader question</div><div class="v">Is my situation the kind of thing he handles?</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol><li>Lead with the type of decision: when the easy answer is too small for the system.</li><li>Who the work is for and what situations trigger an engagement.</li><li>The approach explained through Pause &amp; Reflect, Find the &amp;, Test &amp; Learn.</li><li>Three to five engagement patterns.</li><li>Approved case proof: challenge, tension, approach, movement.</li><li>How an engagement begins — be specific about the first conversation.</li></ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Start an advisory conversation.</b> Routes to a qualified form, not a generic contact page.</div></div>
+<div class="dont"><b>Do not</b> write generic consulting language. Every claim must be attached to a named Blue Lake Ideas mechanism.</div>
+</div></div>
+</div></section>
+
+<section id="b4"><div class="wrap">
+<span class="eyebrow">Section 07 · Briefs</span>
+<h2>Book, about, and proof</h2>
+
+<div class="brief">
+<div class="brief-head"><div class="id">A13 · Wave 2</div><h3>Overloaded</h3><div class="url">/overloaded</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill clay">Convert</span> Best top-of-funnel asset in the portfolio.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol><li>Thesis: capacity, not intelligence, is the defining leadership constraint of the AI era.</li><li>The problem the book names and why it matters now.</li><li>The progression: overload, trap, taxes, practice, capacity advantage.</li><li>The founding story — used selectively to explain why the book exists.</li><li>Who it is for and what readers will do differently.</li></ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Read chapter one.</b> Email capture only — lowest-friction rung on the offer ladder.</div></div>
+<div class="dont"><b>Do not</b> repeat the full pillar content here. Do not use "overloaded" as a synonym for busy or stressed.</div>
+</div></div>
+
+<div class="brief">
+<div class="brief-head"><div class="id">A14 · Wave 3</div><h3>About Blue Lake Ideas</h3><div class="url">/about</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill" style="background:var(--lake-bright)">Prove</span> The founder biography is evidence, not the headline.</div></div>
+<div class="spec"><div class="k">Critical framing</div><div class="v">Blue Lake Ideas owns the IP, language, and practice. Matt Elliott founded it and is the principal voice. Write the firm first, founder second. A reader should finish understanding that the framework outlives any single calendar.</div></div>
+<div class="spec"><div class="k">Section order</div><div class="v"><ol><li>What Blue Lake Ideas is, what it owns, what it does for leaders.</li><li>The practitioner arc: senior leadership, the overload insight, the founding.</li><li>How that experience produced the framework the firm now owns.</li><li>How the system scales beyond the founder: certified facilitators, published canonical language, the book.</li><li>Credential and proof — not a chronological résumé.</li></ol></div></div>
+<div class="spec"><div class="k">Also deliver</div><div class="v">100-word and 50-word bio versions for event and press use.</div></div>
+<div class="dont"><b>Do not</b> write this as a personal about-me page. The reader is evaluating a firm and a system.</div>
+</div></div>
+</div></section>
+
+<section id="b5"><div class="wrap">
+<span class="eyebrow">Section 08 · Briefs</span>
+<h2>Conversion assets</h2>
+<p class="lede">These two do the pipeline work. Everything else earns the visit. These convert it.</p>
+
+<div class="brief commercial">
+<div class="brief-head"><div class="id">A16 · Wave 2 · Build before any additional article</div><h3>The Capacity Audit</h3><div class="url">/capacity-audit</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill clay">Convert</span> Turn the Four Taxes from an explainer into a qualification engine.</div></div>
+<div class="spec"><div class="k">What to write</div><div class="v"><ol>
+<li>Intro block, 60–90 words. Hook: "Which tax is your organization paying?"</li>
+<li>Ten questions, ~2–3 per tax, written as recognizable executive situations. Four-point agreement scale.</li>
+<li>Four result profiles, one per dominant tax. Each 120–160 words: pattern, cost, and the one move most likely to change it.</li>
+<li>Result-page CTA that differs by profile but is always singular.</li>
+</ol></div></div>
+<div class="spec"><div class="k">One CTA</div><div class="v"><b>Take the Capacity Audit</b> on entry. Result page routes to relevant proof case or advisory conversation.</div></div>
+<div class="dont"><b>Do not</b> write questions that flatter the reader into a good score. Do not use the word quiz.</div>
+</div></div>
+
+<div class="brief commercial">
+<div class="brief-head"><div class="id">A17 · Wave 3</div><h3>Nurture email sequence</h3><div class="url">Five emails, triggered by chapter one download</div></div>
+<div class="brief-body">
+<div class="spec"><div class="k">Content job</div><div class="v"><span class="pill clay">Convert</span> Walk a new subscriber down the master spine, one idea per email.</div></div>
+<div class="spec"><div class="k">Length</div><div class="v">Under 150 words per email. One insight, one link, one action. Two subject line variants each.</div></div>
+<div class="spec"><div class="k">Sequence</div><div class="v"><ol>
+<li><b>Overload.</b> What happens to judgment when load outruns capacity. Links to /binary-trap.</li>
+<li><b>The Binary Trap.</b> Why the decisive call is often the expensive one. Links to /binary-trap.</li>
+<li><b>The Four Taxes.</b> What it costs the enterprise. Links to the audit.</li>
+<li><b>The practice.</b> The three steps, briefly. Links to /and-intelligence.</li>
+<li><b>The Capacity Advantage.</b> What changes, and how to go deeper. Links to Advisory or Certification.</li>
+</ol></div></div>
+<div class="spec"><div class="k">Voice</div><div class="v">These land in an executive inbox. Write like a note from a person, not marketing. No graphics, no button stacks, no "hope this finds you well."</div></div>
+<div class="dont"><b>Do not</b> repeat the same CTA five times. Each email escalates commitment by one step.</div>
+</div></div>
+</div></section>
+
+<section id="deliver"><div class="wrap">
+<span class="eyebrow">Section 09</span>
+<h2>Delivery format and rounds</h2>
+<table><thead><tr><th style="width:26%">Element</th><th>Specification</th></tr></thead><tbody>
+<tr><td>File</td><td>One Google Doc per asset. Filename: <code>BLI_A02_AndIntelligence_v1</code></td></tr>
+<tr><td>Structure</td><td>Section headings match the brief's section order exactly.</td></tr>
+<tr><td>Word count</td><td>Stated at the top of the doc, body copy only.</td></tr>
+<tr><td>Mantra</td><td>Bold the one sentence you want remembered. One per asset.</td></tr>
+<tr><td>Machine layer</td><td>SEO title, meta description with character count, FAQ set as Q&amp;A pairs, alt text for graphics.</td></tr>
+<tr><td>Links</td><td>Mark internal links inline with target URL and exact anchor text intended.</td></tr>
+<tr><td>Open questions</td><td>Short list at end of doc. Flag anything assumed rather than invented as fact.</td></tr>
+</tbody></table>
+<h4>Rounds</h4>
+<table><thead><tr><th style="width:14%">Round</th><th style="width:24%">What happens</th><th>Turnaround</th></tr></thead><tbody>
+<tr><td>Outline</td><td>Section headers plus lead sentence and intended mantra. No full draft yet.</td><td>Approved before drafting — not optional on pillar pages.</td></tr>
+<tr><td>Draft 1</td><td>Full copy plus machine layer.</td><td>Editorial review against publish gate checklist.</td></tr>
+<tr><td>Draft 2</td><td>Revisions plus Blue Lake Ideas voice pass.</td><td>Final language governance check.</td></tr>
+<tr><td>Final</td><td>Approved copy handed to build.</td><td>Command Center updated with URL and publish date.</td></tr>
+</tbody></table>
+<div class="call green"><span class="eyebrow">Before you submit anything</span><p>Underline the one sentence a CEO should still remember tomorrow. Confirm exactly one CTA. Confirm every owned term matches the canonical list. Confirm there is not a single em dash. If all four are true, submit.</p></div>
+</div></section>
+
+<footer><div class="wrap"><b>Blue Lake Ideas</b> — Agency Command Center · Prepared by MKT Agents<br>The Power of &amp;™ and &amp; Intelligence™ are trademarks of Blue Lake Ideas LLC.</div></footer>
+</body></html>
