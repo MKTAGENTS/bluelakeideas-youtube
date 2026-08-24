@@ -1,50 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Website Architecture Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>:root{--lake:#005B54;--lake-deep:#003D38;--lake-bright:#0A756B;--ink:#2D2D2D;--muted:#5D6966;--paper:#F7F8F4;--mist:#EEF4F3;--white:#FFFFFF;--line:#D9E3E0;--clay:#A64D4A;--serif:'Libre Baskerville',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--max:1120px;}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem}a{color:var(--lake)}
-h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);margin:0 0 10px}h3{font-family:var(--serif);font-size:18px;margin:0 0 6px}
-h4{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--lake);margin:22px 0 8px;font-weight:700}
-p{max-width:74ch;margin:0 0 10px}section{padding:48px 0;border-bottom:1px solid var(--line)}section:nth-of-type(even){background:var(--white)}
-table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0;background:var(--white)}
-th{background:var(--lake);color:#fff;text-align:left;padding:10px 13px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;vertical-align:bottom}
-td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}tr:nth-child(even) td{background:var(--paper)}
-code{background:var(--mist);padding:1px 5px;border-radius:3px;font-size:12px;color:var(--lake-deep)}
-.mast{background:var(--lake-deep);color:#fff;padding:52px 0 44px;border-bottom:5px solid var(--clay)}
-.mast h1{font-family:var(--serif);font-size:clamp(24px,4vw,40px);line-height:1.2;margin:10px 0 14px}.mast p{color:#CFE0DD;font-size:17px;max-width:64ch;margin:0}
-.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--clay);margin-bottom:6px;display:block}.mast .eyebrow{color:#E6DCCB}
-.lede{font-size:17px;color:var(--muted);max-width:68ch;margin:0 0 24px}
-.call{border-left:4px solid var(--clay);background:var(--white);padding:16px 20px;margin:18px 0}.call.green{border-left-color:var(--lake)}.call p{margin:4px 0 0}
-.toc-wrap{background:var(--mist);border-bottom:1px solid var(--line);padding:26px 0}
-.toc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 24px;list-style:none;padding:0;margin:0;counter-reset:t}
-.toc-list li{counter-increment:t;font-size:14px;border-bottom:1px dotted var(--line);padding:7px 0}
-.toc-list li::before{content:counter(t,decimal-leading-zero);font-weight:700;color:var(--clay);margin-right:8px;font-size:12px}
-.toc-list a{text-decoration:none;color:var(--ink)}.toc-list a:hover{color:var(--lake-bright)}
-.tree{background:var(--lake-deep);color:#D8E6E4;padding:22px 26px;font-size:12.5px;line-height:1.85;overflow-x:auto;white-space:pre;font-family:ui-monospace,monospace}
-.tree b{color:#E6DCCB}.tree .p{color:#7FD6CB;font-weight:600}.tree span.note{color:#8FA6A3;font-style:italic}
-.pagecard{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--lake);margin:20px 0;padding:18px 22px}
-.pagecard.commercial{border-top-color:var(--clay)}.pagecard.util{border-top-color:#B8C9C7}
-.pagecard h3{margin:0 0 3px;font-size:19px}.pagecard .url{font-size:13px;color:var(--lake-bright);font-weight:600;margin-bottom:10px}
-.attr{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:12px 0;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.attr div span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:2px}
-.attr div b{font-size:14px;font-weight:600}.pagecard ul{margin:8px 0 0;padding-left:18px;font-size:14px}.pagecard li{margin-bottom:4px}
-.lvl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--clay)}
-.check{list-style:none;padding:0;margin:14px 0;columns:2;column-gap:28px}
-.check li{font-size:14px;margin-bottom:8px;padding-left:24px;position:relative;break-inside:avoid}
-.check li::before{content:"☐";position:absolute;left:0;color:var(--lake-bright)}
-.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
-.flow div{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--lake-bright);padding:14px}
-.flow div b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lake);margin-bottom:5px}
-.flow div p{margin:0;font-size:13px}
-footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}footer b{color:#fff}
-@media(max-width:700px){.wrap{padding:0 1rem}.check{columns:1}}</style>
-<title>Blue Lake Ideas | Website Architecture Guide</title></head>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--lake:#005B54;--lake-deep:#003D38;--lake-bright:#0A756B;--ink:#2D2D2D;--muted:#6B7876;
+--paper:#FBFCFA;--mist:#EEF4F3;--white:#fff;--line:#E2EAE8;--clay:#A64D4A;
+--serif:'Libre Baskerville',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 2rem}
+@media(max-width:640px){.wrap{padding:0 1.25rem}body{font-size:16px}}
+a{color:var(--lake)}p{max-width:64ch;margin:0 0 1rem}
+/* masthead */
+.mast{background:var(--lake-deep);color:#fff;padding:4rem 0 3.5rem}
+.mast .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#7FD6CB;font-weight:500;margin-bottom:1.2rem;display:block}
+.mast h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.6vw,42px);line-height:1.25;margin:0 0 1.1rem;max-width:20ch}
+.mast p{color:#B9CFCC;font-size:18px;max-width:58ch;margin:0}
+.mast .meta{margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;gap:1.75rem;font-size:13.5px;color:#8FAAA6}
+.mast .meta b{color:#fff;display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;font-weight:500}
+/* contents */
+.contents{padding:3rem 0 1rem}
+.contents .lead{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--clay);font-weight:500;margin-bottom:1.25rem}
+.tools{display:flex;gap:1.25rem;align-items:center;margin-bottom:.5rem;font-size:14px}
+.tools button{background:none;border:none;padding:0;font:inherit;color:var(--lake);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.tools button:focus-visible{outline:2px solid var(--lake);outline-offset:2px}
+/* sections as folds */
+.doc{padding:0 0 4rem}
+details.sec{border-bottom:1px solid var(--line)}
+details.sec:first-of-type{border-top:1px solid var(--line)}
+details.sec>summary{cursor:pointer;padding:1.4rem .5rem;list-style:none;display:flex;align-items:baseline;gap:1.1rem;font-size:18px}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary:hover{color:var(--lake)}
+details.sec>summary:focus-visible{outline:2px solid var(--lake);outline-offset:-2px}
+details.sec>summary::after{content:'+';margin-left:auto;color:var(--muted);font-size:20px;font-weight:300;line-height:1;flex-shrink:0}
+details.sec[open]>summary::after{content:'–'}
+details.sec[open]>summary{color:var(--lake)}
+.secnum{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.06em;flex-shrink:0;min-width:1.5rem}
+details.sec[open] .secnum{color:var(--lake)}
+.sectitle{font-family:var(--serif);font-weight:400}
+.body{padding:.5rem .5rem 2.75rem;max-width:none}
+.body>*:first-child{margin-top:0}
+/* content */
+h2{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.3;margin:0 0 .7rem}
+h3{font-family:var(--serif);font-weight:400;font-size:19px;margin:2rem 0 .6rem}
+h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--lake);margin:1.75rem 0 .6rem;font-weight:500}
+.lede{font-size:17px;color:var(--muted);max-width:62ch;margin:0 0 1.75rem}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:0 0 1.25rem}
+th{text-align:left;padding:.55rem .9rem .55rem 0;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:.8rem .9rem .8rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+code{background:var(--mist);padding:1px 6px;border-radius:3px;font-size:13px;color:var(--lake-deep)}
+ul,ol{padding-left:1.2rem;max-width:64ch}li{margin-bottom:.4rem}
+.call{background:var(--mist);border-left:2px solid var(--lake);padding:1.1rem 1.35rem;margin:1.4rem 0;font-size:15.5px}
+.call.green,.call.fix{border-left-color:var(--lake)}
+.call:not(.green):not(.fix){background:#FDF6F5;border-left-color:var(--clay)}
+.call p{margin:0;max-width:62ch}.call p+p{margin-top:.6rem}
+.call .eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--clay);margin-bottom:.4rem;display:block}
+.call.green .eyebrow,.call.fix .eyebrow{color:var(--lake)}
+.finding{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--clay);padding:1.4rem 1.6rem;margin:1rem 0}
+.finding h3{margin:0;font-size:17px}.finding p{font-size:15px;margin:.6rem 0 0}
+.fhead{display:flex;gap:.9rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.2rem}
+.fnum{font-size:12px;color:var(--muted);font-weight:500}
+.sev{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;padding:2px 8px;border-radius:3px;background:var(--clay);color:#fff}
+.sev.med{background:var(--lake-bright)}.sev.low{background:var(--mist);color:var(--lake-deep)}
+.lbl{font-weight:500;color:var(--lake-deep)}
+.tree,.map{background:var(--lake-deep);color:#D8E6E4;padding:1.6rem 1.8rem;font-size:12.5px;line-height:1.85;overflow-x:auto;white-space:pre;font-family:ui-monospace,monospace;margin:1.25rem 0}
+.tree b,.map b{color:#E6DCCB;font-weight:600}
+.tree .p,.map .p{color:#7FD6CB;font-weight:600}
+.tree span.note,.map span.note{color:#8FA6A3;font-style:italic}
+.pagecard,.brief{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--lake);padding:1.4rem 1.6rem;margin:1.1rem 0}
+.brief{padding:0}.brief.commercial,.pagecard.commercial{border-left-color:var(--clay)}
+.brief.support,.pagecard.util{border-left-color:var(--lake-bright)}
+.brief-head{background:var(--mist);padding:1.1rem 1.6rem;border-bottom:1px solid var(--line)}
+.brief-head .id{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--clay)}
+.brief-head h3{margin:.35rem 0 .2rem;font-size:20px}
+.brief-head .url,.pagecard .url{font-size:13px;color:var(--muted);font-family:ui-monospace,monospace}
+.brief-body{padding:.25rem 1.6rem 1.4rem}
+.pagecard h3{margin:0 0 .2rem;font-size:19px}
+.spec{display:grid;grid-template-columns:145px 1fr;border-bottom:1px solid var(--line);padding:.85rem 0;font-size:15px}
+.spec:last-of-type{border-bottom:none}
+.spec .k{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--lake);padding-top:4px}
+.spec .v ol,.spec .v ul{margin:0;padding-left:1.1rem}
+@media(max-width:700px){.spec{grid-template-columns:1fr;gap:.2rem}}
+.attr{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:1rem;padding:1rem 0;margin:1rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.attr div span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:2px}
+.attr div b{font-size:14.5px;font-weight:500}
+.lvl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--clay)}
+.dont{background:#FDF6F5;border-left:2px solid var(--clay);padding:.9rem 1.2rem;margin-top:.9rem;font-size:14px}
+.dont b{color:var(--clay);text-transform:uppercase;font-size:10px;letter-spacing:.14em;display:block;margin-bottom:4px;font-weight:500}
+.pill{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;padding:2px 8px;background:var(--lake);color:#fff;border-radius:3px;margin-right:5px}
+.pill.clay{background:var(--clay)}.pill.sand,.pill.support{background:var(--lake-bright)}
+.copyblock{background:var(--white);border:1px solid var(--line);margin:1.1rem 0}
+.cb-head{background:var(--mist);padding:.7rem 1.2rem;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--lake-deep)}
+.cb-body{padding:1.2rem 1.4rem}
+.cb-body .h{font-family:var(--serif);font-size:20px;margin:0 0 .6rem}
+.cb-body .sub{color:var(--muted);margin:0 0 .7rem}
+.cta-pill{display:inline-block;background:var(--lake);color:#fff;padding:.5rem 1.1rem;font-size:13px;font-weight:500;margin-top:.8rem;border-radius:3px}
+.check{list-style:none;padding:0;margin:1rem 0;columns:2;column-gap:2.25rem}
+.check li{font-size:15px;margin-bottom:.5rem;padding-left:1.6rem;position:relative;break-inside:avoid}
+.check li::before{content:'';position:absolute;left:0;top:.5rem;width:9px;height:9px;border:1px solid var(--lake-bright);border-radius:2px}
+@media(max-width:700px){.check{columns:1}}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.85rem;margin:1.25rem 0}
+.flow div{background:var(--white);border:1px solid var(--line);border-top:2px solid var(--lake-bright);padding:1.1rem}
+.flow div b{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lake);margin-bottom:.4rem;font-weight:500}
+.flow div p{margin:0;font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+ul.tight li{margin-bottom:.35rem}
+footer{background:var(--lake-deep);color:#8FAAA6;padding:2.75rem 0;font-size:14px}
+footer b{color:#fff;font-weight:500}footer p{max-width:62ch;margin:0}
+</style>
+</head>
 <body>
-<nav style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:.55rem 1.5rem;background:#005B54;font-family:'DM Sans',sans-serif;"><span style="font-weight:600;letter-spacing:.4px;white-space:nowrap;font-size:.7rem;color:#fff;margin-right:6px;"><img src="data:image/png;base64,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" style="height:18px;vertical-align:middle;margin-right:4px;" alt="&amp;">BLI</span><div style="display:flex;gap:2px;flex-wrap:wrap;align-items:center;"><a href="hub.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">Hub</a><a href="matt.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Matt</a><a href="crimson.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Crimson</a><a href="architect.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Kate</a><span style="color:rgba(255,255,255,.25);padding:0 4px;font-size:.7rem;">|</span><a href="clean-copy-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Clean Copy</a><a href="website-architecture.html" style="color:#fff;background:rgba(255,255,255,.2);font-weight:500;text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Architecture</a><a href="copy-briefs.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Briefs</a><a href="language-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Language</a><a href="source-of-record.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Sources</a><a href="style-guide.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Style</a><a href="index.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">YouTube</a><a href="audit.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Audit</a><a href="implementation.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Implementation</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded ↗</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded SEO ↗</a></div></nav>
-<div class="mast"><div class="wrap">
+<nav style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:.55rem 1.5rem;background:#005B54;font-family:'DM Sans',sans-serif;"><span style="font-weight:600;letter-spacing:.4px;white-space:nowrap;font-size:.7rem;color:#fff;margin-right:6px;"><img src="data:image/png;base64,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" style="height:18px;vertical-align:middle;margin-right:4px;" alt="&amp;">BLI</span><div style="display:flex;gap:2px;flex-wrap:wrap;align-items:center;"><a href="hub.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">Hub</a><a href="matt.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Matt</a><a href="crimson.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Crimson</a><a href="architect.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Kate</a><span style="color:rgba(255,255,255,.25);padding:0 4px;font-size:.7rem;">|</span><a href="clean-copy-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Clean Copy</a><a href="website-architecture.html" style="color:#fff;background:rgba(255,255,255,.2);font-weight:500;text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Architecture</a><a href="copy-briefs.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Briefs</a><a href="language-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Language</a><a href="source-of-record.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Sources</a><a href="style-guide.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Style</a><a href="index.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">YouTube</a><a href="audit.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Audit</a><a href="implementation.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Implementation</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded ↗</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded SEO ↗</a></div></nav><div class="mast"><div class="wrap">
 <span class="eyebrow">Build Documentation · Blue Lake Ideas</span>
 <h1>Website Architecture Guide</h1>
 <p>The complete structure of bluelakeideas.com. Every URL, what each page owns, how pages link to each other, how navigation behaves, and how a CEO moves from a first search to a signed engagement.</p>
@@ -54,28 +125,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Pages in scope</b>24</div>
 <div><b style="color:#fff;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Max depth</b>Two clicks from home</div>
 </div>
-</div></div>
-
-<div class="toc-wrap"><div class="wrap"><ol class="toc-list">
-<li><a href="#a1">Principles</a></li>
-<li><a href="#a2">The Buyer Chain</a></li>
-<li><a href="#a2b">Deviations &amp; Conflicts</a></li>
-<li><a href="#a3">Full Sitemap</a></li>
-<li><a href="#a4">Page Directory</a></li>
-<li><a href="#a5">URL &amp; Naming Standards</a></li>
-<li><a href="#a6">Navigation Spec</a></li>
-<li><a href="#a7">Internal Linking Law</a></li>
-<li><a href="#a8">Module Library</a></li>
-<li><a href="#a9">Conversion Paths</a></li>
-<li><a href="#a10">Technical &amp; Schema</a></li>
-<li><a href="#a11">Redirects &amp; Migration</a></li>
-<li><a href="#a12">Governance</a></li>
-<li><a href="#a14">Inbound Flywheel Map</a></li>
-</ol></div></div>
-
-<section id="a1"><div class="wrap">
-<span class="eyebrow">Section 01</span>
-<h2>Architecture principles</h2>
+<div class="contents"><div class="wrap"><div class="lead">Contents — 14 sections</div><div class="tools"><button id="toggleAll" type="button">Expand all</button><span style="color:var(--muted)">Closed by default. Open what you need.</span></div></div></div>
+<div class="doc"><div class="wrap"><details class="sec" id="a1"><summary><span class="secnum">01</span><span class="sectitle">Architecture principles</span></summary><div class="body">
 <p class="lede">Seven decisions that everything else follows from. They implement the buyer chain in Section 02. If a future page conflicts with one of these, the page is wrong, not the principle.</p>
 <table><thead><tr><th style="width:5%">#</th><th style="width:26%">Principle</th><th>What it means in practice</th></tr></thead><tbody>
 <tr><td>1</td><td>One term, one canonical page</td><td>Every owned term has exactly one page that defines it. No term is defined in two places. Everything else links to that page.</td></tr>
@@ -87,11 +138,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <tr><td>7</td><td>Every page carries a machine layer</td><td>Visible FAQs plus matching JSON-LD on every substantive page. AI answer engines cite what they can extract.</td></tr>
 </tbody></table>
 <div class="call green"><span class="eyebrow">Why this structure and not a conventional one</span><p>Most consultant sites organize around services: speaking, consulting, book, about. That structure sells to someone who has already decided. Blue Lake Ideas sells to a CEO who has a problem they have not yet named. So the architecture leads with the problem and the vocabulary, and treats the services as three depths of one system rather than three products in a catalog.</p></div>
-</div></section>
-
-<section id="a2"><div class="wrap">
-<span class="eyebrow">Section 02</span>
-<h2>The buyer chain</h2>
+</div></details>
+<details class="sec" id="a2"><summary><span class="secnum">02</span><span class="sectitle">The buyer chain</span></summary><div class="body">
 <p class="lede">Matt's articulation of what a CEO is actually moving through. Seven layers, in order. The architecture is built to mirror this chain rather than a services menu, because the chain is how the buyer experiences the problem.</p>
 <table><thead><tr><th style="width:11%">Layer</th><th style="width:23%">What it is</th><th style="width:22%">Owned term</th><th style="width:20%">Lives at</th><th>Inbound stage</th></tr></thead><tbody>
 <tr><td><b>Need</b></td><td>They need to execute and transform</td><td>None. Deliberate.</td><td>Hero and Capacity Advantage</td><td>Attract</td></tr>
@@ -109,11 +157,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <tr><td>Test &amp; Learn</td><td>Courage</td><td><code>/and-intelligence/test-and-learn</code></td></tr>
 </tbody></table>
 <div class="call green"><span class="eyebrow">Say it in three sentences</span><p>They need to execute and transform. Overload puts them in <b>The Binary Trap</b>, and it charges <b>The Four Taxes</b>. <b>The Power of &amp;™</b> is the answer, the <b>&amp; Intelligence™ Framework</b> is how you run it, and <b>The Capacity Advantage</b> is what you get.</p></div>
-</div></section>
-
-<section id="a2b"><div class="wrap">
-<span class="eyebrow">Section 03</span>
-<h2>Where the architecture deviates, and why</h2>
+</div></details>
+<details class="sec" id="a2b"><summary><span class="secnum">03</span><span class="sectitle">Where the architecture deviates, and why</span></summary><div class="body">
 <p class="lede">The chain and the site structure agree almost everywhere. Seven places they do not. Each is either a resolved conflict that needs a decision, or a deliberate deviation for inbound reasons.</p>
 
 <div class="finding"><div class="fhead"><span class="fnum">01</span><h3>The three steps changed owners twice</h3><span class="sev">Needs a decision</span></div>
@@ -147,11 +192,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <p><span class="lbl">Recommendation.</span> Keep the term short. "The Binary Trap" is what an audience repeats and what someone types into a search bar. System 1 explains why it happens and belongs in the body copy, with attribution to Kahneman.</p></div>
 
 <div class="call"><span class="eyebrow">Open discrepancy flagged by the build team</span><p>Finding 01 sets &amp; Intelligence™ at 2,000 to 2,500 words and The Power of &amp;™ at 1,200. Some earlier page-directory drafts still carry the reverse. The Section 03 decision governs. Every word count in the Page Directory below reflects it.</p></div>
-</div></section>
-
-<section id="a3"><div class="wrap">
-<span class="eyebrow">Section 04</span>
-<h2>Full sitemap</h2>
+</div></details>
+<details class="sec" id="a3"><summary><span class="secnum">04</span><span class="sectitle">Full sitemap</span></summary><div class="body">
 <div class="tree"><b>bluelakeideas.com</b>  <span class="note">L0 · homepage</span>
 │
 ├── <span class="p">/and-intelligence</span>  <b>PILLAR 1 · THE METHOD</b>  <span class="note">2,000 to 2,500 words · 7 FAQs</span>
@@ -194,11 +236,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 ├── <b>/about</b>  <span class="note">practitioner proof</span>
 ├── <b>/connect</b>  <span class="note">single routing page · three intents</span>
 └── <span class="note">utility: /privacy · /terms · /sitemap.xml</span></div>
-</div></section>
-
-<section id="a4"><div class="wrap">
-<span class="eyebrow">Section 05</span>
-<h2>Page directory</h2>
+</div></details>
+<details class="sec" id="a4"><summary><span class="secnum">05</span><span class="sectitle">Page directory</span></summary><div class="body">
 <p class="lede">Every page in the build with its attributes. Source of truth for the developer and the HubSpot admin as well as the writer. Word counts follow the Section 03 decision.</p>
 
 <div class="pagecard"><div class="lvl">Level 0 · Foundation</div><h3>Homepage</h3><div class="url">/</div>
@@ -256,11 +295,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <div class="pagecard commercial"><div class="lvl">Level 1 · Conversion</div><h3>The Capacity Audit</h3><div class="url">/capacity-audit</div>
 <div class="attr"><div><span>Job</span><b>Convert</b></div><div><span>Format</span><b>10 questions</b></div><div><span>Output</span><b>4 tax profiles</b></div><div><span>CTA</span><b>Varies by result</b></div><div><span>Lifecycle</span><b>Lead to MQL</b></div></div>
 <ul><li>The flywheel's bearing: converts Attract traffic into Engage records</li><li>Writes dominant tax and score directly to the contact record</li><li>Build before any additional article</li></ul></div>
-</div></section>
-
-<section id="a5"><div class="wrap">
-<span class="eyebrow">Section 06</span>
-<h2>URL and naming standards</h2>
+</div></details>
+<details class="sec" id="a5"><summary><span class="secnum">06</span><span class="sectitle">URL and naming standards</span></summary><div class="body">
 <table><thead><tr><th style="width:26%">Rule</th><th style="width:28%">Correct</th><th>Wrong</th></tr></thead><tbody>
 <tr><td>Lowercase, hyphenated</td><td><code>/binary-trap</code></td><td><code>/BinaryTrap</code>, <code>/binary_trap</code></td></tr>
 <tr><td>Ampersand becomes "and"</td><td><code>/and-intelligence</code></td><td><code>/&amp;-intelligence</code></td></tr>
@@ -275,11 +311,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <p>Owned term front-loaded, under 60 characters, brand suffix only when room allows. Example: <code>&amp; Intelligence™: The Method for Leading Under Load</code>. Never lead with "Blue Lake Ideas."</p>
 <h4>Meta description pattern</h4>
 <p>150 to 160 characters. Owned term in the first eight words. One benefit clause. No exclamation marks, no ellipses.</p>
-</div></section>
-
-<section id="a6"><div class="wrap">
-<span class="eyebrow">Section 07</span>
-<h2>Navigation spec</h2>
+</div></details>
+<details class="sec" id="a6"><summary><span class="secnum">07</span><span class="sectitle">Navigation spec</span></summary><div class="body">
 <p class="lede">The current navigation has eight items and two competing CTAs. Reduce to five plus one button.</p>
 <table><thead><tr><th style="width:18%">Label</th><th style="width:22%">Behavior</th><th>Contains</th></tr></thead><tbody>
 <tr><td>The Framework</td><td>Dropdown</td><td>&amp; Intelligence™ · The Binary Trap · The Four Taxes · The Capacity Advantage · The Power of &amp;™</td></tr>
@@ -294,11 +327,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <p>Four columns. <b>The system:</b> all five framework pages. <b>Work with us:</b> Keynotes, Workshops, Advisory, Facilitator Certification. <b>More:</b> Overloaded, Insights, About, Connect. <b>Follow:</b> LinkedIn, YouTube, Substack.</p>
 <h4>Breadcrumbs</h4>
 <p>Required on every Level 2 page, with BreadcrumbList schema. Example: Home → &amp; Intelligence™ → Find the &amp;.</p>
-</div></section>
-
-<section id="a7"><div class="wrap">
-<span class="eyebrow">Section 08</span>
-<h2>Internal linking law</h2>
+</div></details>
+<details class="sec" id="a7"><summary><span class="secnum">08</span><span class="sectitle">Internal linking law</span></summary><div class="body">
 <p class="lede">This is the difference between a website and a topic cluster. Five rules, no exceptions.</p>
 <table><thead><tr><th style="width:5%">#</th><th style="width:30%">Rule</th><th>Instruction</th></tr></thead><tbody>
 <tr><td>1</td><td>Cluster links up, always</td><td>Every cluster page links to its pillar at least once in the body, using the exact owned term as anchor text. Not "read more."</td></tr>
@@ -316,11 +346,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <tr><td>/power-of-and</td><td>The Power of &amp;™</td></tr>
 </tbody></table>
 <div class="call green"><span class="eyebrow">The link audit test</span><p>Open any published page at random. Can you reach the correct canonical definition of every owned term it uses in one click? If not, the page is not finished. Run this test monthly across the whole site.</p></div>
-</div></section>
-
-<section id="a8"><div class="wrap">
-<span class="eyebrow">Section 09</span>
-<h2>Module library</h2>
+</div></details>
+<details class="sec" id="a8"><summary><span class="secnum">09</span><span class="sectitle">Module library</span></summary><div class="body">
 <p class="lede">Build these once as reusable components. Pages assemble from them.</p>
 <table><thead><tr><th style="width:22%">Module</th><th style="width:34%">Purpose</th><th>Appears on</th></tr></thead><tbody>
 <tr><td>Definition block</td><td>40 to 70 word extractable answer with distinct visual treatment. The passage AI engines quote.</td><td>Every pillar, top of page</td></tr>
@@ -334,11 +361,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <tr><td>Audit prompt</td><td>Inline offer for the Capacity Audit.</td><td>Four Taxes, Binary Trap, Capacity Advantage</td></tr>
 </tbody></table>
 <div class="call"><span class="eyebrow">Framework graphic rule</span><p>Use the full three-step cycle when introducing the &amp; Intelligence™ Framework as a system. Use a single highlighted move only when the copy is teaching that specific move. Never reorder to fit a layout. Every framework image needs alt text naming the highlighted move and identifying the diagram as the three-step &amp; Intelligence™ cycle.</p></div>
-</div></section>
-
-<section id="a9"><div class="wrap">
-<span class="eyebrow">Section 10</span>
-<h2>Conversion paths</h2>
+</div></details>
+<details class="sec" id="a9"><summary><span class="secnum">10</span><span class="sectitle">Conversion paths</span></summary><div class="body">
 <p class="lede">Five ways a CEO arrives, three offers of ascending commitment.</p>
 <table><thead><tr><th style="width:18%">Entry</th><th style="width:26%">What they are thinking</th><th style="width:24%">Landing page</th><th>Right next step</th></tr></thead><tbody>
 <tr><td>Heard the keynote</td><td>What was that framework called?</td><td>/and-intelligence or /capacity-advantage</td><td>Chapter one, low friction</td></tr>
@@ -363,11 +387,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 </tbody></table>
 <h4>Reporting</h4>
 <p>Four numbers, not forty. Pillar page sessions. Audit completion rate. MQL to SQL conversion. Source of first touch on every closed engagement. If a content investment does not move one of those four, it was a hobby.</p>
-</div></section>
-
-<section id="a10"><div class="wrap">
-<span class="eyebrow">Section 11</span>
-<h2>Technical and schema requirements</h2>
+</div></details>
+<details class="sec" id="a10"><summary><span class="secnum">11</span><span class="sectitle">Technical and schema requirements</span></summary><div class="body">
 <table><thead><tr><th style="width:24%">Requirement</th><th>Specification</th></tr></thead><tbody>
 <tr><td>FAQPage schema</td><td>On every page carrying visible FAQs. Answers in the markup match the visible answers word for word. Mismatches get penalized.</td></tr>
 <tr><td>Organization schema</td><td>Site-wide. Includes the trademark terms as knowsAbout values so the entity graph associates them with Blue Lake Ideas.</td></tr>
@@ -382,11 +403,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <tr><td>XML sitemap</td><td>Auto-generated, submitted, excludes conversion form pages and audit result variants.</td></tr>
 </tbody></table>
 <div class="call green"><span class="eyebrow">Why the machine layer matters more than usual here</span><p>Blue Lake Ideas is trying to own vocabulary that does not yet exist in the market. AI answer engines resolve unfamiliar terms by finding a source that defines them cleanly and consistently. Visible FAQs with matching schema, one canonical page per term, and consistent anchor text are the three signals that decide whether Blue Lake Ideas gets cited as the definition or gets paraphrased into someone else's.</p></div>
-</div></section>
-
-<section id="a11"><div class="wrap">
-<span class="eyebrow">Section 12</span>
-<h2>Redirects and migration</h2>
+</div></details>
+<details class="sec" id="a11"><summary><span class="secnum">12</span><span class="sectitle">Redirects and migration</span></summary><div class="body">
 <table><thead><tr><th style="width:30%">Situation</th><th>Handling</th></tr></thead><tbody>
 <tr><td>Existing framework page splits into pillars</td><td>301 the old URL to the pillar that inherits the majority of its content. Never to the homepage.</td></tr>
 <tr><td>Step pages built under /power-of-and</td><td>301 to the matching <code>/and-intelligence/*</code> URL. The steps belong to the Method. Do this before any inbound links accumulate.</td></tr>
@@ -395,11 +413,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <tr><td>Old contact page</td><td>301 to /connect. Preserve any inbound links from press or speaker bureaus.</td></tr>
 <tr><td>New proprietary terms going forward</td><td>The website definition ships first, or at minimum the same day as the social launch.</td></tr>
 </tbody></table>
-</div></section>
-
-<section id="a12"><div class="wrap">
-<span class="eyebrow">Section 13</span>
-<h2>Governance</h2>
+</div></details>
+<details class="sec" id="a12"><summary><span class="secnum">13</span><span class="sectitle">Governance</span></summary><div class="body">
 <p class="lede">Architecture decays without a rule for what happens next.</p>
 <h4>When someone proposes a new page</h4>
 <ul><li>Which layer of the buyer chain does it serve? If none, it is not a page yet. It is an idea looking for a home.</li><li>Which of the four pillars does it report to?</li><li>What is its one job and its one CTA? If you cannot answer both in one sentence each, the page is not scoped.</li></ul>
@@ -408,11 +423,8 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <h4>After every publish</h4>
 <ul><li>Record the URL and publish date against the term in the Command Center</li><li>Add the inbound link from the parent pillar. A cluster page without one is orphaned</li><li>Run the link audit test on the new page before marking it complete</li></ul>
 <div class="call green"><span class="eyebrow">The final test</span><p>Could a search engine, an AI answer engine, a keynote audience member, a board chair, and an advisory client each encounter the same idea in a different place and still recognize it as the same Blue Lake Ideas system? If yes, the architecture is holding.</p></div>
-</div></section>
-
-<section id="a14"><div class="wrap">
-<span class="eyebrow">Section 14</span>
-<h2>Inbound flywheel map</h2>
+</div></details>
+<details class="sec" id="a14"><summary><span class="secnum">14</span><span class="sectitle">Inbound flywheel map</span></summary><div class="body">
 <p class="lede">HubSpot's methodology replaced the funnel with a flywheel: attract, engage, delight, with satisfied customers feeding the next turn. Matt's chain maps onto it cleanly, which is the strongest argument that the chain is right.</p>
 <table><thead><tr><th style="width:13%">Stage</th><th style="width:22%">Chain layers it serves</th><th style="width:26%">Pages doing the work</th><th>What good looks like</th></tr></thead><tbody>
 <tr><td><b>Attract</b></td><td>Need, Problem, Cost</td><td>Homepage, Binary Trap, Four Taxes, Insights problem cluster</td><td>A CEO who could not name the pattern finds the words for it. Measured by pillar sessions and organic entry on the problem cluster.</td></tr>
@@ -427,6 +439,17 @@ footer{background:var(--lake-deep);color:#9FBAB6;padding:28px 0;font-size:13px}f
 <li><b>The Capacity Audit is the flywheel's bearing.</b> It converts Attract traffic into Engage records and gives Delight a personalized starting point. Build it before any additional article.</li>
 </ul>
 <div class="call green"><span class="eyebrow">The alignment check</span><p>Matt's chain and the inbound flywheel are the same shape: name the problem before selling the answer, escalate commitment gradually, and let the outcome generate the next visitor. Where the architecture deviates from the chain, Section 03 says so and gives the reason. Nothing else in this document departs from either.</p></div>
-</div></section>
-<footer><div class="wrap"><b>Blue Lake Ideas</b> — Agency Command Center · Prepared by MKT Agents<br>The Power of &amp;™ and &amp; Intelligence™ are trademarks of Blue Lake Ideas LLC.</div></footer>
+</div></details></div></div><footer><div class="wrap"><b>Blue Lake Ideas</b> — Agency Command Center · Prepared by MKT Agents<br>The Power of &amp;™ and &amp; Intelligence™ are trademarks of Blue Lake Ideas LLC.</div></footer><script>
+(function(){
+  var d=document.querySelectorAll('details.sec');
+  function openHash(){var h=location.hash.slice(1);if(!h)return;
+    var t=document.getElementById(h);if(t&&t.tagName==='DETAILS'){t.open=true;t.scrollIntoView();}}
+  window.addEventListener('hashchange',openHash);openHash();
+  var all=document.getElementById('toggleAll');
+  if(all)all.addEventListener('click',function(){
+    var anyClosed=Array.prototype.some.call(d,function(x){return !x.open});
+    Array.prototype.forEach.call(d,function(x){x.open=anyClosed});
+    all.textContent=anyClosed?'Collapse all':'Expand all';});
+})();
+</script>
 </body></html>
