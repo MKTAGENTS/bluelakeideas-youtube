@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Matt — Decisions and Language</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--lake:#005B54;--lake-deep:#003D38;--lake-bright:#0A756B;--ink:#2D2D2D;--muted:#6B7876;
+--paper:#FBFCFA;--mist:#EEF4F3;--white:#fff;--line:#E2EAE8;--clay:#A64D4A;
+--serif:'Libre Baskerville',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 2rem}
+@media(max-width:640px){.wrap{padding:0 1.25rem}body{font-size:16px}}
+a{color:var(--lake)}p{max-width:64ch}
+.hero{background:var(--lake-deep);color:#fff;padding:4rem 0 3.5rem}
+.hero .kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#7FD6CB;font-weight:500;margin-bottom:1.2rem}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.6vw,42px);line-height:1.25;margin:0 0 1.1rem;max-width:18ch}
+.hero p{color:#B9CFCC;font-size:18px;max-width:56ch;margin:0}
+section{padding:4rem 0;border-top:1px solid var(--line)}section:first-of-type{border-top:none}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--clay);font-weight:500;margin-bottom:.8rem}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(22px,3vw,29px);line-height:1.3;margin:0 0 .7rem}
+h3{font-family:var(--serif);font-weight:400;font-size:19px;margin:2rem 0 .6rem}
+.sub{color:var(--muted);font-size:17px;max-width:60ch;margin:0 0 2.2rem}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:0 0 1.25rem}
+th{text-align:left;padding:.55rem .9rem .55rem 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:.8rem .9rem .8rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+code{background:var(--mist);padding:1px 6px;border-radius:3px;font-size:13px;color:var(--lake-deep)}
+details{border-bottom:1px solid var(--line)}details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;padding:1.25rem .5rem;list-style:none;display:flex;align-items:baseline;gap:1rem;font-size:17px;font-weight:500}
+summary::-webkit-details-marker{display:none}summary:hover{color:var(--lake)}
+summary:focus-visible{outline:2px solid var(--lake);outline-offset:-2px}
+summary::after{content:'+';margin-left:auto;color:var(--muted);font-size:20px;font-weight:300;line-height:1}
+details[open] summary::after{content:'–'}details[open] summary{color:var(--lake)}
+summary .hint{font-size:14px;color:var(--muted);font-weight:400}
+.panel{padding:.25rem .5rem 2rem}.panel p:first-child{margin-top:0}
+.note{background:var(--mist);border-left:2px solid var(--lake);padding:1.1rem 1.35rem;margin:1.4rem 0;font-size:15.5px}
+.note.warn{background:#FDF6F5;border-left-color:var(--clay)}
+.note p{margin:0;max-width:62ch}.note p+p{margin-top:.6rem}
+.note .l{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--lake);margin-bottom:.4rem}
+.note.warn .l{color:var(--clay)}
+.res{display:grid;gap:0}
+.res a{display:flex;align-items:baseline;gap:1rem;padding:.9rem .5rem;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line);font-size:16px}
+.res a:last-child{border-bottom:none}.res a:hover{background:var(--mist);color:var(--lake)}
+.res a:focus-visible{outline:2px solid var(--lake);outline-offset:-2px}
+.res .what{color:var(--muted);font-size:14px;margin-left:auto;text-align:right;max-width:46%}
+@media(max-width:640px){.res a{flex-direction:column;gap:.2rem}.res .what{margin-left:0;text-align:left;max-width:100%}}
+.check{list-style:none;padding:0;margin:0}
+.check li{padding:.55rem 0 .55rem 1.9rem;position:relative;font-size:15.5px;border-bottom:1px solid var(--line);max-width:66ch}
+.check li:last-child{border-bottom:none}
+.check li::before{content:'';position:absolute;left:0;top:1rem;width:9px;height:9px;border:1px solid var(--lake-bright);border-radius:2px}
+.rules{list-style:none;padding:0;margin:0;counter-reset:r}
+.rules li{counter-increment:r;padding:.85rem 0 .85rem 2.75rem;position:relative;border-bottom:1px solid var(--line);font-size:15.5px;max-width:66ch}
+.rules li:last-child{border-bottom:none}
+.rules li::before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:.9rem;font-size:12px;color:var(--muted);font-weight:500}
+.rules b{font-weight:500}
+footer{background:var(--lake-deep);color:#8FAAA6;padding:2.75rem 0;font-size:14px;margin-top:1rem}
+footer b{color:#fff;font-weight:500}footer p{max-width:62ch;margin:0}
+/* asset table */
+.assets td:first-child{font-weight:500;white-space:nowrap;color:var(--lake-deep)}
+.wave{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:3px;background:var(--mist);color:var(--lake-deep);font-weight:500}
+.wave.w1{background:var(--lake);color:#fff}
+.job{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+/* role doors */
+.doors{display:grid;gap:1rem}
+.door{display:block;text-decoration:none;color:inherit;background:var(--white);border:1px solid var(--line);border-left:3px solid var(--lake);padding:1.6rem 1.75rem;transition:border-left-color .18s,transform .18s}
+.door:hover,.door:focus-visible{border-left-color:var(--clay);transform:translateX(3px)}
+.door:focus-visible{outline:2px solid var(--lake);outline-offset:3px}
+.door .n{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.door h3{font-family:var(--serif);font-weight:400;font-size:21px;margin:.4rem 0 .5rem}
+.door p{font-size:15px;color:var(--muted);margin:0;max-width:54ch}
+/* spine */
+.spine{margin:1.5rem 0 0;position:relative;padding-left:2.5rem}
+.spine::before{content:'';position:absolute;left:9px;top:12px;bottom:12px;width:1px;background:var(--line)}
+.stop{position:relative;padding:1.05rem 0;border-bottom:1px solid var(--line)}
+.stop:last-child{border-bottom:none}
+.stop::before{content:'';position:absolute;left:-2.5rem;top:1.4rem;width:19px;height:19px;border-radius:50%;background:var(--paper);border:1px solid var(--line)}
+.stop::after{content:'';position:absolute;left:calc(-2.5rem + 6px);top:calc(1.4rem + 6px);width:7px;height:7px;border-radius:50%;background:var(--line)}
+.stop.owned::after{background:var(--lake)}.stop.owned::before{border-color:var(--lake)}
+.stop .layer{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.stop .term{font-family:var(--serif);font-size:18px;margin:.25rem 0 .2rem}
+.stop .term.none{font-family:var(--sans);font-size:16px;color:var(--muted);font-style:italic}
+.stop .where{font-size:14px;color:var(--muted)}
+.decision{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--clay);padding:1.5rem 1.75rem;margin:1.25rem 0}
+.decision h3{margin:0 0 .5rem;font-size:19px}
+.decision p{font-size:15.5px;margin:.5rem 0 0}
+.decision .ask{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);font-weight:500}
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:.55rem 1.5rem;background:#005B54;font-family:'DM Sans',sans-serif;"><span style="font-weight:600;letter-spacing:.4px;white-space:nowrap;font-size:.7rem;color:#fff;margin-right:6px;"><img src="data:image/png;base64,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" style="height:18px;vertical-align:middle;margin-right:4px;" alt="&amp;">BLI</span><div style="display:flex;gap:2px;flex-wrap:wrap;align-items:center;"><a href="hub.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">Hub</a><a href="matt.html" style="color:#fff;background:rgba(255,255,255,.2);font-weight:500;text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Matt</a><a href="crimson.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Crimson</a><a href="architect.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Kate</a><span style="color:rgba(255,255,255,.25);padding:0 4px;font-size:.7rem;">|</span><a href="clean-copy-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Clean Copy</a><a href="website-architecture.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Architecture</a><a href="copy-briefs.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Briefs</a><a href="language-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Language</a><a href="source-of-record.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Sources</a><a href="style-guide.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Style</a><a href="index.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">YouTube</a><a href="audit.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Audit</a><a href="implementation.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Implementation</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded ↗</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded SEO ↗</a></div></nav>
+<div class="hero"><div class="wrap">
+<div class="kicker">For Matt Elliott</div>
+<h1>Two decisions, then we build.</h1>
+<p>Your language is locked and documented. Two structural calls need your sign-off before the copywriter starts, because reversing either one later means redirects and lost search authority.</p>
+</div></div>
+
+<section>
+<div class="wrap">
+<div class="label">Waiting on you</div>
+<h2>Decisions</h2>
+<p class="sub">Both come from your buyer chain meeting the site architecture. Neither is urgent this week, but both block Wave 1 copy.</p>
+
+<div class="decision">
+<div class="ask">Decision 01 · Highest consequence</div>
+<h3>Do the three steps belong to &amp; Intelligence™?</h3>
+<p>Your chain puts <b>Pause &amp; Reflect, Find the &amp;, and Test &amp; Learn</b> under the &amp; Intelligence™ Framework as the Method, with The Power of &amp;™ standing alone as the Solution. An earlier direction had them under The Power of &amp;™.</p>
+<p><b style="font-weight:500">What we have built to:</b> your version. The steps live at <code>/and-intelligence/*</code>, &amp; Intelligence becomes the deepest page on the site at 2,000 to 2,500 words, and The Power of &amp;™ becomes a 1,200-word belief page.</p>
+<p><b style="font-weight:500">Why it needs a yes in writing:</b> it decides which page is deepest, which URL the steps live at, and which term every internal link points to. Changing it after launch means redirects and starting the authority clock over.</p>
+</div>
+
+<div class="decision">
+<div class="ask">Decision 02</div>
+<h3>Workshops, Certification, or both?</h3>
+<p>Your Tools layer lists <b>Workshops</b>. The current build has <b>&amp; Intelligence™ Facilitator Certification</b>. These are different products: a workshop is delivered to a team, a certification is earned by a facilitator. Different buyers, different price points.</p>
+<p><b style="font-weight:500">Our recommendation:</b> keep both, on separate pages. If only one ships first, ship Workshops — shorter sales cycle. Certification is the long game: certified facilitators repeating your language is the highest-quality inbound the firm can generate.</p>
+</div>
+
+<details>
+<summary>Three smaller confirmations <span class="hint">lower stakes, quick answers</span></summary>
+<div class="panel">
+<table>
+<thead><tr><th style="width:30%">Question</th><th>Our recommendation</th></tr></thead>
+<tbody>
+<tr><td><b>Is "System 1" part of the term?</b></td><td>Keep the term short. "The Binary Trap" is what a room repeats and what someone types into a search bar. System 1 explains why it happens and belongs in body copy, credited to Kahneman.</td></tr>
+<tr><td><b>Books, plural?</b></td><td>The URL is <code>/overloaded</code> rather than <code>/book</code>, so a second title slots in later without a migration. Tell us now if more are planned.</td></tr>
+<tr><td><b>Tools order on the page</b></td><td>You list Advisory first. The site surfaces the book and keynotes earlier and holds Advisory for later, because inbound escalates commitment. Order on the page is not a statement about importance.</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="label">Locked</div>
+<h2>Your language, as documented</h2>
+<p class="sub">This is what every page, post, and email will say. If any line here is wrong, now is the cheapest moment to change it.</p>
+<div class="spine">
+<div class="stop"><div class="layer">Need</div><div class="term none">No owned term — deliberate</div><div class="where">They need to execute and transform. Nobody searches for this in these words, so it lives in the hero rather than getting its own page.</div></div>
+<div class="stop owned"><div class="layer">Problem</div><div class="term">The Binary Trap</div><div class="where">Accelerating change consumes capacity, fast defaults take over, interdependent priorities get recast as either/or.</div></div>
+<div class="stop owned"><div class="layer">Cost</div><div class="term">The Four Taxes</div><div class="where">False Choices · Silos · Short-Termism · Stalled Innovation</div></div>
+<div class="stop owned"><div class="layer">Solution</div><div class="term">The Power of &amp;™</div><div class="where">Hold real tensions together over time against a shared definition of success.</div></div>
+<div class="stop owned"><div class="layer">Method</div><div class="term">&amp; Intelligence™ Framework</div><div class="where">Pause &amp; Reflect → Clarity. Find the &amp; → Connection. Test &amp; Learn → Courage.</div></div>
+<div class="stop"><div class="layer">Tools</div><div class="term">Keynotes · Workshops · Advisory · Books</div><div class="where">How the method reaches people.</div></div>
+<div class="stop owned"><div class="layer">Outcome</div><div class="term">The Capacity Advantage</div><div class="where">Recaptured capacity, preserved strategic range, sustained performance.</div></div>
+</div>
+<div class="note"><div class="l">Say it in three sentences</div><p>They need to execute and transform. Overload puts them in <b>The Binary Trap</b>, and it charges <b>The Four Taxes</b>. <b>The Power of &amp;™</b> is the answer, the <b>&amp; Intelligence™ Framework</b> is how you run it, and <b>The Capacity Advantage</b> is what you get.</p></div>
+<div class="note warn"><div class="l">One term retired</div><p>"The Causal Chain" is replaced by "The Binary Trap" everywhere. Your original quotes are preserved verbatim in the Source of Record with notes marking the change, so the history is intact.</p></div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="label">Progress</div>
+<h2>What happens next</h2>
+<p class="sub">Ninety days from sign-off to a site that ranks, converts, and gets cited by AI answer engines.</p>
+<table>
+<thead><tr><th style="width:20%">Window</th><th>What ships</th></tr></thead>
+<tbody>
+<tr><td><b>Days 1–15</b></td><td>Homepage corrected: The Binary Trap named above the fold, one CTA, FAQ and schema added</td></tr>
+<tr><td><b>Days 16–30</b></td><td>&amp; Intelligence™, The Binary Trap, and The Four Taxes published in full</td></tr>
+<tr><td><b>Days 31–45</b></td><td>The Capacity Audit and the chapter-one capture. This is what turns readers into named contacts.</td></tr>
+<tr><td><b>Days 46–60</b></td><td>The Capacity Advantage and The Power of &amp;™. Advisory rewritten.</td></tr>
+<tr><td><b>Days 61–75</b></td><td>Six supporting articles. Your strongest Substack and LinkedIn pieces migrated so the permanent version is owned.</td></tr>
+<tr><td><b>Days 76–90</b></td><td>Three proof cases. Speaking and Certification rewritten. First conversion report.</td></tr>
+</tbody>
+</table>
+<div class="note"><div class="l">If only three things get done</div><p>Fix the definition conflict. Name The Binary Trap on the homepage. Build the Capacity Audit. Those three fix the credibility of the system, the defensibility of your vocabulary, and the absence of a funnel.</p></div>
+
+<details>
+<summary>Where your words are recorded <span class="hint">provenance and voice</span></summary>
+<div class="panel">
+<div class="res">
+<a href="source-of-record.html"><span>Source of Record</span><span class="what">Your original quotes with dates and sources, including terminology changes</span></a>
+<a href="style-guide.html"><span>Style Guide</span><span class="what">Your voice, documented so others can write in it</span></a>
+<a href="language-playbook.html"><span>Language Playbook</span><span class="what">Every owned term and where it stands</span></a>
+</div>
+</div>
+</details>
+</div>
+</section>
+<footer><div class="wrap"><p><b>Blue Lake Ideas</b> — Agency Command Center. Prepared by MKT Agents.<br>The Power of &amp;™ and &amp; Intelligence™ are trademarks of Blue Lake Ideas LLC.</p></div></footer>
+</body></html>

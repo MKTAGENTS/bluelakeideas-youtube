@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Kate — Build Sheet and Sequence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--lake:#005B54;--lake-deep:#003D38;--lake-bright:#0A756B;--ink:#2D2D2D;--muted:#6B7876;
+--paper:#FBFCFA;--mist:#EEF4F3;--white:#fff;--line:#E2EAE8;--clay:#A64D4A;
+--serif:'Libre Baskerville',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 2rem}
+@media(max-width:640px){.wrap{padding:0 1.25rem}body{font-size:16px}}
+a{color:var(--lake)}p{max-width:64ch}
+.hero{background:var(--lake-deep);color:#fff;padding:4rem 0 3.5rem}
+.hero .kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#7FD6CB;font-weight:500;margin-bottom:1.2rem}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.6vw,42px);line-height:1.25;margin:0 0 1.1rem;max-width:18ch}
+.hero p{color:#B9CFCC;font-size:18px;max-width:56ch;margin:0}
+section{padding:4rem 0;border-top:1px solid var(--line)}section:first-of-type{border-top:none}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--clay);font-weight:500;margin-bottom:.8rem}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(22px,3vw,29px);line-height:1.3;margin:0 0 .7rem}
+h3{font-family:var(--serif);font-weight:400;font-size:19px;margin:2rem 0 .6rem}
+.sub{color:var(--muted);font-size:17px;max-width:60ch;margin:0 0 2.2rem}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:0 0 1.25rem}
+th{text-align:left;padding:.55rem .9rem .55rem 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:.8rem .9rem .8rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+code{background:var(--mist);padding:1px 6px;border-radius:3px;font-size:13px;color:var(--lake-deep)}
+details{border-bottom:1px solid var(--line)}details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;padding:1.25rem .5rem;list-style:none;display:flex;align-items:baseline;gap:1rem;font-size:17px;font-weight:500}
+summary::-webkit-details-marker{display:none}summary:hover{color:var(--lake)}
+summary:focus-visible{outline:2px solid var(--lake);outline-offset:-2px}
+summary::after{content:'+';margin-left:auto;color:var(--muted);font-size:20px;font-weight:300;line-height:1}
+details[open] summary::after{content:'–'}details[open] summary{color:var(--lake)}
+summary .hint{font-size:14px;color:var(--muted);font-weight:400}
+.panel{padding:.25rem .5rem 2rem}.panel p:first-child{margin-top:0}
+.note{background:var(--mist);border-left:2px solid var(--lake);padding:1.1rem 1.35rem;margin:1.4rem 0;font-size:15.5px}
+.note.warn{background:#FDF6F5;border-left-color:var(--clay)}
+.note p{margin:0;max-width:62ch}.note p+p{margin-top:.6rem}
+.note .l{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--lake);margin-bottom:.4rem}
+.note.warn .l{color:var(--clay)}
+.res{display:grid;gap:0}
+.res a{display:flex;align-items:baseline;gap:1rem;padding:.9rem .5rem;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line);font-size:16px}
+.res a:last-child{border-bottom:none}.res a:hover{background:var(--mist);color:var(--lake)}
+.res a:focus-visible{outline:2px solid var(--lake);outline-offset:-2px}
+.res .what{color:var(--muted);font-size:14px;margin-left:auto;text-align:right;max-width:46%}
+@media(max-width:640px){.res a{flex-direction:column;gap:.2rem}.res .what{margin-left:0;text-align:left;max-width:100%}}
+.check{list-style:none;padding:0;margin:0}
+.check li{padding:.55rem 0 .55rem 1.9rem;position:relative;font-size:15.5px;border-bottom:1px solid var(--line);max-width:66ch}
+.check li:last-child{border-bottom:none}
+.check li::before{content:'';position:absolute;left:0;top:1rem;width:9px;height:9px;border:1px solid var(--lake-bright);border-radius:2px}
+.rules{list-style:none;padding:0;margin:0;counter-reset:r}
+.rules li{counter-increment:r;padding:.85rem 0 .85rem 2.75rem;position:relative;border-bottom:1px solid var(--line);font-size:15.5px;max-width:66ch}
+.rules li:last-child{border-bottom:none}
+.rules li::before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:.9rem;font-size:12px;color:var(--muted);font-weight:500}
+.rules b{font-weight:500}
+footer{background:var(--lake-deep);color:#8FAAA6;padding:2.75rem 0;font-size:14px;margin-top:1rem}
+footer b{color:#fff;font-weight:500}footer p{max-width:62ch;margin:0}
+/* asset table */
+.assets td:first-child{font-weight:500;white-space:nowrap;color:var(--lake-deep)}
+.wave{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:3px;background:var(--mist);color:var(--lake-deep);font-weight:500}
+.wave.w1{background:var(--lake);color:#fff}
+.job{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+/* role doors */
+.doors{display:grid;gap:1rem}
+.door{display:block;text-decoration:none;color:inherit;background:var(--white);border:1px solid var(--line);border-left:3px solid var(--lake);padding:1.6rem 1.75rem;transition:border-left-color .18s,transform .18s}
+.door:hover,.door:focus-visible{border-left-color:var(--clay);transform:translateX(3px)}
+.door:focus-visible{outline:2px solid var(--lake);outline-offset:3px}
+.door .n{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.door h3{font-family:var(--serif);font-weight:400;font-size:21px;margin:.4rem 0 .5rem}
+.door p{font-size:15px;color:var(--muted);margin:0;max-width:54ch}
+/* spine */
+.spine{margin:1.5rem 0 0;position:relative;padding-left:2.5rem}
+.spine::before{content:'';position:absolute;left:9px;top:12px;bottom:12px;width:1px;background:var(--line)}
+.stop{position:relative;padding:1.05rem 0;border-bottom:1px solid var(--line)}
+.stop:last-child{border-bottom:none}
+.stop::before{content:'';position:absolute;left:-2.5rem;top:1.4rem;width:19px;height:19px;border-radius:50%;background:var(--paper);border:1px solid var(--line)}
+.stop::after{content:'';position:absolute;left:calc(-2.5rem + 6px);top:calc(1.4rem + 6px);width:7px;height:7px;border-radius:50%;background:var(--line)}
+.stop.owned::after{background:var(--lake)}.stop.owned::before{border-color:var(--lake)}
+.stop .layer{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.stop .term{font-family:var(--serif);font-size:18px;margin:.25rem 0 .2rem}
+.stop .term.none{font-family:var(--sans);font-size:16px;color:var(--muted);font-style:italic}
+.stop .where{font-size:14px;color:var(--muted)}
+.decision{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--clay);padding:1.5rem 1.75rem;margin:1.25rem 0}
+.decision h3{margin:0 0 .5rem;font-size:19px}
+.decision p{font-size:15.5px;margin:.5rem 0 0}
+.decision .ask{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);font-weight:500}
+</style><style>
+.sheet{font-size:14.5px}
+.sheet th{font-size:10px;letter-spacing:.12em}
+.sheet td{padding:.75rem .7rem .75rem 0}
+.sheet td:first-child{white-space:nowrap}
+.sheet .u{font-family:ui-monospace,monospace;font-size:12.5px;color:var(--lake-deep);white-space:nowrap}
+.sheet .aid{display:inline-block;font-size:11px;font-weight:500;padding:1px 6px;border-radius:3px;background:var(--mist);color:var(--lake-deep)}
+.sheet tr.w1 td{background:#F4F9F8}
+.step{position:relative;padding:1.15rem 0 1.15rem 3.25rem;border-bottom:1px solid var(--line);counter-increment:s}
+.step:last-child{border-bottom:none}
+.steps{counter-reset:s;margin:1.5rem 0 0}
+.step::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:1.3rem;
+  font-size:11px;font-weight:500;color:#fff;background:var(--lake);width:24px;height:24px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;letter-spacing:0}
+.step.copy::before{background:var(--clay)}
+.step h4{margin:0 0 .25rem;font-size:16px;font-weight:500}
+.step p{margin:0;font-size:15px;color:var(--muted);max-width:62ch}
+.step .who{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--lake);margin-bottom:.3rem}
+.step.copy .who{color:var(--clay)}
+.pagespec{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--lake);padding:1.5rem 1.7rem;margin:1.1rem 0}
+.pagespec h3{margin:0 0 .2rem;font-size:20px}
+.pagespec .u{font-family:ui-monospace,monospace;font-size:13px;color:var(--lake-bright);margin-bottom:1rem}
+.pagespec .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem;
+  padding:1rem 0;margin:1rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pagespec .grid div span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:2px}
+.pagespec .grid div b{font-size:14.5px;font-weight:500}
+.pagespec ul{margin:.75rem 0 0;padding-left:1.1rem;font-size:14.5px}
+.pagespec li{margin-bottom:.35rem}
+.legend{display:flex;gap:1.5rem;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:1rem 0 0}
+.legend span{display:flex;align-items:center;gap:.4rem}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:.55rem 1.5rem;background:#005B54;font-family:'DM Sans',sans-serif;"><span style="font-weight:600;letter-spacing:.4px;white-space:nowrap;font-size:.7rem;color:#fff;margin-right:6px;"><img src="data:image/png;base64,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" style="height:18px;vertical-align:middle;margin-right:4px;" alt="&amp;">BLI</span><div style="display:flex;gap:2px;flex-wrap:wrap;align-items:center;"><a href="hub.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">Hub</a><a href="matt.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Matt</a><a href="crimson.html" style="color:rgba(255,255,255,.85);text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Crimson</a><a href="architect.html" style="color:#fff;background:rgba(255,255,255,.2);font-weight:500;text-decoration:none;padding:4px 11px;border-radius:5px;font-size:.7rem;">For Kate</a><span style="color:rgba(255,255,255,.25);padding:0 4px;font-size:.7rem;">|</span><a href="clean-copy-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Clean Copy</a><a href="website-architecture.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Architecture</a><a href="copy-briefs.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Briefs</a><a href="language-playbook.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Language</a><a href="source-of-record.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Sources</a><a href="style-guide.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Style</a><a href="index.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">YouTube</a><a href="audit.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Audit</a><a href="implementation.html" style="color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Implementation</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded ↗</a><a href="https://mktagents.github.io/bluelakeideas-overloaded/seo-aeo-todos.html" target="_blank" style="color:rgba(255,255,255,.4);text-decoration:none;padding:4px 9px;border-radius:5px;font-size:.66rem;">Overloaded SEO ↗</a></div></nav>
+<div class="hero"><div class="wrap">
+<div class="kicker">For Kate · Web Architecture</div>
+<h1>Copy and structure, one page at a time.</h1>
+<p>The site cannot be built without copy, and copy cannot be written without the page spec. So they run as one sequence, not two workstreams. Below: the build sheet, the nine-step sequence for taking any page live, and the Wave 1 specs.</p>
+</div></div>
+
+<section>
+<div class="wrap">
+<div class="label">The master list</div>
+<h2>Build sheet</h2>
+<p class="sub">Every page, its URL, what it owns, and the copy asset that fills it. Wave 1 is highlighted. This is the single source both you and Crimson work from.</p>
+<table class="sheet">
+<thead><tr><th style="width:9%">Wave</th><th style="width:20%">URL</th><th style="width:22%">Owns</th><th style="width:8%">Copy</th><th style="width:11%">Words</th><th style="width:8%">FAQs</th><th>One CTA</th></tr></thead>
+<tbody>
+<tr class="w1"><td><span class="wave w1">1</span></td><td class="u">/</td><td>Nothing. Summarizes all.</td><td><span class="aid">A1</span></td><td>1,000–1,400</td><td>3</td><td>Explore &amp; Intelligence™</td></tr>
+<tr class="w1"><td><span class="wave w1">1</span></td><td class="u">/and-intelligence</td><td>The Method, three steps</td><td><span class="aid">A2</span></td><td>2,000–2,500</td><td>7</td><td>See facilitator certification</td></tr>
+<tr class="w1"><td><span class="wave w1">1</span></td><td class="u">/binary-trap</td><td>The Mechanism</td><td><span class="aid">A3</span></td><td>1,400</td><td>5</td><td>Learn the method</td></tr>
+<tr class="w1"><td><span class="wave w1">1</span></td><td class="u">/binary-trap/four-taxes</td><td>The Cost, all four taxes</td><td><span class="aid">A4</span></td><td>1,400</td><td>5</td><td>Take the Capacity Audit</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/capacity-advantage</td><td>The Outcome</td><td><span class="aid">A5</span></td><td>1,200</td><td>5</td><td>Explore the method</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/power-of-and</td><td>The Solution</td><td><span class="aid">A6</span></td><td>1,200</td><td>5</td><td>Learn the framework</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/capacity-audit</td><td>Qualification engine</td><td><span class="aid">A16</span></td><td>10 Q + 4 profiles</td><td>—</td><td>Varies by result</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/speaking</td><td>Keynote booking</td><td><span class="aid">A10</span></td><td>900–1,200</td><td>5</td><td>Check availability</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/workshops</td><td>Team delivery</td><td><span class="aid">new</span></td><td>900–1,200</td><td>5</td><td>Design a session</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/advisory</td><td>CEO and board work</td><td><span class="aid">A12</span></td><td>900–1,200</td><td>5</td><td>Start a conversation</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/and-intelligence/facilitator-certification</td><td>The credential</td><td><span class="aid">A11</span></td><td>900–1,200</td><td>6</td><td>Apply for next cohort</td></tr>
+<tr><td><span class="wave">2</span></td><td class="u">/overloaded</td><td>The book</td><td><span class="aid">A13</span></td><td>1,000–1,400</td><td>4</td><td>Read chapter one</td></tr>
+<tr><td><span class="wave">3</span></td><td class="u">/and-intelligence/pause-and-reflect</td><td>Step one, Clarity</td><td><span class="aid">A7</span></td><td>900</td><td>2</td><td>See the full method</td></tr>
+<tr><td><span class="wave">3</span></td><td class="u">/and-intelligence/find-the-and</td><td>Step two, Connection</td><td><span class="aid">A8</span></td><td>900</td><td>2</td><td>See the full method</td></tr>
+<tr><td><span class="wave">3</span></td><td class="u">/and-intelligence/test-and-learn</td><td>Step three, Courage</td><td><span class="aid">A9</span></td><td>900</td><td>2</td><td>See the full method</td></tr>
+<tr><td><span class="wave">3</span></td><td class="u">/about</td><td>Firm and founder proof</td><td><span class="aid">A14</span></td><td>800–1,000</td><td>3</td><td>Explore the work</td></tr>
+<tr><td><span class="wave">3</span></td><td class="u">/insights + 4 categories</td><td>Publishing engine</td><td><span class="aid">A15</span></td><td>120–180 each</td><td>—</td><td>Varies</td></tr>
+<tr><td><span class="wave">3</span></td><td class="u">Email, 5 in sequence</td><td>Nurture</td><td><span class="aid">A17</span></td><td>under 150 each</td><td>—</td><td>Escalates each email</td></tr>
+</tbody>
+</table>
+<div class="note warn"><div class="l">Blocked until Matt signs off</div><p>Every <code>/and-intelligence/*</code> URL in this sheet assumes the three steps belong to the Method. If that reverses, A2 and A6 swap word counts and three URLs change. <a href="matt.html">See the decisions page →</a></p></div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="label" id="seq">The sequence</div>
+<h2>Nine steps, any page</h2>
+<p class="sub">This is the weave. Architecture steps and copy steps in the order they actually happen. Do not start step 4 before step 3 is signed off, or you will pay for it twice.</p>
+<div class="legend">
+<span><i class="dot" style="background:#005B54"></i> Architecture — you</span>
+<span><i class="dot" style="background:#A64D4A"></i> Copy — Crimson</span>
+</div>
+<div class="steps">
+<div class="step"><div class="who">Architecture</div><h4>Lock the page spec</h4><p>URL, what it owns, one job, one CTA, target lifecycle stage. If you cannot state the job and the CTA in one sentence each, the page is not scoped and copy cannot start.</p></div>
+<div class="step"><div class="who">Architecture</div><h4>Write the section order</h4><p>The numbered outline the copy will follow. This is what makes the draft mappable to modules later. It already exists for all 17 assets in the briefs.</p></div>
+<div class="step copy"><div class="who">Copy</div><h4>Outline, approved before drafting</h4><p>Section headers plus the lead sentence and the intended mantra. Not optional on pillar pages. Cheapest place to catch a wrong direction.</p></div>
+<div class="step copy"><div class="who">Copy</div><h4>Draft 1 with the machine layer</h4><p>Body copy plus SEO title, meta description with character count, FAQ pairs in complete sentences, alt text, and internal links marked inline with intended anchor text.</p></div>
+<div class="step copy"><div class="who">Copy</div><h4>Draft 2, voice pass</h4><p>Revisions plus a Blue Lake Ideas voice check against the style guide. Final language governance happens here.</p></div>
+<div class="step"><div class="who">Architecture</div><h4>Build to the section order</h4><p>Assemble from the module library. Section headings map one to one with the brief so nothing gets reordered in the build.</p></div>
+<div class="step"><div class="who">Architecture</div><h4>Wire the links both directions</h4><p>Cluster links up to its pillar with exact-term anchor text. Pillar links down to the new cluster page. A page with no inbound link from its pillar is orphaned and will not rank.</p></div>
+<div class="step"><div class="who">Architecture</div><h4>Ship the machine layer</h4><p>FAQ schema matching visible answers word for word, canonical tag, breadcrumbs on Level 2, one H1 containing the owned term, alt text on framework graphics.</p></div>
+<div class="step"><div class="who">Architecture</div><h4>Publish and record</h4><p>Run the link audit test. Record URL and publish date in the Command Center against the term. Then the page is done.</p></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="label">Active now</div>
+<h2>Wave 1 specs</h2>
+<p class="sub">Four pages. Everything needed to brief, write, and build each one, in a single card.</p>
+
+<div class="pagespec">
+<h3>Homepage</h3><div class="u">/</div>
+<div class="grid"><div><span>Copy</span><b>A1</b></div><div><span>Job</span><b>Diagnose</b></div><div><span>Words</span><b>1,000–1,400</b></div><div><span>FAQs</span><b>3</b></div><div><span>Lifecycle</span><b>Anonymous</b></div></div>
+<p style="font-size:14.5px;margin:0"><b style="font-weight:500">Owns:</b> nothing definitionally. Summarizes everything, owns none of it.</p>
+<ul>
+<li>Above the fold, five elements only: concession, pivot, the named mechanism, what the firm does, one CTA</li>
+<li>The Binary Trap appears by name in the first screen, not the second</li>
+<li>Links out to all four pillars, all commercial pages, the book, and About</li>
+<li><b>Fold test:</b> cover everything below the first screen. A CEO should be able to finish "The thing I have been trying to describe is called ___, and it is costing us ___."</li>
+</ul>
+</div>
+
+<div class="pagespec">
+<h3>&amp; Intelligence™ Framework</h3><div class="u">/and-intelligence · PILLAR 1 · THE METHOD</div>
+<div class="grid"><div><span>Copy</span><b>A2</b></div><div><span>Job</span><b>Define</b></div><div><span>Words</span><b>2,000–2,500</b></div><div><span>FAQs</span><b>7</b></div><div><span>Lifecycle</span><b>Subscriber</b></div></div>
+<p style="font-size:14.5px;margin:0"><b style="font-weight:500">Owns:</b> the Method, its three steps, fluency under pressure.</p>
+<ul>
+<li>Deepest page on the site. Opens with a 40 to 70 word extractable definition block</li>
+<li>Cluster: the three step pages plus Facilitator Certification. All must link up here with exact anchor text</li>
+<li>Must distinguish Method from Solution in the first paragraph or the terms blur</li>
+<li>Highest priority asset in the whole build</li>
+</ul>
+</div>
+
+<div class="pagespec">
+<h3>The Binary Trap</h3><div class="u">/binary-trap · PILLAR 2 · THE MECHANISM</div>
+<div class="grid"><div><span>Copy</span><b>A3</b></div><div><span>Job</span><b>Diagnose</b></div><div><span>Words</span><b>1,400</b></div><div><span>FAQs</span><b>5</b></div><div><span>Lifecycle</span><b>Subscriber</b></div></div>
+<p style="font-size:14.5px;margin:0"><b style="font-weight:500">Owns:</b> The Binary Trap, the acceleration to overload chain, System 1 under load.</p>
+<ul>
+<li>Cluster: The Four Taxes sub-pillar</li>
+<li>Linked from any page that says "binary thinking under pressure"</li>
+<li>"The Causal Chain" appears nowhere. System 1 goes in body copy, credited to Kahneman</li>
+</ul>
+</div>
+
+<div class="pagespec">
+<h3>The Four Taxes</h3><div class="u">/binary-trap/four-taxes · SUB-PILLAR · THE COST</div>
+<div class="grid"><div><span>Copy</span><b>A4</b></div><div><span>Job</span><b>Diagnose</b></div><div><span>Words</span><b>1,400</b></div><div><span>FAQs</span><b>5</b></div><div><span>Lifecycle</span><b>Lead</b></div></div>
+<p style="font-size:14.5px;margin:0"><b style="font-weight:500">Owns:</b> False Choices, Silos, Short-Termism, Stalled Innovation.</p>
+<ul>
+<li>Highest conversion intent of any framework page. Treat it as a landing page</li>
+<li>The four one-sentence tax definitions written here get reused on the homepage, in the audit, and in email. Write once, write well</li>
+<li>Reports to Binary Trap rather than standing as a fifth pillar, which keeps authority consolidated</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<div class="label">Standards</div>
+<h2>Rules you enforce</h2>
+<p class="sub">Open as needed. These are the checks that fail a page at step 7 or 8.</p>
+
+<details open>
+<summary>Internal linking law <span class="hint">five rules, no exceptions</span></summary>
+<div class="panel">
+<ol class="rules">
+<li><b>Cluster links up, always.</b> Every cluster page links to its pillar in the body, using the exact owned term as anchor text. Not "read more."</li>
+<li><b>Pillar links down, always.</b> Every pillar links out to each cluster page. No inbound link from the pillar means orphaned.</li>
+<li><b>Never cross-link cluster to cluster.</b> Route through the pillar. Cross-links dilute which page owns which term.</li>
+<li><b>First mention links, later mentions do not.</b> Subsequent appearances are plain text.</li>
+<li><b>Commercial pages receive, they do not distribute.</b> Speaking, Workshops, Certification, Advisory link back up to pillars but never sideways to each other.</li>
+</ol>
+<h3>Approved anchor text</h3>
+<table>
+<thead><tr><th style="width:38%">Target</th><th>Use exactly</th></tr></thead>
+<tbody>
+<tr><td class="u">/and-intelligence</td><td>&amp; Intelligence™ · the &amp; Intelligence™ Framework · the three steps</td></tr>
+<tr><td class="u">/binary-trap</td><td>The Binary Trap</td></tr>
+<tr><td class="u">/binary-trap/four-taxes</td><td>The Four Taxes · the four taxes of binary thinking</td></tr>
+<tr><td class="u">/capacity-advantage</td><td>The Capacity Advantage</td></tr>
+<tr><td class="u">/power-of-and</td><td>The Power of &amp;™</td></tr>
+</tbody>
+</table>
+<div class="note"><div class="l">The link audit test</div><p>Open any published page at random. Can you reach the correct canonical definition of every owned term it uses in one click? If not, the page is not finished. Run monthly.</p></div>
+</div>
+</details>
+
+<details>
+<summary>URL standards <span class="hint">get these wrong once and you are redirecting forever</span></summary>
+<div class="panel">
+<table>
+<thead><tr><th style="width:30%">Rule</th><th style="width:32%">Correct</th><th>Wrong</th></tr></thead>
+<tbody>
+<tr><td>Lowercase, hyphenated</td><td class="u">/binary-trap</td><td class="u">/BinaryTrap</td></tr>
+<tr><td>Ampersand becomes "and"</td><td class="u">/and-intelligence</td><td class="u">/&amp;-intelligence</td></tr>
+<tr><td>No article words</td><td class="u">/capacity-advantage</td><td class="u">/the-capacity-advantage</td></tr>
+<tr><td>Steps nest under the Method</td><td class="u">/and-intelligence/find-the-and</td><td class="u">/power-of-and/find-the-and</td></tr>
+<tr><td>Children nest under parent</td><td class="u">/binary-trap/four-taxes</td><td class="u">/four-taxes</td></tr>
+<tr><td>Conversion pages explicit</td><td class="u">/advisory/inquiry</td><td class="u">/contact-2</td></tr>
+<tr><td>No dates in articles</td><td class="u">/insights/problem/slug</td><td class="u">/insights/2026/05/slug</td></tr>
+<tr><td>No trailing slash</td><td class="u">/speaking</td><td class="u">/speaking/</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<details>
+<summary>Machine layer <span class="hint">schema, canonical, headings</span></summary>
+<div class="panel">
+<ul class="check">
+<li>FAQPage schema on every page with visible FAQs, answers matching word for word</li>
+<li>Organization schema site-wide, with trademark terms as knowsAbout values</li>
+<li>Person schema on /about, nested inside Organization, Matt as founder and author</li>
+<li>Article schema on every Insights post with the pillar as mainEntityOfPage</li>
+<li>Book schema on /overloaded</li>
+<li>BreadcrumbList on every Level 2 page</li>
+<li>Self-referencing canonical on every page</li>
+<li>One H1 per page containing the owned term, no skipped heading levels</li>
+<li>Framework graphics carry alt text naming the move and the cycle</li>
+<li>Largest Contentful Paint under 2.5 seconds on mobile</li>
+<li>XML sitemap auto-generated and submitted, excluding form pages and audit result variants</li>
+</ul>
+<div class="note"><div class="l">Why this matters more than usual here</div><p>Blue Lake Ideas is trying to own vocabulary that does not yet exist. AI answer engines resolve unfamiliar terms by finding a source that defines them cleanly and consistently. Visible FAQs with matching schema, one canonical page per term, and consistent anchor text decide whether the firm gets cited as the definition or paraphrased into someone else's.</p></div>
+</div>
+</details>
+
+<details>
+<summary>Redirects and migration <span class="hint">before inbound links accumulate</span></summary>
+<div class="panel">
+<table>
+<thead><tr><th style="width:34%">Situation</th><th>Handling</th></tr></thead>
+<tbody>
+<tr><td>Step pages built under /power-of-and</td><td>301 to the matching <code>/and-intelligence/*</code> URL. Do this before links accumulate.</td></tr>
+<tr><td>Framework page splits into pillars</td><td>301 to the pillar inheriting most of its content. Never to the homepage.</td></tr>
+<tr><td>Terms defined on Substack or LinkedIn</td><td>Publish the canonical web version, then update the original with a link to it. Never delete the original.</td></tr>
+<tr><td>Retired language</td><td>"The Causal Chain" and "Taming Chaos" get rewritten, not redirected.</td></tr>
+<tr><td>Old contact page</td><td>301 to /connect. Preserve inbound links from press and speaker bureaus.</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<details>
+<summary>Full reference documents <span class="hint">when the summary is not enough</span></summary>
+<div class="panel">
+<div class="res">
+<a href="website-architecture.html"><span>Website Architecture Guide</span><span class="what">Full sitemap, page directory, nav spec, module library, governance</span></a>
+<a href="clean-copy-playbook.html"><span>Clean Copy Playbook</span><span class="what">Pressure test, canonical fix, HubSpot spec, 90-day sequence</span></a>
+<a href="copy-briefs.html"><span>Copy Needs and Creative Briefs</span><span class="what">All 17 briefs in full</span></a>
+<a href="crimson.html"><span>The Crimson view</span><span class="what">What the copywriter sees</span></a>
+</div>
+</div>
+</details>
+</div>
+</section>
+<footer><div class="wrap"><p><b>Blue Lake Ideas</b> — Agency Command Center. Prepared by MKT Agents.<br>The Power of &amp;™ and &amp; Intelligence™ are trademarks of Blue Lake Ideas LLC.</p></div></footer>
+</body></html>
